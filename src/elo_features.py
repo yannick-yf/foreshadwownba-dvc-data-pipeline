@@ -1,0 +1,254 @@
+import pandas as pd
+import numpy as np
+from typing import Text
+import yaml
+import argparse
+import math
+from collections import OrderedDict
+from src.utils.logs import get_logger
+
+
+def win_probs(*, home_elo, road_elo, hca_elo):
+    """Home and road team win probabilities implied by Elo ratings and home court adjustment."""
+    h = math.pow(10, home_elo/400)
+    r = math.pow(10, road_elo/400)
+    a = math.pow(10, hca_elo/400)
+    denom = r + a*h
+    home_prob = a*h / denom
+    road_prob = r / denom
+    return home_prob, road_prob
+
+def home_odds_on(*, home_elo, road_elo, hca_elo):
+    """Odds in favor of home team implied by Elo ratings and home court adjustment."""
+    h = math.pow(10, home_elo/400)
+    r = math.pow(10, road_elo/400)
+    a = math.pow(10, hca_elo/400)
+    return a*h/r
+
+def hca_calibrate(*, home_win_prob):
+    """Calibrate Elo home court adjustment to a given historical home team win percentage."""
+    if home_win_prob <= 0 or home_win_prob >= 1:
+        raise ValueError('invalid home win probability', home_win_prob)
+    a = home_win_prob / (1 - home_win_prob)
+    print(f'a = {a}')
+    hca = 400 * math.log10(a)
+    return hca
+
+def update(*, winner, home_elo, road_elo, hca_elo, k, probs=False):
+    """Update Elo ratings for a given match up."""
+    home_prob, road_prob = win_probs(home_elo=home_elo, road_elo=road_elo, hca_elo=hca_elo)
+    if winner[0].upper() == 'H':
+        home_win = 1
+        road_win = 0
+    elif winner[0].upper() in ['R', 'A', 'V']: # road, away or visitor are treated as synonyms
+        home_win = 0
+        road_win = 1
+    else:
+        raise ValueError('unrecognized winner string', winner)
+    new_home_elo = home_elo + k*(home_win - home_prob)
+    new_road_elo = road_elo + k*(road_win - road_prob)
+    if probs:
+        return new_home_elo, new_road_elo, home_prob, road_prob
+    else:
+        return new_home_elo, new_road_elo
+
+def simple_nba_elo(*, box_scores, teams, hca_elo, k):
+    """Compute simple Elo ratings over the course of an NBA season."""
+    latest_elos = {abbr: 1500 for abbr in teams['abbr']}
+    #matchups = box_scores.matchups.sort_values(by='date', ascending=True).copy()
+    matchups = box_scores.sort_values(by='date', ascending=True).copy()
+    home_probs = []
+    road_probs = []
+    home_elos = []
+    road_elos = []
+    index_check = []
+    elo_ts = []
+    for game in matchups.itertuples(index=True):
+        index = game.Index
+        home_team = game.team_abbr_h
+        road_team = game.team_abbr_r
+        winner = game.hr_winner
+        home_elo = latest_elos[home_team]
+        road_elo = latest_elos[road_team]
+        (new_home_elo, new_road_elo, home_prob, road_prob) = update(
+            winner=winner,
+            home_elo=home_elo,
+            road_elo=road_elo,
+            hca_elo=hca_elo,
+            k=k,
+            probs=True
+        )
+        home_info = OrderedDict({
+            'date': game.date,
+            'game_id': game.game_id,
+            'abbr': home_team,
+            'matchup_index': index,
+            'opp_abbr': road_team,
+            'home_road': 'H',
+            'win_loss': 'W' if winner == 'H' else 'L',
+            'win_prob': home_prob,
+            'opp_prior_elo': latest_elos[road_team],
+            'prior_elo': latest_elos[home_team],
+            'new_elo': new_home_elo,
+        })
+        elo_ts.append(home_info)
+        road_info = OrderedDict({
+            'date': game.date,
+            'game_id': game.game_id,
+            'abbr': road_team,
+            'matchup_index': index,
+            'opp_abbr': home_team,
+            'home_road': 'R',
+            'win_loss': 'W' if winner == 'R' else 'L',
+            'win_prob': road_prob,
+            'opp_prior_elo': latest_elos[home_team],
+            'prior_elo': latest_elos[road_team],
+            'new_elo': new_road_elo,
+        })
+        elo_ts.append(road_info)
+        latest_elos[home_team] = new_home_elo
+        latest_elos[road_team] = new_road_elo
+        home_probs.append(home_prob)
+        road_probs.append(road_prob)
+        home_elos.append(new_home_elo)
+        road_elos.append(new_road_elo)
+        index_check.append(index)
+    matchups['home_prob'] = home_probs
+    matchups['road_prob'] = road_probs
+    matchups['home_elos'] = home_elos
+    matchups['road_elos'] = road_elos
+    matchups['index_check'] = index_check
+    if not all(matchups['index_check'] == matchups.index):
+        raise RuntimeError('indices do not match!')
+    matchups = matchups.drop(columns=['index_check'])
+    return matchups, pd.DataFrame(elo_ts), latest_elos
+
+def elo_features(config_path: Text) -> pd.DataFrame:
+    """Load raw data.
+    Args:
+        config_path {Text}: path to config
+    """
+    with open("params.yaml") as conf_file:
+        config_params = yaml.safe_load(conf_file)
+
+    logger = get_logger(
+        "ELO_FEATURES", log_level=config_params["base"]["log_level"]
+    )
+
+    # Read the input data for the step
+    training_dataset = pd.read_csv(
+        "./data/processed/nba_games_training_dataset_previous_games_features.csv"
+    )
+
+    new_training_dataset = training_dataset.copy()
+
+    #--------------------------------------------------
+    # Data Process Before Elo Execution
+
+    rs = new_training_dataset[['id_season', 'game_date', 'extdom', 'tm', 'opp', 'pts_tm', 'pts_opp']]
+
+    rs_final =  pd.merge(
+        rs.copy(),
+        rs.copy(),
+        how='left',
+        left_on=['game_date', 'tm'],
+        right_on=['game_date', 'opp'])
+
+
+    rs_final['team_abbr_h'] = np.where(rs_final['extdom_x']=='dom', rs_final['tm_x'], rs_final['opp_x'])
+    rs_final['team_abbr_r'] = np.where(rs_final['extdom_x']=='dom', rs_final['opp_x'], rs_final['tm_x'])
+
+    rs_final['pts_h'] = np.where(rs_final['extdom_x']=='dom', rs_final['pts_tm_x'], rs_final['pts_opp_x'])
+    rs_final['pts_r'] = np.where(rs_final['extdom_x']=='dom', rs_final['pts_opp_x'], rs_final['pts_tm_x'])
+
+    rs_final['win_loss_h'] = np.where(
+        (rs_final['extdom_x']=='dom') & (rs_final['pts_tm_x'] > rs_final['pts_opp_x']) | (rs_final['extdom_x']=='ext') & (rs_final['pts_tm_x'] < rs_final['pts_opp_x']) ,
+        'W',
+        'L')
+
+    rs_final['win_loss_r'] = np.where(rs_final['win_loss_h']=='W', 'L', 'W')
+
+    rs_final['winner'] = np.where(
+        rs_final['win_loss_h']=='W',
+        rs_final['team_abbr_h'],
+        rs_final['team_abbr_r'])
+
+    rs_final['loser'] = np.where(
+        rs_final['win_loss_h']=='L',
+        rs_final['team_abbr_h'],
+        rs_final['team_abbr_r'])
+
+    rs_final['date'] = rs_final['game_date']
+    rs_final['season'] = rs_final['id_season_x']
+
+    rs_final['hr_winner'] = np.where(rs_final['win_loss_h']=='W', 'H', 'R')
+
+    rs_final['game_id'] = rs_final['date'].astype(str) + rs_final['team_abbr_h'].astype(str)  + rs_final['team_abbr_r'].astype(str) 
+
+    rs_final = rs_final[['game_id', 'season', 'date', 'team_abbr_h', 'team_abbr_r', 'win_loss_h', 'win_loss_r', 'winner', 'loser', 'pts_h', 'pts_r', 'hr_winner']]
+    rs_final = rs_final.drop_duplicates()
+
+    #--------------------------------------------------
+    # Elo Varaibles Set up
+
+    x = np.linspace(-1200, 1200, 240)
+
+    hca_elo = hca_calibrate(home_win_prob=0.598)
+
+    teams = pd.DataFrame()
+    teams['abbr'] = rs_final.team_abbr_h.unique()
+
+    #--------------------------------------------------
+    # EloExecution
+
+    matchups, elo_hist, curr_elos = simple_nba_elo(
+        box_scores=rs_final,
+        teams=teams,
+        hca_elo=hca_elo,
+        k=20)
+
+    #--------------------------------------------------
+    # Reformating before adding Elofeatures
+
+    elo_hist = elo_hist[[
+        'date',
+        'abbr',
+        'win_prob',
+        'opp_prior_elo',
+        'prior_elo']]
+
+    elo_hist.rename({
+        'date': 'game_date',
+        'abbr': 'tm',
+        'win_prob': 'tm_win_prob_elo',
+        'prior_elo': 'tm_prior_elo',
+        }, axis=1, inplace=True)
+
+    #--------------------------------------------------
+    # Add EloFeatures to the Training dataset
+
+    new_training_dataset =  pd.merge(
+        new_training_dataset,
+        elo_hist,
+        how='left',
+        left_on=[ 'game_date', 'tm'],
+        right_on=['game_date', 'tm'])
+
+    # Save the data
+    new_training_dataset.to_csv(
+        "./data/processed/nba_games_training_dataset_elo_features.csv",
+        index=False,
+    )
+
+    logger.info("Elo Features step complete")
+
+
+if __name__ == "__main__":
+
+    arg_parser = argparse.ArgumentParser()
+
+    arg_parser.add_argument("--config-params", dest="config_params", required=True)
+
+    args = arg_parser.parse_args()
+
+    elo_features(config_path=args.config_params)

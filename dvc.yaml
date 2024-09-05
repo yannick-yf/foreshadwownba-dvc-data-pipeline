@@ -13,3 +13,34 @@ stages:
     outs:
       - ./data/input/player_attributes_salaries_dataset.csv
       - ./data/input/nba_games_training_dataset.csv
+  pre_cleaning_dataset:
+    cmd: python3 -m src.pre_cleaning_dataset --config=params.yaml
+    deps:
+      - src/pre_cleaning_dataset.py
+    params:
+      - base
+      - get_training_dataset
+    outs:
+      - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
+  previous_games_average_features:
+    cmd: python3 -m src.previous_games_average_features --config=params.yaml
+    deps:
+      - src/previous_games_average_features.py
+    params:
+      - base
+      - get_training_dataset
+    outs:
+      - ./data/processed/nba_games_training_dataset_previous_games_features.csv
+  elo_features:
+    cmd: python3 -m src.elo_features --config=params.yaml
+    deps:
+      - src/elo_features.py
+    params:
+      - base
+      - get_training_dataset
+    outs:
+      - ./data/processed/nba_games_training_dataset_elo_features.csv
+
+
+
+      
