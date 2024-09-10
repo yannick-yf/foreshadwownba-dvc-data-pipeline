@@ -1,4 +1,6 @@
 import pandas as pd
+from warnings import simplefilter
+simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 import numpy as np
 from typing import Text
 import yaml

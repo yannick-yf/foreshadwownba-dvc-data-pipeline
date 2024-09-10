@@ -21,6 +21,7 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     nba_games_training_dataset = pd.read_csv(
         "./data/input/nba_games_training_dataset.csv"
     )
+    logger.info("Shape of the Dataframe " + str(nba_games_training_dataset.shape))
 
     nba_games_training_dataset["overtime"] = nba_games_training_dataset[
         "overtime"
@@ -37,9 +38,29 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
         ].index
     )
 
+    # Column Selection
+    column_to_select =[
+        'id_season',
+        'id',
+        'game_nb',	
+        'game_date',	
+        'extdom',	
+        'tm',	
+        'opp',	
+        'results',	
+        'pts_tm',	
+        'pts_opp',
+        'w_tot'
+    ]
+
+    nba_games_training_dataset = nba_games_training_dataset[column_to_select]
+
+    logger.info("Shape of the Dataframe " + str(nba_games_training_dataset.shape))
     nba_games_training_dataset.to_csv(
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv", index=False
     )
+
+
 
     logger.info("Pre Cleaned NBA games data step complete")
 

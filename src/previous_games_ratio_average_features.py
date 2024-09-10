@@ -6,7 +6,7 @@ import argparse
 from src.utils.logs import get_logger
 
 
-def last_games_ratio_average_features(config_path: Text) -> pd.DataFrame:
+def previous_games_ratio_average_features(config_path: Text) -> pd.DataFrame:
     """Load raw data.
     Args:
         config_path {Text}: path to config
@@ -23,9 +23,9 @@ def last_games_ratio_average_features(config_path: Text) -> pd.DataFrame:
         "./data/processed/nba_games_training_dataset_elo_features.csv"
     )
 
-    new_training_dataset = training_dataset.copy()
+    df = training_dataset.copy()
 
-    df = new_training_dataset[['id_season', 'game_nb', 'game_date', 'extdom', 'tm', 'opp', 'results']]
+    df = df[['id_season', 'game_nb', 'game_date', 'extdom', 'tm', 'opp', 'results']]
     df['w_for_ratio'] = np.where(df['results']=='W',1,0)
     df['cum_sum_win'] = df.groupby(['id_season','tm'])['w_for_ratio'].cumsum()
     df['average_ratio'] = df['cum_sum_win'] / df['game_nb']
@@ -64,15 +64,15 @@ def last_games_ratio_average_features(config_path: Text) -> pd.DataFrame:
 
     final = final.drop(['game_nb','extdom', 'results', 'w_for_ratio', 'cum_sum_win', 'average_ratio'	,'w_for_ratio_x', 'w_for_ratio_y'], axis = 1)
 
-    new_training_dataset =  pd.merge(
-        new_training_dataset,
+    training_dataset =  pd.merge(
+        training_dataset,
         final,
         how='left',
         left_on=['id_season', 'game_date', 'tm', 'opp'],
         right_on=['id_season', 'game_date', 'tm', 'opp'])
 
     # Save the data
-    new_training_dataset.to_csv(
+    training_dataset.to_csv(
         "./data/processed/nba_games_training_dataset_ratio_average_features.csv",
         index=False,
     )
@@ -88,4 +88,4 @@ if __name__ == "__main__":
 
     args = arg_parser.parse_args()
 
-    last_games_ratio_average_features(config_path=args.config_params)
+    previous_games_ratio_average_features(config_path=args.config_params)
