@@ -198,8 +198,8 @@ stages:
       size: 2559722
     - path: src/features_engineering.py
       hash: md5
-      md5: 1f23d684c15a6dee613ea072f95c1058
-      size: 3050
+      md5: c2f61ddd31a9b577251576849658012d
+      size: 3098
     params:
       params.yaml:
         base:

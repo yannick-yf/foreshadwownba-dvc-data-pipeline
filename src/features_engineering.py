@@ -16,7 +16,7 @@ from src.feature_engineering_functions.last_games_average_features import (
     previous_season_ratio_features,
 )
 from src.feature_engineering_functions.rest_days_between_games import (
-    rest_days_between_games,
+    calculate_rest_days_between_games,
 )
 from src.feature_engineering_functions.duration_trip_features import (
     duration_trip_hours_between_cities,
@@ -32,7 +32,7 @@ from src.feature_engineering_functions.average_ratio_win_loose_ext_game import (
     average_ratio_win_loose_ext_game,
 )
 from src.feature_engineering_functions.last_game_overtime import last_game_overtime
-from src.feature_engineering_functions.streack_w_l import streack_w_l
+from src.feature_engineering_functions.streack_w_l import calculate_streak_features
 from src.feature_engineering_functions.final_cleaning import final_cleaning
 
 
@@ -63,14 +63,14 @@ def features_engineering_pipeline(config_path: Text) -> pd.DataFrame:
         .pipe(previous_games_average_features)
         .pipe(previous_games_ratio_average_features)
         .pipe(previous_season_ratio_features)
-        .pipe(rest_days_between_games)
+        .pipe(calculate_rest_days_between_games)
         .pipe(duration_trip_hours_between_cities)
         .pipe(previous_days_average_features)
         .pipe(extract_days_of_week_from_date)
         .pipe(game_on_weekend_features)
         .pipe(average_ratio_win_loose_ext_game)
         .pipe(last_game_overtime)
-        .pipe(streack_w_l)
+        .pipe(calculate_streak_features)
         .pipe(final_cleaning)
     )
 
