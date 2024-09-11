@@ -27,6 +27,9 @@ from src.utils.logs import get_logger
 from src.feature_engineering_functions.last_games_average_features import previous_games_average_features, previous_games_ratio_average_features, previous_season_ratio_features
 from src.feature_engineering_functions.rest_days_between_games import rest_days_between_games
 from src.feature_engineering_functions.duration_trip_features import duration_trip_hours_between_cities 
+from src.feature_engineering_functions.previous_days_average_features import previous_days_average_features
+from src.feature_engineering_functions.games_date_processing import game_on_weekend_features, exctract_days_of_week_from_date
+from src.feature_engineering_functions.average_ratio_win_loose_ext_game import average_ratio_win_loose_ext_game
 
 def features_engineering_pipeline(config_path: Text) -> pd.DataFrame:
     """Load raw data.
@@ -45,35 +48,71 @@ def features_engineering_pipeline(config_path: Text) -> pd.DataFrame:
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
     )
 
+    # def copy_df(df):
+    #     return df.copy()
+
+    # marketing_cleaned = (marketing.
+    #                     pipe(copy_df).
+    #                     pipe(drop_missing).
+    #                     pipe(remove_outliers, 'Salary').
+    #                     pipe(to_category))
+
     # Process the data in the pipe
     # function 1
     logger.info("Shape of the Dataframe " + str(training_dataset.shape))
     training_dataset = previous_games_average_features(training_dataset)
-    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
 
     # function 2
     logger.info("Shape of the Dataframe " + str(training_dataset.shape))
     training_dataset = previous_games_ratio_average_features(training_dataset)
-    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
 
     # function 2
     logger.info("Shape of the Dataframe " + str(training_dataset.shape))
     training_dataset = previous_season_ratio_features(training_dataset)
-    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
 
     # function 2
     logger.info("Shape of the Dataframe " + str(training_dataset.shape))
     training_dataset = rest_days_between_games(training_dataset)
-    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
 
-    # # function 2
-    # logger.info("Shape of the Dataframe " + str(training_dataset.shape))
-    # training_dataset = elo_features_pipeline(training_dataset)
-    # logger.info("Shape of the Dataframe " + str(training_dataset.shape))
-    
-    # etc
+    # function 2
+    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
+    training_dataset = duration_trip_hours_between_cities(training_dataset)
+
+    # function 2
+    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
+    training_dataset = previous_days_average_features(training_dataset)
+
+        # function 2
+    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
+    training_dataset = exctract_days_of_week_from_date(training_dataset)
+    training_dataset = game_on_weekend_features(training_dataset)
+
+    logger.info("Shape of the Dataframe " + str(training_dataset.shape))
+    training_dataset = average_ratio_win_loose_ext_game(training_dataset)
+
+    ######### ADDITIONAL STEP TO REFRAME ############
+    #-------------------------------------------
+    # Overtime Last Games
+    training_dataset['last_game_overtime'] = training_dataset.groupby(['id_season', 'tm'])['overtime'].shift(1)
+
+    #-------------------------------------------
+    # Streack W/L
+    training_dataset['streak_w_l_2'] = training_dataset['streak_w_l'].str.extract('(\d+)').astype(int)
+    training_dataset['streak_w_l_2'] = np.where(
+        training_dataset['streak_w_l'].str.slice(0,1) == 'L',
+        training_dataset['streak_w_l_2']*-1,
+        training_dataset['streak_w_l_2']) 
+
+    training_dataset['before_streak_w_l'] = training_dataset.groupby(['id_season', 'tm'])['streak_w_l_2'].shift(1)
+
+    #-------------------------------------------
+    # Remove first season we have 
+    training_dataset = training_dataset[training_dataset['id_season'] > training_dataset['id_season'].min()]
+
+    #################################################
 
     # Save the data
+    logger.info("Final Shape of the Dataframe after featuer engineering process " + str(training_dataset.shape))
     training_dataset.to_csv(
         "./data/processed/nba_games_training_dataset_cleaned_w_features.csv",
         index=False,

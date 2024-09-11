@@ -8,8 +8,8 @@ import numpy as np
 def duration_trip_hours_between_cities(TRAINING_DF):
 
     #-----------------------------------
-    city_name = pd.read_csv('./constants/team_name.csv') 
-    data_city_distance = pd.read_csv('./constants/data_city_distance.csv') 
+    city_name = pd.read_csv('./data/constants/team_name.csv') 
+    data_city_distance = pd.read_csv('./data/constants/data_city_distance.csv') 
 
     #-----------------------------------
     DistFeaturesDF = TRAINING_DF[['id_season', 'game_date', 'game_nb', 'tm', 'opp', 'extdom']]

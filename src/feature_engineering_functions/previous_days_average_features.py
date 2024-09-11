@@ -5,7 +5,7 @@ import datetime
 import sys
 pd.options.mode.chained_assignment = None
 
-def LastDaysAverageFeatures(TRAINING_DF):
+def previous_days_average_features(TRAINING_DF):
 
     #------------------------------
     # STEP 1

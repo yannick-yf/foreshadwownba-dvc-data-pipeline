@@ -3,7 +3,7 @@
 import pandas as pd
 import numpy as np
 
-def AverageRatioWLExtGame(TrainingSet):
+def average_ratio_win_loose_ext_game(TrainingSet):
 
     TrainingSet['dummy_ext'] = np.where(TrainingSet['extdom']=='@', 1, 0)
     TrainingSet['Win_at_ext'] = np.where((TrainingSet['dummy_ext']==1) & (TrainingSet['results']=='W') , 1, 0)

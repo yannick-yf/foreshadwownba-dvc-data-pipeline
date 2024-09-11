@@ -26,9 +26,6 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     nba_games_training_dataset["overtime"] = nba_games_training_dataset[
         "overtime"
     ].fillna("NOT")
-    nba_games_training_dataset["extdom"] = np.where(
-        nba_games_training_dataset["extdom"] == "@", "ext", "dom"
-    )
 
     # Delete games during Covid in the Bubble
     nba_games_training_dataset = nba_games_training_dataset.drop(
@@ -50,7 +47,9 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
         'results',	
         'pts_tm',	
         'pts_opp',
-        'w_tot'
+        'w_tot',
+        'overtime',
+        'streak_w_l'
     ]
 
     nba_games_training_dataset = nba_games_training_dataset[column_to_select]

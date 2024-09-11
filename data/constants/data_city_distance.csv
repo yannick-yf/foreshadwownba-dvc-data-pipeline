@@ -1,0 +1,1026 @@
+"city1","city2","duration_trajet"
+"Philadelphie","Atlanta",11.7372222222222
+"Cleveland","Atlanta",10.3430555555556
+"Los Angeles","Atlanta",31.0508333333333
+"New York","Atlanta",13.1191666666667
+"Minnesota","Atlanta",18.6486111111111
+"Detroit","Atlanta",10.7777777777778
+"Chicago","Atlanta",10.7036111111111
+"Atlanta","Atlanta",0
+"New Orleans","Atlanta",6.65444444444444
+"New Jersey","Atlanta",12.6733333333333
+"Orlando","Atlanta",6.13916666666667
+"Memphis","Atlanta",5.67027777777778
+"Golden State","Atlanta",33.1608333333333
+"Charlotte","Atlanta",3.75
+"Oklahoma","Atlanta",12.4316666666667
+"Denver","Atlanta",20.0002777777778
+"Indiana","Atlanta",8.52666666666667
+"Washington D.C","Atlanta",9.55861111111111
+"Portland","Atlanta",37.3208333333333
+"Milwaukee","Atlanta",12.04
+"Dallas","Atlanta",11.2486111111111
+"Vancover","Atlanta",40.3111111111111
+"Sacramento","Atlanta",35.5313888888889
+"Utah","Atlanta",27.5852777777778
+"Toronto","Atlanta",14.4136111111111
+"Seattle","Atlanta",37.9591666666667
+"Houston","Atlanta",11.2438888888889
+"Boston","Atlanta",16.345
+"San Antonio","Atlanta",14.0525
+"Brooklyn","Atlanta",13.3013888888889
+"Phoenix","Atlanta",26.1063888888889
+"Miami","Atlanta",9.25833333333333
+"Atlanta","Boston",16.2480555555556
+"Los Angeles","Boston",42.7441666666667
+"Denver","Boston",28.5175
+"San Antonio","Boston",29.8108333333333
+"Phoenix","Boston",38.6191666666667
+"Orlando","Boston",18.7838888888889
+"Dallas","Boston",25.9705555555556
+"Charlotte","Boston",12.8191666666667
+"Chicago","Boston",14.64
+"Toronto","Boston",8.32555555555555
+"New Orleans","Boston",22.4080555555556
+"Houston","Boston",27.0022222222222
+"Detroit","Boston",10.7861111111111
+"Washington D.C","Boston",7.0825
+"Portland","Boston",44.5816666666667
+"Vancover","Boston",46.2766666666667
+"Indiana","Boston",14.0880555555556
+"Miami","Boston",21.6747222222222
+"Philadelphie","Boston",5.04916666666667
+"Sacramento","Boston",43.4288888888889
+"Minnesota","Boston",23.0616666666667
+"Boston","Boston",0
+"Cleveland","Boston",9.51583333333333
+"Memphis","Boston",19.4572222222222
+"Golden State","Boston",44.8544444444444
+"Utah","Boston",36.0688888888889
+"New York","Boston",3.62277777777778
+"New Jersey","Boston",4.88944444444444
+"Seattle","Boston",43.9247222222222
+"Oklahoma","Boston",25.1302777777778
+"Milwaukee","Boston",16.0466666666667
+"Brooklyn","Boston",3.68833333333333
+"Denver","Brooklyn",26.2155555555556
+"Atlanta","Brooklyn",13.2161111111111
+"Charlotte","Brooklyn",9.78722222222222
+"Seattle","Brooklyn",41.6227777777778
+"Los Angeles","Brooklyn",40.4425
+"Houston","Brooklyn",24.0325
+"Washington D.C","Brooklyn",4.05027777777778
+"Philadelphie","Brooklyn",2.01694444444444
+"New Orleans","Brooklyn",19.4383333333333
+"Boston","Brooklyn",3.66416666666667
+"Vancover","Brooklyn",43.9747222222222
+"Oklahoma","Brooklyn",22.4030555555556
+"Sacramento","Brooklyn",41.1269444444444
+"Chicago","Brooklyn",12.3383333333333
+"Toronto","Brooklyn",8.11583333333333
+"Detroit","Brooklyn",9.89222222222222
+"Utah","Brooklyn",33.7669444444444
+"Orlando","Brooklyn",15.7516666666667
+"Golden State","Brooklyn",42.5525
+"New York","Brooklyn",0.431666666666667
+"Milwaukee","Brooklyn",13.7447222222222
+"San Antonio","Brooklyn",26.8411111111111
+"Indiana","Brooklyn",11.6925
+"Brooklyn","Brooklyn",0
+"Portland","Brooklyn",42.2797222222222
+"Minnesota","Brooklyn",20.7597222222222
+"Miami","Brooklyn",18.6427777777778
+"Phoenix","Brooklyn",35.8922222222222
+"Cleveland","Brooklyn",7.57194444444444
+"New Jersey","Brooklyn",1.85722222222222
+"Memphis","Brooklyn",16.4872222222222
+"Dallas","Brooklyn",23.0005555555556
+"San Antonio","Charlotte",17.655
+"Chicago","Charlotte",11.5161111111111
+"Atlanta","Charlotte",3.67333333333333
+"Brooklyn","Charlotte",9.81361111111111
+"New Orleans","Charlotte",10.2569444444444
+"Boston","Charlotte",12.8572222222222
+"Charlotte","Charlotte",0
+"Minnesota","Charlotte",19.8444444444444
+"Seattle","Charlotte",40.5661111111111
+"Denver","Charlotte",22.6069444444444
+"Los Angeles","Charlotte",34.6394444444444
+"Oklahoma","Charlotte",16.0202777777778
+"Portland","Charlotte",39.9275
+"New Jersey","Charlotte",9.18555555555556
+"Milwaukee","Charlotte",12.8525
+"Sacramento","Charlotte",38.7747222222222
+"Philadelphie","Charlotte",8.24972222222222
+"Detroit","Charlotte",10.0019444444444
+"Miami","Charlotte",10.3272222222222
+"Vancover","Charlotte",42.9180555555556
+"Toronto","Charlotte",11.595
+"Houston","Charlotte",14.8463888888889
+"Orlando","Charlotte",7.43611111111111
+"Golden State","Charlotte",36.7494444444444
+"Memphis","Charlotte",9.25888888888889
+"Phoenix","Charlotte",29.695
+"Indiana","Charlotte",9.19472222222222
+"New York","Charlotte",9.63138888888889
+"Utah","Charlotte",30.1919444444444
+"Washington D.C","Charlotte",6.07083333333333
+"Dallas","Charlotte",14.8372222222222
+"Cleveland","Charlotte",7.73222222222222
+"Brooklyn","Chicago",12.2622222222222
+"Los Angeles","Chicago",28.5438888888889
+"San Antonio","Chicago",17.9825
+"Denver","Chicago",14.3172222222222
+"Oklahoma","Chicago",11.9961111111111
+"Boston","Chicago",14.6772222222222
+"New York","Chicago",11.9977777777778
+"Seattle","Chicago",29.4563888888889
+"Detroit","Chicago",4.33638888888889
+"Charlotte","Chicago",11.5961111111111
+"Sacramento","Chicago",29.2286111111111
+"Toronto","Chicago",7.89555555555556
+"Philadelphie","Chicago",11.4077777777778
+"Atlanta","Chicago",10.6525
+"Cleveland","Chicago",5.28611111111111
+"New Orleans","Chicago",13.3622222222222
+"Houston","Chicago",16.1761111111111
+"Indiana","Chicago",2.83472222222222
+"Golden State","Chicago",30.6541666666667
+"Dallas","Chicago",14.0077777777778
+"Utah","Chicago",21.8686111111111
+"Chicago","Chicago",0
+"Phoenix","Chicago",25.485
+"Portland","Chicago",30.3813888888889
+"Miami","Chicago",19.84
+"Washington D.C","Chicago",10.6458333333333
+"Vancover","Chicago",31.8083333333333
+"Minnesota","Chicago",8.59333333333333
+"New Jersey","Chicago",12.2855555555556
+"Milwaukee","Chicago",1.53777777777778
+"Orlando","Chicago",16.7211111111111
+"Memphis","Chicago",7.77027777777778
+"Denver","Cleveland",19.1819444444444
+"Charlotte","Cleveland",7.7875
+"Los Angeles","Cleveland",33.4086111111111
+"Seattle","Cleveland",34.5891666666667
+"Boston","Cleveland",9.54305555555556
+"New Jersey","Cleveland",7.51194444444444
+"San Antonio","Cleveland",21.1841666666667
+"Atlanta","Cleveland",10.3322222222222
+"Vancover","Cleveland",36.9411111111111
+"Chicago","Cleveland",5.30472222222222
+"Milwaukee","Cleveland",6.71111111111111
+"Sacramento","Cleveland",34.0933333333333
+"Golden State","Cleveland",35.5188888888889
+"Brooklyn","Cleveland",7.48861111111111
+"Toronto","Cleveland",4.63638888888889
+"Utah","Cleveland",26.7333333333333
+"Minnesota","Cleveland",13.7261111111111
+"Detroit","Cleveland",2.85861111111111
+"Philadelphie","Cleveland",6.63388888888889
+"Indiana","Cleveland",4.7525
+"Houston","Cleveland",19.3777777777778
+"Washington D.C","Cleveland",5.87194444444444
+"New Orleans","Cleveland",15.2230555555556
+"Portland","Cleveland",35.2461111111111
+"Dallas","Cleveland",17.2094444444444
+"Phoenix","Cleveland",29.3758333333333
+"Oklahoma","Cleveland",15.8869444444444
+"New York","Cleveland",7.22416666666667
+"Cleveland","Cleveland",0
+"Miami","Cleveland",17.9311111111111
+"Orlando","Cleveland",15.0402777777778
+"Memphis","Cleveland",10.6961111111111
+"Charlotte","Dallas",14.8544444444444
+"Boston","Dallas",25.9236111111111
+"Atlanta","Dallas",11.2072222222222
+"New Orleans","Dallas",7.37111111111111
+"Seattle","Dallas",30.8186111111111
+"Miami","Dallas",18.8766666666667
+"Cleveland","Dallas",17.2036111111111
+"Chicago","Dallas",13.9666666666667
+"Brooklyn","Dallas",22.9477777777778
+"Denver","Dallas",11.9613888888889
+"Utah","Dallas",18.8161111111111
+"Los Angeles","Dallas",20.2736111111111
+"Houston","Dallas",3.41972222222222
+"Milwaukee","Dallas",15.0413888888889
+"New Jersey","Dallas",22.3511111111111
+"Indiana","Dallas",13.6130555555556
+"New York","Dallas",22.6833333333333
+"San Antonio","Dallas",4.08416666666667
+"Sacramento","Dallas",25.0730555555556
+"Vancover","Dallas",33.1705555555556
+"Minnesota","Dallas",16.5752777777778
+"Detroit","Dallas",17.4933333333333
+"Orlando","Dallas",15.7577777777778
+"Dallas","Dallas",0
+"Toronto","Dallas",21.1019444444444
+"Golden State","Dallas",22.7027777777778
+"Philadelphie","Dallas",21.4152777777778
+"Phoenix","Dallas",15.0016666666667
+"Memphis","Dallas",6.56777777777778
+"Washington D.C","Dallas",19.3455555555556
+"Oklahoma","Dallas",2.94444444444444
+"Portland","Dallas",29.7786111111111
+"Charlotte","Denver",22.6180555555556
+"Utah","Denver",7.79583333333333
+"Boston","Denver",28.5311111111111
+"Houston","Denver",15.2166666666667
+"Los Angeles","Denver",14.4711111111111
+"New Orleans","Denver",19.1730555555556
+"Indiana","Denver",16.1047222222222
+"Seattle","Denver",19.0602777777778
+"Chicago","Denver",14.2866666666667
+"Phoenix","Denver",12.5952777777778
+"Denver","Denver",0
+"Orlando","Denver",26.0172222222222
+"Atlanta","Denver",19.9488888888889
+"Golden State","Denver",16.5811111111111
+"Toronto","Denver",21.7069444444444
+"Cleveland","Denver",19.1402777777778
+"Detroit","Denver",18.1480555555556
+"San Antonio","Denver",13.8180555555556
+"Dallas","Denver",11.9013888888889
+"Philadelphie","Denver",25.1655555555556
+"Miami","Denver",29.1361111111111
+"Vancover","Denver",21.4122222222222
+"Portland","Denver",18.0202777777778
+"New Jersey","Denver",26.0433333333333
+"Sacramento","Denver",16.8675
+"Minnesota","Denver",14.5652777777778
+"Brooklyn","Denver",26.1163888888889
+"New York","Denver",25.8519444444444
+"Washington D.C","Denver",24.3727777777778
+"Milwaukee","Denver",14.8238888888889
+"Oklahoma","Denver",10.3761111111111
+"Memphis","Denver",15.4866666666667
+"Golden State","Detroit",34.4225
+"Boston","Detroit",10.8141666666667
+"New Orleans","Detroit",15.4527777777778
+"Charlotte","Detroit",9.81888888888889
+"Chicago","Detroit",4.26111111111111
+"Detroit","Detroit",0
+"Los Angeles","Detroit",32.3125
+"Brooklyn","Detroit",9.60472222222222
+"San Antonio","Detroit",21.2505555555556
+"Indiana","Detroit",4.05972222222222
+"Atlanta","Detroit",10.5622222222222
+"Toronto","Detroit",3.84277777777778
+"Vancover","Detroit",35.8447222222222
+"Utah","Detroit",25.6369444444444
+"Houston","Detroit",19.4441666666667
+"Denver","Detroit",18.0858333333333
+"Sacramento","Detroit",32.9969444444444
+"Philadelphie","Detroit",8.75
+"New Jersey","Detroit",9.62805555555556
+"Dallas","Detroit",17.2758333333333
+"Memphis","Detroit",10.9261111111111
+"New York","Detroit",9.34027777777778
+"Washington D.C","Detroit",7.98805555555556
+"Miami","Detroit",19.7497222222222
+"Phoenix","Detroit",28.9986111111111
+"Portland","Detroit",34.1497222222222
+"Seattle","Detroit",33.4927777777778
+"Cleveland","Detroit",2.62861111111111
+"Minnesota","Detroit",12.6297222222222
+"Milwaukee","Detroit",5.63777777777778
+"Orlando","Detroit",16.6305555555556
+"Oklahoma","Detroit",15.5097222222222
+"Toronto","Golden State",38.0111111111111
+"Utah","Golden State",12.5580555555556
+"Charlotte","Golden State",36.8708333333333
+"Detroit","Golden State",34.4519444444444
+"Los Angeles","Golden State",3.51305555555556
+"Boston","Golden State",44.8352777777778
+"Seattle","Golden State",14.4383333333333
+"Cleveland","Golden State",35.4444444444444
+"Denver","Golden State",16.5708333333333
+"Golden State","Golden State",0
+"Chicago","Golden State",30.5905555555556
+"San Antonio","Golden State",22.3183333333333
+"Atlanta","Golden State",33.2236111111111
+"Dallas","Golden State",22.7597222222222
+"Sacramento","Golden State",3.04805555555556
+"Indiana","Golden State",32.2441666666667
+"New Orleans","Golden State",30.0547222222222
+"Orlando","Golden State",38.4177777777778
+"Miami","Golden State",41.5366666666667
+"Houston","Golden State",24.9905555555556
+"Brooklyn","Golden State",42.4205555555556
+"Portland","Golden State",11.8516666666667
+"Philadelphie","Golden State",41.3052777777778
+"Phoenix","Golden State",8.79722222222222
+"New York","Golden State",42.1561111111111
+"Washington D.C","Golden State",40.4069444444444
+"Minnesota","Golden State",29.375
+"Memphis","Golden State",27.6291666666667
+"New Jersey","Golden State",42.1830555555556
+"Vancover","Golden State",16.9038888888889
+"Oklahoma","Golden State",21.8808333333333
+"Milwaukee","Golden State",31.1277777777778
+"Toronto","Houston",23.2458333333333
+"Denver","Houston",15.3083333333333
+"Detroit","Houston",19.6372222222222
+"Golden State","Houston",25.0025
+"Seattle","Houston",34.1655555555556
+"Boston","Houston",26.9375
+"Los Angeles","Houston",21.6838888888889
+"New Orleans","Houston",5.12888888888889
+"Atlanta","Houston",11.1905555555556
+"Charlotte","Houston",14.8475
+"San Antonio","Houston",2.87055555555556
+"Brooklyn","Houston",23.9616666666667
+"Philadelphie","Houston",22.4291666666667
+"Chicago","Houston",16.1336111111111
+"Sacramento","Houston",27.1033333333333
+"Cleveland","Houston",19.3475
+"Dallas","Houston",3.44527777777778
+"Houston","Houston",0
+"Orlando","Houston",13.5402777777778
+"Indiana","Houston",15.7569444444444
+"Portland","Houston",33.1255555555556
+"Minnesota","Houston",19.8883333333333
+"Utah","Houston",22.1627777777778
+"Phoenix","Houston",16.4119444444444
+"New Jersey","Houston",23.365
+"Oklahoma","Houston",6.29333333333333
+"New York","Houston",23.6972222222222
+"Miami","Houston",16.6594444444444
+"Vancover","Houston",36.5175
+"Washington D.C","Houston",20.3594444444444
+"Memphis","Houston",8.71166666666667
+"Milwaukee","Houston",17.3544444444444
+"Los Angeles","Indiana",30.0805555555556
+"Charlotte","Indiana",9.23166666666667
+"Boston","Indiana",14.0602777777778
+"Atlanta","Indiana",8.42666666666667
+"Utah","Indiana",23.6572222222222
+"Golden State","Indiana",32.1908333333333
+"Cleveland","Indiana",4.66944444444444
+"Detroit","Indiana",4.19472222222222
+"Denver","Indiana",16.0722222222222
+"Chicago","Indiana",2.78694444444444
+"Brooklyn","Indiana",11.5608333333333
+"Dallas","Indiana",13.5733333333333
+"San Antonio","Indiana",17.5483333333333
+"Seattle","Indiana",31.9783333333333
+"Toronto","Indiana",7.83055555555556
+"Sacramento","Indiana",31.3983333333333
+"Orlando","Indiana",14.4952777777778
+"New Orleans","Indiana",12.4233333333333
+"Philadelphie","Indiana",10.1472222222222
+"New York","Indiana",11.2963888888889
+"Indiana","Indiana",0
+"Houston","Indiana",15.7416666666667
+"Portland","Indiana",32.5511111111111
+"Phoenix","Indiana",25.2961111111111
+"Memphis","Indiana",7.33611111111111
+"Oklahoma","Indiana",11.8072222222222
+"Milwaukee","Indiana",4.12333333333333
+"New Jersey","Indiana",11.0252777777778
+"Miami","Indiana",17.6141666666667
+"Vancover","Indiana",34.33
+"Washington D.C","Indiana",9.35444444444444
+"Minnesota","Indiana",11.115
+"Oklahoma","Los Angeles",19.8377777777778
+"Golden State","Los Angeles",3.54277777777778
+"Brooklyn","Los Angeles",40.3777777777778
+"Detroit","Los Angeles",32.4091666666667
+"San Antonio","Los Angeles",19.0177777777778
+"Los Angeles","Los Angeles",0
+"Seattle","Los Angeles",17.0430555555556
+"Atlanta","Los Angeles",31.1808333333333
+"Philadelphie","Los Angeles",39.2625
+"Chicago","Los Angeles",28.5477777777778
+"Indiana","Los Angeles",30.2013888888889
+"Toronto","Los Angeles",35.9683333333333
+"New Orleans","Los Angeles",26.7538888888889
+"Orlando","Los Angeles",35.1655555555556
+"Charlotte","Los Angeles",34.8280555555556
+"Cleveland","Los Angeles",33.4016666666667
+"Dallas","Los Angeles",20.3627777777778
+"Boston","Los Angeles",42.7925
+"Denver","Los Angeles",14.5280555555556
+"Utah","Los Angeles",10.5152777777778
+"Houston","Los Angeles",21.69
+"Phoenix","Los Angeles",5.49666666666667
+"Minnesota","Los Angeles",27.865
+"New York","Los Angeles",40.1133333333333
+"Washington D.C","Los Angeles",38.3641666666667
+"Vancover","Los Angeles",19.5086111111111
+"Portland","Los Angeles",14.4563888888889
+"New Jersey","Los Angeles",40.1402777777778
+"Memphis","Los Angeles",25.5863888888889
+"Sacramento","Los Angeles",5.64388888888889
+"Miami","Los Angeles",38.2844444444444
+"Milwaukee","Los Angeles",29.085
+"Indiana","Memphis",7.37611111111111
+"Denver","Memphis",15.4733333333333
+"Atlanta","Memphis",5.65722222222222
+"Oklahoma","Memphis",6.83666666666667
+"Cleveland","Memphis",10.6897222222222
+"Charlotte","Memphis",9.34472222222222
+"Utah","Memphis",23.0583333333333
+"Boston","Memphis",19.4094444444444
+"New Orleans","Memphis",5.65166666666667
+"Philadelphie","Memphis",14.9011111111111
+"Seattle","Memphis",33.5888888888889
+"Chicago","Memphis",7.7525
+"Toronto","Memphis",14.7602777777778
+"Dallas","Memphis",6.56583333333333
+"Detroit","Memphis",11.1244444444444
+"Minnesota","Memphis",14.6633333333333
+"Los Angeles","Memphis",25.4558333333333
+"Vancover","Memphis",35.9408333333333
+"Portland","Memphis",32.9502777777778
+"Phoenix","Memphis",20.6713888888889
+"Brooklyn","Memphis",16.4336111111111
+"San Antonio","Memphis",10.5408333333333
+"Houston","Memphis",8.73416666666667
+"Golden State","Memphis",27.5658333333333
+"New Jersey","Memphis",15.8372222222222
+"Washington D.C","Memphis",12.8316666666667
+"Sacramento","Memphis",29.9363888888889
+"Memphis","Memphis",0
+"Orlando","Memphis",11.685
+"Milwaukee","Memphis",9.02194444444445
+"New York","Memphis",16.1691666666667
+"Miami","Memphis",14.8038888888889
+"Indiana","Miami",17.7025
+"Dallas","Miami",18.9466666666667
+"Los Angeles","Miami",38.3516666666667
+"Atlanta","Miami",9.26888888888889
+"Washington D.C","Miami",14.9772222222222
+"Denver","Miami",29.1761111111111
+"Philadelphie","Miami",17.1561111111111
+"Charlotte","Miami",10.3486111111111
+"Utah","Miami",36.7613888888889
+"New Orleans","Miami",12.14
+"Chicago","Miami",19.8794444444444
+"Oklahoma","Miami",21.3397222222222
+"Houston","Miami",16.7297222222222
+"Brooklyn","Miami",18.72
+"Cleveland","Miami",17.9133333333333
+"San Antonio","Miami",19.5383333333333
+"Golden State","Miami",41.5425
+"Memphis","Miami",14.815
+"Minnesota","Miami",27.8247222222222
+"Seattle","Miami",47.1352777777778
+"Phoenix","Miami",33.0797222222222
+"Toronto","Miami",21.7761111111111
+"Boston","Miami",21.7636111111111
+"Milwaukee","Miami",21.2158333333333
+"Sacramento","Miami",43.7711111111111
+"Detroit","Miami",19.9538888888889
+"Vancover","Miami",49.4872222222222
+"New Jersey","Miami",18.0919444444444
+"Portland","Miami",46.4966666666667
+"New York","Miami",18.5377777777778
+"Orlando","Miami",3.42138888888889
+"Miami","Miami",0
+"Oklahoma","Milwaukee",13.0130555555556
+"Los Angeles","Milwaukee",29.06
+"Charlotte","Milwaukee",12.8869444444444
+"Denver","Milwaukee",14.8333333333333
+"Miami","Milwaukee",21.1311111111111
+"Brooklyn","Milwaukee",13.64
+"Toronto","Milwaukee",9.22111111111111
+"Washington D.C","Milwaukee",12.0233333333333
+"Indiana","Milwaukee",4.12583333333333
+"Utah","Milwaukee",22.3847222222222
+"New Orleans","Milwaukee",14.5855555555556
+"Cleveland","Milwaukee",6.66388888888889
+"Dallas","Milwaukee",15.0288888888889
+"Detroit","Milwaukee",5.66194444444444
+"Houston","Milwaukee",17.4005555555556
+"Philadelphie","Milwaukee",12.7852777777778
+"Minnesota","Milwaukee",7.39833333333333
+"Memphis","Milwaukee",8.99361111111111
+"Atlanta","Milwaukee",11.9436111111111
+"Portland","Milwaukee",29.4383333333333
+"Vancover","Milwaukee",30.6133333333333
+"Boston","Milwaukee",16.0547222222222
+"Milwaukee","Milwaukee",0
+"San Antonio","Milwaukee",19.02
+"New Jersey","Milwaukee",13.6633333333333
+"Seattle","Milwaukee",28.2613888888889
+"Chicago","Milwaukee",1.49472222222222
+"Phoenix","Milwaukee",26.5022222222222
+"Golden State","Milwaukee",31.17
+"Sacramento","Milwaukee",29.7444444444444
+"Orlando","Milwaukee",18.0119444444444
+"New York","Milwaukee",13.3755555555556
+"Los Angeles","Minnesota",27.7241666666667
+"Milwaukee","Minnesota",7.37222222222222
+"Charlotte","Minnesota",19.8952777777778
+"Denver","Minnesota",14.4513888888889
+"Atlanta","Minnesota",18.5544444444444
+"New Orleans","Minnesota",20.235
+"Detroit","Minnesota",12.6702777777778
+"Toronto","Minnesota",16.2294444444444
+"Cleveland","Minnesota",13.6627777777778
+"Sacramento","Minnesota",26.4666666666667
+"Minnesota","Minnesota",0
+"Seattle","Minnesota",22.2055555555556
+"Portland","Minnesota",23.3825
+"Brooklyn","Minnesota",20.6388888888889
+"Oklahoma","Minnesota",14.4930555555556
+"Dallas","Minnesota",16.5263888888889
+"Washington D.C","Minnesota",19.0222222222222
+"Memphis","Minnesota",14.6427777777778
+"Miami","Minnesota",27.7419444444444
+"Indiana","Minnesota",11.1338888888889
+"New York","Minnesota",20.3744444444444
+"Vancover","Minnesota",24.5575
+"Boston","Minnesota",23.0536111111111
+"Chicago","Minnesota",8.56916666666667
+"Houston","Minnesota",19.8094444444444
+"Philadelphie","Minnesota",19.7841666666667
+"Utah","Minnesota",21.7027777777778
+"Golden State","Minnesota",29.2475
+"Phoenix","Minnesota",26.6680555555556
+"New Jersey","Minnesota",20.6622222222222
+"Orlando","Minnesota",24.6227777777778
+"San Antonio","Minnesota",20.3830555555556
+"Detroit","New Jersey",9.82194444444444
+"Charlotte","New Jersey",9.15055555555556
+"Toronto","New Jersey",8.53638888888889
+"Indiana","New Jersey",11.0505555555556
+"Brooklyn","New Jersey",1.84361111111111
+"Atlanta","New Jersey",12.5794444444444
+"Oklahoma","New Jersey",21.7611111111111
+"Seattle","New Jersey",41.5525
+"Denver","New Jersey",26.0261111111111
+"Los Angeles","New Jersey",40.0347222222222
+"Dallas","New Jersey",22.3638888888889
+"Minnesota","New Jersey",20.6894444444444
+"Cleveland","New Jersey",7.50166666666667
+"Golden State","New Jersey",42.1447222222222
+"Memphis","New Jersey",15.8505555555556
+"Washington D.C","New Jersey",3.41361111111111
+"Portland","New Jersey",42.2094444444444
+"New York","New Jersey",1.66111111111111
+"Miami","New Jersey",18.0061111111111
+"New Orleans","New Jersey",18.8013888888889
+"Philadelphie","New Jersey",1.34916666666667
+"Utah","New Jersey",33.6113888888889
+"Houston","New Jersey",23.3955555555556
+"Chicago","New Jersey",12.2680555555556
+"Milwaukee","New Jersey",13.6744444444444
+"New Jersey","New Jersey",0
+"Boston","New Jersey",4.88722222222222
+"San Antonio","New Jersey",26.2044444444444
+"Orlando","New Jersey",15.115
+"Phoenix","New Jersey",35.2502777777778
+"Sacramento","New Jersey",41.0566666666667
+"Vancover","New Jersey",43.9044444444444
+"Brooklyn","New Orleans",19.4130555555556
+"Oklahoma","New Orleans",9.85722222222222
+"Golden State","New Orleans",30.0011111111111
+"Houston","New Orleans",5.13055555555556
+"Charlotte","New Orleans",10.2963888888889
+"Milwaukee","New Orleans",14.5916666666667
+"Denver","New Orleans",19.2597222222222
+"Indiana","New Orleans",12.49
+"Los Angeles","New Orleans",26.7525
+"New Jersey","New Orleans",18.8166666666667
+"Cleveland","New Orleans",15.2383333333333
+"Seattle","New Orleans",38.1169444444444
+"Minnesota","New Orleans",20.2330555555556
+"Dallas","New Orleans",7.405
+"Boston","New Orleans",22.3888888888889
+"Toronto","New Orleans",19.3088888888889
+"Sacramento","New Orleans",32.1722222222222
+"New York","New Orleans",19.1486111111111
+"Chicago","New Orleans",13.3225
+"New Orleans","New Orleans",0
+"Atlanta","New Orleans",6.63944444444444
+"Miami","New Orleans",12.1083333333333
+"Portland","New Orleans",37.0769444444444
+"Vancover","New Orleans",40.4688888888889
+"Detroit","New Orleans",15.6730555555556
+"Washington D.C","New Orleans",15.8111111111111
+"Orlando","New Orleans",8.98916666666667
+"Utah","New Orleans",26.1141666666667
+"Memphis","New Orleans",5.64083333333333
+"Phoenix","New Orleans",21.4808333333333
+"Philadelphie","New Orleans",17.8805555555556
+"San Antonio","New Orleans",7.93916666666667
+"Dallas","New York",22.675
+"Charlotte","New York",9.53472222222222
+"Vancover","New York",43.5877777777778
+"New Orleans","New York",19.1125
+"Atlanta","New York",12.9636111111111
+"New Jersey","New York",1.605
+"Brooklyn","New York",0.416666666666667
+"Detroit","New York",9.50527777777778
+"Minnesota","New York",20.3727777777778
+"Indiana","New York",11.3055555555556
+"Oklahoma","New York",22.0161111111111
+"Memphis","New York",16.1616666666667
+"New York","New York",0
+"Houston","New York",23.7069444444444
+"Chicago","New York",11.9513888888889
+"Cleveland","New York",7.185
+"Boston","New York",3.70805555555556
+"Los Angeles","New York",40.0555555555556
+"Utah","New York",33.38
+"Denver","New York",25.8288888888889
+"Golden State","New York",42.1655555555556
+"Milwaukee","New York",13.3577777777778
+"Seattle","New York",41.2358333333333
+"Miami","New York",18.3902777777778
+"San Antonio","New York",26.5155555555556
+"Toronto","New York",7.72888888888889
+"Portland","New York",41.8927777777778
+"Sacramento","New York",40.74
+"Washington D.C","New York",3.79805555555556
+"Orlando","New York",15.4994444444444
+"Philadelphie","New York",1.76472222222222
+"Phoenix","New York",35.5052777777778
+"Oklahoma","Oklahoma",0
+"Dallas","Oklahoma",2.89444444444444
+"Charlotte","Oklahoma",16.0730555555556
+"Indiana","Oklahoma",11.8133333333333
+"Miami","Oklahoma",21.2925
+"New Jersey","Oklahoma",21.7522222222222
+"Atlanta","Oklahoma",12.4258333333333
+"Chicago","Oklahoma",11.9311111111111
+"Milwaukee","Oklahoma",13.0058333333333
+"Boston","Oklahoma",25.1175
+"Brooklyn","Oklahoma",22.2877777777778
+"Los Angeles","Oklahoma",19.6905555555556
+"New Orleans","Oklahoma",9.84361111111111
+"Washington D.C","Oklahoma",19.6091666666667
+"Toronto","Oklahoma",19.1391666666667
+"Vancover","Oklahoma",31.3383333333333
+"Minnesota","Oklahoma",14.5091666666667
+"New York","Oklahoma",22.0233333333333
+"Cleveland","Oklahoma",15.8491666666667
+"Detroit","Oklahoma",15.58
+"Utah","Oklahoma",17.9202777777778
+"Denver","Oklahoma",10.3352777777778
+"Golden State","Oklahoma",21.8005555555556
+"Seattle","Oklahoma",28.9863888888889
+"Memphis","Oklahoma",6.83138888888889
+"Houston","Oklahoma",6.24083333333333
+"San Antonio","Oklahoma",6.64944444444444
+"Philadelphie","Oklahoma",20.8741666666667
+"Sacramento","Oklahoma",24.1711111111111
+"Portland","Oklahoma",27.9463888888889
+"Phoenix","Oklahoma",14.9061111111111
+"Orlando","Oklahoma",18.1733333333333
+"Chicago","Orlando",16.8063888888889
+"Atlanta","Orlando",6.19583333333333
+"Utah","Orlando",33.6880555555556
+"Seattle","Orlando",44.0619444444444
+"Vancover","Orlando",46.4138888888889
+"Charlotte","Orlando",7.43805555555556
+"Philadelphie","Orlando",14.2455555555556
+"New Jersey","Orlando",15.1816666666667
+"Boston","Orlando",18.8533333333333
+"Los Angeles","Orlando",35.2783333333333
+"New Orleans","Orlando",9.06666666666667
+"Toronto","Orlando",18.8658333333333
+"Phoenix","Orlando",30.0066666666667
+"Denver","Orlando",26.1027777777778
+"Milwaukee","Orlando",18.1427777777778
+"Golden State","Orlando",38.4694444444444
+"Indiana","Orlando",14.6291666666667
+"San Antonio","Orlando",16.465
+"Dallas","Orlando",15.8733333333333
+"Memphis","Orlando",11.7416666666667
+"Cleveland","Orlando",15.0030555555556
+"Oklahoma","Orlando",18.2666666666667
+"Brooklyn","Orlando",15.8097222222222
+"Miami","Orlando",3.3675
+"Minnesota","Orlando",24.7513888888889
+"New York","Orlando",15.6275
+"Washington D.C","Orlando",12.0669444444444
+"Sacramento","Orlando",40.6980555555556
+"Portland","Orlando",43.4236111111111
+"Detroit","Orlando",16.8805555555556
+"Houston","Orlando",13.6563888888889
+"Orlando","Orlando",0
+"Indiana","Philadelphie",10.1122222222222
+"Dallas","Philadelphie",21.435
+"Vancover","Philadelphie",42.9661111111111
+"New Orleans","Philadelphie",17.8725
+"Orlando","Philadelphie",14.1861111111111
+"Denver","Philadelphie",25.0877777777778
+"Charlotte","Philadelphie",8.22166666666667
+"Philadelphie","Philadelphie",0
+"Atlanta","Philadelphie",11.6505555555556
+"Seattle","Philadelphie",40.6141666666667
+"Miami","Philadelphie",17.0772222222222
+"Boston","Philadelphie",5.04083333333333
+"Los Angeles","Philadelphie",39.0963888888889
+"Utah","Philadelphie",32.6727777777778
+"Minnesota","Philadelphie",19.7508333333333
+"Milwaukee","Philadelphie",12.7358333333333
+"New Jersey","Philadelphie",1.3625
+"Cleveland","Philadelphie",6.56305555555556
+"Memphis","Philadelphie",14.9216666666667
+"Golden State","Philadelphie",41.2063888888889
+"Brooklyn","Philadelphie",1.99722222222222
+"Portland","Philadelphie",41.2711111111111
+"Toronto","Philadelphie",7.67416666666667
+"San Antonio","Philadelphie",25.2755555555556
+"Oklahoma","Philadelphie",20.8227777777778
+"Chicago","Philadelphie",11.3294444444444
+"Phoenix","Philadelphie",34.3119444444444
+"Houston","Philadelphie",22.4666666666667
+"Detroit","Philadelphie",8.88361111111111
+"New York","Philadelphie",1.815
+"Washington D.C","Philadelphie",2.48472222222222
+"Sacramento","Philadelphie",40.1180555555556
+"Charlotte","Phoenix",29.7038888888889
+"Philadelphie","Phoenix",34.4486111111111
+"Minnesota","Phoenix",26.8322222222222
+"New Orleans","Phoenix",21.42
+"Los Angeles","Phoenix",5.46166666666667
+"Indiana","Phoenix",25.3875
+"Atlanta","Phoenix",26.0566666666667
+"Golden State","Phoenix",8.78
+"Denver","Phoenix",12.6761111111111
+"Seattle","Phoenix",21.2652777777778
+"Detroit","Phoenix",29.1544444444444
+"Dallas","Phoenix",15.0288888888889
+"Memphis","Phoenix",20.7725
+"Milwaukee","Phoenix",26.58
+"Miami","Phoenix",32.9505555555556
+"Utah","Phoenix",10.6580555555556
+"New Jersey","Phoenix",35.3263888888889
+"Brooklyn","Phoenix",35.8622222222222
+"Boston","Phoenix",38.6919444444444
+"Toronto","Phoenix",32.7136111111111
+"New York","Phoenix",35.5977777777778
+"San Antonio","Phoenix",13.6836111111111
+"Houston","Phoenix",16.3558333333333
+"Vancover","Phoenix",23.6172222222222
+"Oklahoma","Phoenix",15.0241666666667
+"Orlando","Phoenix",29.8313888888889
+"Cleveland","Phoenix",29.4233333333333
+"Phoenix","Phoenix",0
+"Chicago","Phoenix",25.5052777777778
+"Portland","Phoenix",19.6936111111111
+"Washington D.C","Phoenix",33.5502777777778
+"Sacramento","Phoenix",10.8811111111111
+"Charlotte","Portland",39.975
+"Orlando","Portland",43.3741666666667
+"Detroit","Portland",34.2183333333333
+"Indiana","Portland",32.6033333333333
+"Memphis","Portland",32.9963888888889
+"Cleveland","Portland",35.2108333333333
+"New Orleans","Portland",37.0188888888889
+"Brooklyn","Portland",42.1869444444444
+"Minnesota","Portland",23.3325
+"Philadelphie","Portland",41.3322222222222
+"Atlanta","Portland",37.3058333333333
+"Houston","Portland",33.0627777777778
+"Utah","Portland",14.7555555555556
+"Los Angeles","Portland",14.4058333333333
+"Miami","Portland",46.4930555555556
+"Milwaukee","Portland",29.4083333333333
+"Dallas","Portland",29.7472222222222
+"Denver","Portland",18.0322222222222
+"Boston","Portland",44.6016666666667
+"Golden State","Portland",11.7783333333333
+"Phoenix","Portland",19.6902777777778
+"Oklahoma","Portland",27.9741666666667
+"Seattle","Portland",2.76361111111111
+"Chicago","Portland",30.3569444444444
+"New Jersey","Portland",42.21
+"Sacramento","Portland",8.90361111111111
+"Toronto","Portland",37.7775
+"San Antonio","Portland",31.0833333333333
+"New York","Portland",41.9222222222222
+"Vancover","Portland",5.22888888888889
+"Washington D.C","Portland",40.5702777777778
+"Portland","Portland",0
+"Atlanta","Sacramento",35.5722222222222
+"Indiana","Sacramento",31.4861111111111
+"Charlotte","Sacramento",38.8575
+"Philadelphie","Sacramento",40.215
+"New Orleans","Sacramento",32.185
+"Minnesota","Sacramento",26.5297222222222
+"Boston","Sacramento",43.4844444444444
+"Detroit","Sacramento",33.1011111111111
+"Utah","Sacramento",13.0341666666667
+"Chicago","Sacramento",29.2397222222222
+"Brooklyn","Sacramento",41.0697222222222
+"Miami","Sacramento",43.7155555555556
+"San Antonio","Sacramento",24.4486111111111
+"Milwaukee","Sacramento",29.7769444444444
+"Phoenix","Sacramento",10.9275
+"Los Angeles","Sacramento",5.64333333333333
+"Oklahoma","Sacramento",24.2294444444444
+"Seattle","Sacramento",11.5466666666667
+"Sacramento","Sacramento",0
+"Toronto","Sacramento",36.66
+"New Jersey","Sacramento",41.0927777777778
+"Cleveland","Sacramento",34.0936111111111
+"Memphis","Sacramento",29.9777777777778
+"Denver","Sacramento",16.9147222222222
+"Orlando","Sacramento",40.5966666666667
+"New York","Sacramento",40.805
+"Houston","Sacramento",27.1211111111111
+"Dallas","Sacramento",25.1080555555556
+"Golden State","Sacramento",3.03
+"Portland","Sacramento",8.96
+"Washington D.C","Sacramento",39.4530555555556
+"Vancover","Sacramento",14.0122222222222
+"Los Angeles","San Antonio",18.9538888888889
+"Sacramento","San Antonio",24.3736111111111
+"Charlotte","San Antonio",17.6580555555556
+"Brooklyn","San Antonio",26.7722222222222
+"New Orleans","San Antonio",7.93916666666667
+"Detroit","San Antonio",21.4875
+"Houston","San Antonio",2.87527777777778
+"Oklahoma","San Antonio",6.71333333333333
+"Atlanta","San Antonio",14.0008333333333
+"Miami","San Antonio",19.4697222222222
+"Indiana","San Antonio",17.6072222222222
+"Minnesota","San Antonio",20.4494444444444
+"Boston","San Antonio",29.7477777777778
+"Phoenix","San Antonio",13.6819444444444
+"Philadelphie","San Antonio",25.2394444444444
+"Memphis","San Antonio",10.5619444444444
+"Milwaukee","San Antonio",19.0547222222222
+"Denver","San Antonio",13.8277777777778
+"Toronto","San Antonio",25.0961111111111
+"San Antonio","San Antonio",0
+"Dallas","San Antonio",4.08194444444444
+"New Jersey","San Antonio",26.1755555555556
+"Orlando","San Antonio",16.3508333333333
+"Chicago","San Antonio",17.98
+"New York","San Antonio",26.5075
+"Portland","San Antonio",31.0883333333333
+"Golden State","San Antonio",22.2725
+"Vancover","San Antonio",34.4802777777778
+"Cleveland","San Antonio",21.1977777777778
+"Seattle","San Antonio",32.1283333333333
+"Utah","San Antonio",19.9958333333333
+"Washington D.C","San Antonio",23.17
+"San Antonio","Seattle",32.1341666666667
+"Los Angeles","Seattle",16.9708333333333
+"Charlotte","Seattle",40.5244444444444
+"Sacramento","Seattle",11.4686111111111
+"Detroit","Seattle",33.5222222222222
+"Phoenix","Seattle",21.1694444444444
+"Minnesota","Seattle",22.1486111111111
+"Houston","Seattle",34.1136111111111
+"Brooklyn","Seattle",41.4908333333333
+"Dallas","Seattle",30.7980555555556
+"Denver","Seattle",19.0830555555556
+"Boston","Seattle",43.9055555555556
+"Chicago","Seattle",29.4213888888889
+"Cleveland","Seattle",34.5147222222222
+"Miami","Seattle",47.0425
+"Golden State","Seattle",14.3433333333333
+"Atlanta","Seattle",37.855
+"New Orleans","Seattle",38.0697222222222
+"Orlando","Seattle",43.9236111111111
+"Oklahoma","Seattle",29.025
+"Milwaukee","Seattle",28.2241666666667
+"New Jersey","Seattle",41.5141666666667
+"Portland","Seattle",2.72361111111111
+"Philadelphie","Seattle",40.6363888888889
+"Seattle","Seattle",0
+"Toronto","Seattle",37.0813888888889
+"Memphis","Seattle",33.5458333333333
+"New York","Seattle",41.2263888888889
+"Vancover","Seattle",2.55388888888889
+"Utah","Seattle",15.8063888888889
+"Indiana","Seattle",31.9861111111111
+"Washington D.C","Seattle",39.8744444444444
+"Houston","Toronto",23.1419444444444
+"New York","Toronto",7.80138888888889
+"Seattle","Toronto",37.1077777777778
+"Boston","Toronto",8.35222222222222
+"New Orleans","Toronto",19.1508333333333
+"Milwaukee","Toronto",9.25277777777778
+"Miami","Toronto",21.7330555555556
+"Phoenix","Toronto",32.645
+"Philadelphie","Toronto",7.75111111111111
+"San Antonio","Toronto",24.9486111111111
+"Chicago","Toronto",7.87611111111111
+"Los Angeles","Toronto",35.9272222222222
+"Dallas","Toronto",20.9736111111111
+"Minnesota","Toronto",16.2447222222222
+"Portland","Toronto",37.7647222222222
+"Sacramento","Toronto",36.6119444444444
+"Charlotte","Toronto",11.5894444444444
+"New Jersey","Toronto",8.55666666666667
+"Denver","Toronto",21.7005555555556
+"Detroit","Toronto",3.84888888888889
+"Toronto","Toronto",0
+"Orlando","Toronto",18.8422222222222
+"Golden State","Toronto",38.0375
+"Atlanta","Toronto",14.26
+"Oklahoma","Toronto",19.1558333333333
+"Indiana","Toronto",7.7575
+"Cleveland","Toronto",4.605
+"Utah","Toronto",29.2519444444444
+"Memphis","Toronto",14.6238888888889
+"Vancover","Toronto",39.4597222222222
+"Brooklyn","Toronto",8.06611111111111
+"Washington D.C","Toronto",8.44638888888889
+"Seattle","Utah",15.8002777777778
+"Chicago","Utah",21.7716666666667
+"New Orleans","Utah",26.105
+"Charlotte","Utah",30.1383333333333
+"Vancover","Utah",18.1522222222222
+"Orlando","Utah",33.5375
+"Philadelphie","Utah",32.6861111111111
+"Los Angeles","Utah",10.4419444444444
+"Milwaukee","Utah",22.3088888888889
+"Dallas","Utah",18.8333333333333
+"San Antonio","Utah",19.9833333333333
+"Minnesota","Utah",21.8041666666667
+"Oklahoma","Utah",17.8966666666667
+"Phoenix","Utah",10.5641666666667
+"Indiana","Utah",23.625
+"New Jersey","Utah",33.5638888888889
+"Utah","Utah",0
+"New York","Utah",33.3369444444444
+"Houston","Utah",22.1486111111111
+"Memphis","Utah",23.0069444444444
+"Sacramento","Utah",12.9911111111111
+"Atlanta","Utah",27.4691666666667
+"Detroit","Utah",25.6330555555556
+"Boston","Utah",36.0163888888889
+"Miami","Utah",36.6566666666667
+"Portland","Utah",14.7602777777778
+"Denver","Utah",7.75194444444444
+"Toronto","Utah",29.1919444444444
+"Cleveland","Utah",26.6255555555556
+"Golden State","Utah",12.5519444444444
+"Brooklyn","Utah",33.6016666666667
+"Washington D.C","Utah",31.8933333333333
+"Toronto","Vancover",39.4544444444444
+"Oklahoma","Vancover",31.3980555555556
+"Houston","Vancover",36.4866666666667
+"Seattle","Vancover",2.56972222222222
+"Utah","Vancover",18.1794444444444
+"Charlotte","Vancover",42.8975
+"Minnesota","Vancover",24.5216666666667
+"Los Angeles","Vancover",19.4611111111111
+"Orlando","Vancover",46.2966666666667
+"New Orleans","Vancover",40.4427777777778
+"San Antonio","Vancover",34.5075
+"Detroit","Vancover",35.8955555555556
+"Atlanta","Vancover",19.4611111111111
+"Memphis","Vancover",35.9188888888889
+"Portland","Vancover",5.21361111111111
+"New York","Vancover",43.5994444444444
+"Chicago","Vancover",31.7944444444444
+"Miami","Vancover",49.4155555555556
+"Brooklyn","Vancover",43.8638888888889
+"Golden State","Vancover",16.8336111111111
+"Cleveland","Vancover",36.8877777777778
+"Sacramento","Vancover",13.9588888888889
+"New Jersey","Vancover",43.8872222222222
+"Atlanta","Vancover",40.2283333333333
+"Boston","Vancover",46.2788888888889
+"Milwaukee","Vancover",30.5972222222222
+"Denver","Vancover",21.4561111111111
+"Indiana","Vancover",34.3591666666667
+"Philadelphie","Vancover",43.0094444444444
+"Dallas","Vancover",33.1713888888889
+"Phoenix","Vancover",23.5425
+"Vancover","Vancover",0
+"Washington D.C","Vancover",42.2475
+"New York","Washington D.C",3.88277777777778
+"Boston","Washington D.C",7.10861111111111
+"Seattle","Washington D.C",39.9402777777778
+"Miami","Washington D.C",14.9255555555556
+"New Orleans","Washington D.C",15.8263888888889
+"Sacramento","Washington D.C",39.4444444444444
+"Dallas","Washington D.C",19.3886111111111
+"Los Angeles","Washington D.C",38.2786111111111
+"Brooklyn","Washington D.C",4.065
+"Minnesota","Washington D.C",19.0769444444444
+"Indiana","Washington D.C",9.38194444444444
+"Chicago","Washington D.C",10.6555555555556
+"Philadelphie","Washington D.C",2.50111111111111
+"San Antonio","Washington D.C",23.2291666666667
+"New Jersey","Washington D.C",3.43694444444444
+"Orlando","Washington D.C",12.0347222222222
+"Charlotte","Washington D.C",6.07
+"Portland","Washington D.C",40.5972222222222
+"Oklahoma","Washington D.C",19.6594444444444
+"Detroit","Washington D.C",8.20972222222222
+"Toronto","Washington D.C",8.51527777777778
+"Memphis","Washington D.C",12.8752777777778
+"Phoenix","Washington D.C",33.4941666666667
+"Golden State","Washington D.C",40.3886111111111
+"Atlanta","Washington D.C",9.49888888888889
+"Houston","Washington D.C",20.4205555555556
+"Milwaukee","Washington D.C",12.0622222222222
+"Denver","Washington D.C",24.3575
+"Cleveland","Washington D.C",5.88916666666667
+"Utah","Washington D.C",31.9425
+"Vancover","Washington D.C",42.2922222222222
+"Washington D.C","Washington D.C",0
