@@ -36,20 +36,20 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     )
 
     # Column Selection
-    column_to_select =[
-        'id_season',
-        'id',
-        'game_nb',	
-        'game_date',	
-        'extdom',	
-        'tm',	
-        'opp',	
-        'results',	
-        'pts_tm',	
-        'pts_opp',
-        'w_tot',
-        'overtime',
-        'streak_w_l'
+    column_to_select = [
+        "id_season",
+        "id",
+        "game_nb",
+        "game_date",
+        "extdom",
+        "tm",
+        "opp",
+        "results",
+        "pts_tm",
+        "pts_opp",
+        "w_tot",
+        "overtime",
+        "streak_w_l",
     ]
 
     nba_games_training_dataset = nba_games_training_dataset[column_to_select]
@@ -58,8 +58,6 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     nba_games_training_dataset.to_csv(
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv", index=False
     )
-
-
 
     logger.info("Pre Cleaned NBA games data step complete")
 
