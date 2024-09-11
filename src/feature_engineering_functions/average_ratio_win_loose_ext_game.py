@@ -1,12 +1,10 @@
-# AverageRatioWLExtGame.py
 
 import pandas as pd
 import numpy as np
 
-
 def average_ratio_win_loose_ext_game(TrainingSet):
 
-    TrainingSet["dummy_ext"] = np.where(TrainingSet["extdom"] == "@", 1, 0)
+    TrainingSet["dummy_ext"] = np.where(TrainingSet["extdom"] == "ext", 1, 0)
     TrainingSet["Win_at_ext"] = np.where(
         (TrainingSet["dummy_ext"] == 1) & (TrainingSet["results"] == "W"), 1, 0
     )
@@ -22,7 +20,7 @@ def average_ratio_win_loose_ext_game(TrainingSet):
     TrainingSet["before_ratio_win_ext"] = TrainingSet["Ratio_Win_Ext"].shift(1)
     TrainingSet["before_ratio_win_ext"] = TrainingSet["before_ratio_win_ext"].fillna(0)
 
-    TrainingSet["dummy_dom"] = np.where(TrainingSet["extdom"] != "@", 1, 0)
+    TrainingSet["dummy_dom"] = np.where(TrainingSet["extdom"] != "ext", 1, 0)
     TrainingSet["Win_at_dom"] = np.where(
         (TrainingSet["dummy_dom"] == 1) & (TrainingSet["results"] == "W"), 1, 0
     )

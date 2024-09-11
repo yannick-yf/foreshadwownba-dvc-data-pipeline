@@ -21,9 +21,6 @@ def previous_games_average_features(TRAINING_DF):
     ]
 
     for col in colums_to_process:
-        # TRAINING_DF['before_average_' + col ] = round(TRAINING_DF.groupby(['id_season', 'tm']).expanding()[col].mean().shift(1).droplevel(level=[0,1]), 1)
-        # TRAINING_DF['before_average_lastfivegame_' + col ] = TRAINING_DF.groupby(['id_season', 'tm']).rolling(5)[col].mean().shift(1).droplevel(level=[0,1])
-        # TRAINING_DF['before_average_lasttengame_' + col ] = TRAINING_DF.groupby(['id_season', 'tm']).rolling(10)[col].mean().shift(1).droplevel(level=[0,1])
 
         TRAINING_DF["before_average_" + col] = round(
             TRAINING_DF.groupby(["id_season", "tm"])[col].transform(
