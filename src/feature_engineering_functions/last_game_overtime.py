@@ -1,10 +1,20 @@
+"""Module for calculating features related to overtime in previous games."""
+
 import pandas as pd
 
 
-def last_game_overtime(TRAINING_DF):
+def last_game_overtime(training_df):
+    """
+    Calculate whether the last game for each team in each season went to overtime.
 
-    TRAINING_DF["last_game_overtime"] = TRAINING_DF.groupby(["id_season", "tm"])[
+    Args:
+        training_df (pd.DataFrame): Input DataFrame containing game data.
+
+    Returns:
+        pd.DataFrame: DataFrame with a new 'last_game_overtime' column.
+    """
+    training_df["last_game_overtime"] = training_df.groupby(["id_season", "tm"])[
         "overtime"
     ].shift(1)
 
-    return TRAINING_DF
+    return training_df

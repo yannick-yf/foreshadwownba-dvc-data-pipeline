@@ -1,55 +1,66 @@
-
 import pandas as pd
 import numpy as np
 
-def average_ratio_win_loose_ext_game(TrainingSet):
 
-    TrainingSet["dummy_ext"] = np.where(TrainingSet["extdom"] == "ext", 1, 0)
-    TrainingSet["Win_at_ext"] = np.where(
-        (TrainingSet["dummy_ext"] == 1) & (TrainingSet["results"] == "W"), 1, 0
+def average_ratio_win_loose_ext_game(training_set):
+    """
+    Calculate average ratio of wins for external and domestic games.
+
+    Args:
+        training_set (pd.DataFrame): Input DataFrame containing game data.
+
+    Returns:
+        pd.DataFrame: Modified DataFrame with new calculated columns.
+    """
+    # External game calculations
+    training_set["dummy_ext"] = np.where(training_set["extdom"] == "ext", 1, 0)
+    training_set["win_at_ext"] = np.where(
+        (training_set["dummy_ext"] == 1) & (training_set["results"] == "W"), 1, 0
     )
-    TrainingSet["cumsum_ext"] = TrainingSet.groupby(["id_season", "tm"])[
+    training_set["cumsum_ext"] = training_set.groupby(["id_season", "tm"])[
         "dummy_ext"
     ].cumsum()
-    TrainingSet["cumsum_W_ext"] = TrainingSet.groupby(["id_season", "tm"])[
-        "Win_at_ext"
+    training_set["cumsum_w_ext"] = training_set.groupby(["id_season", "tm"])[
+        "win_at_ext"
     ].cumsum()
-    TrainingSet["Ratio_Win_Ext"] = (
-        TrainingSet["cumsum_W_ext"] / TrainingSet["cumsum_ext"]
+    training_set["ratio_win_ext"] = (
+        training_set["cumsum_w_ext"] / training_set["cumsum_ext"]
     )
-    TrainingSet["before_ratio_win_ext"] = TrainingSet["Ratio_Win_Ext"].shift(1)
-    TrainingSet["before_ratio_win_ext"] = TrainingSet["before_ratio_win_ext"].fillna(0)
+    training_set["before_ratio_win_ext"] = (
+        training_set["ratio_win_ext"].shift(1).fillna(0)
+    )
 
-    TrainingSet["dummy_dom"] = np.where(TrainingSet["extdom"] != "ext", 1, 0)
-    TrainingSet["Win_at_dom"] = np.where(
-        (TrainingSet["dummy_dom"] == 1) & (TrainingSet["results"] == "W"), 1, 0
+    # Domestic game calculations
+    training_set["dummy_dom"] = np.where(training_set["extdom"] != "ext", 1, 0)
+    training_set["win_at_dom"] = np.where(
+        (training_set["dummy_dom"] == 1) & (training_set["results"] == "W"), 1, 0
     )
-    TrainingSet["cumsum_dom"] = TrainingSet.groupby(["id_season", "tm"])[
+    training_set["cumsum_dom"] = training_set.groupby(["id_season", "tm"])[
         "dummy_dom"
     ].cumsum()
-    TrainingSet["cumsum_W_dom"] = TrainingSet.groupby(["id_season", "tm"])[
-        "Win_at_dom"
+    training_set["cumsum_w_dom"] = training_set.groupby(["id_season", "tm"])[
+        "win_at_dom"
     ].cumsum()
-    TrainingSet["Ratio_Win_Dom"] = (
-        TrainingSet["cumsum_W_dom"] / TrainingSet["cumsum_dom"]
+    training_set["ratio_win_dom"] = (
+        training_set["cumsum_w_dom"] / training_set["cumsum_dom"]
     )
-    TrainingSet["before_ratio_win_dom"] = TrainingSet["Ratio_Win_Dom"].shift(1)
-    TrainingSet["before_ratio_win_dom"] = TrainingSet["before_ratio_win_dom"].fillna(0)
-
-    TrainingSet = TrainingSet.drop(
-        [
-            "dummy_ext",
-            "cumsum_W_ext",
-            "cumsum_ext",
-            "Ratio_Win_Ext",
-            "Win_at_ext",
-            "Win_at_dom",
-            "dummy_dom",
-            "cumsum_W_dom",
-            "cumsum_dom",
-            "Ratio_Win_Dom",
-        ],
-        axis=1,
+    training_set["before_ratio_win_dom"] = (
+        training_set["ratio_win_dom"].shift(1).fillna(0)
     )
 
-    return TrainingSet
+    # Drop intermediate columns
+    columns_to_drop = [
+        "dummy_ext",
+        "cumsum_w_ext",
+        "cumsum_ext",
+        "ratio_win_ext",
+        "win_at_ext",
+        "win_at_dom",
+        "dummy_dom",
+        "cumsum_w_dom",
+        "cumsum_dom",
+        "ratio_win_dom",
+    ]
+    training_set = training_set.drop(columns=columns_to_drop)
+
+    return training_set

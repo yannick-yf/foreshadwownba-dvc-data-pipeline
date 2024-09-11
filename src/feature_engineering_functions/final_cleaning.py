@@ -1,8 +1,18 @@
+"""Module for final data cleaning operations."""
+
 import pandas as pd
 
 
-def final_cleaning(TRAINING_DF):
+def final_cleaning(training_df):
+    """
+    Perform final cleaning on the training DataFrame.
 
-    TRAINING_DF = TRAINING_DF[TRAINING_DF["id_season"] > TRAINING_DF["id_season"].min()]
+    This function removes the earliest season from the dataset.
 
-    return TRAINING_DF
+    Args:
+        training_df (pd.DataFrame): Input DataFrame containing training data.
+
+    Returns:
+        pd.DataFrame: Cleaned DataFrame with the earliest season removed.
+    """
+    return training_df[training_df["id_season"] > training_df["id_season"].min()]

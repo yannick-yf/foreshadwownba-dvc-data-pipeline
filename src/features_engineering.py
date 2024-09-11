@@ -1,8 +1,8 @@
-
 import pandas as pd
 import numpy as np
 
 from warnings import simplefilter
+
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 from typing import Text
@@ -26,7 +26,7 @@ from src.feature_engineering_functions.previous_days_average_features import (
 )
 from src.feature_engineering_functions.games_date_processing import (
     game_on_weekend_features,
-    exctract_days_of_week_from_date,
+    extract_days_of_week_from_date,
 )
 from src.feature_engineering_functions.average_ratio_win_loose_ext_game import (
     average_ratio_win_loose_ext_game,
@@ -66,7 +66,7 @@ def features_engineering_pipeline(config_path: Text) -> pd.DataFrame:
         .pipe(rest_days_between_games)
         .pipe(duration_trip_hours_between_cities)
         .pipe(previous_days_average_features)
-        .pipe(exctract_days_of_week_from_date)
+        .pipe(extract_days_of_week_from_date)
         .pipe(game_on_weekend_features)
         .pipe(average_ratio_win_loose_ext_game)
         .pipe(last_game_overtime)
