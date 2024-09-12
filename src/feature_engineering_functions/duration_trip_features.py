@@ -1,11 +1,12 @@
-# --------------------------------------------
-# Duration trip between two cities features
+"""
+Duration trip between two cities features
+"""
 
 import pandas as pd
 import numpy as np
 
 
-def duration_trip_hours_between_cities(training_df):
+def duration_trip_hours_between_cities(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate duration trip features between cities for NBA games.
 

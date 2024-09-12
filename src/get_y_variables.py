@@ -3,14 +3,13 @@ This module performs feature engineering on the NBA games training dataset.
 """
 
 import argparse
-from typing import Text
+from pathlib import Path
 
 import numpy as np
 import pandas as pd
 import yaml
 
 from src.utils.logs import get_logger
-
 
 
 def best_team_name(row) -> str:
@@ -72,7 +71,7 @@ def best_team_name(row) -> str:
     return val
 
 
-def get_variables(config_path: Text) -> pd.DataFrame:
+def get_variables(config_path: Path) -> pd.DataFrame:
     """
     Load and preprocess the NBA games training dataset.
 
@@ -82,7 +81,7 @@ def get_variables(config_path: Text) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The preprocessed training dataset.
     """
-    with open(config_path) as conf_file:
+    with open(config_path, encoding="utf-8") as conf_file:
         config_params = yaml.safe_load(conf_file)
 
     logger = get_logger(

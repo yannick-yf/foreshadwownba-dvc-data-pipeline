@@ -3,15 +3,14 @@ This module performs pre-cleaning on the NBA games training dataset.
 """
 
 import argparse
-from typing import Text
-
+from pathlib import Path
 import pandas as pd
 import yaml
 
 from src.utils.logs import get_logger
 
 
-def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
+def pre_cleaning_dataset(config_path: Path) -> pd.DataFrame:
     """
     Load and pre-clean the NBA games training dataset.
 
@@ -21,7 +20,7 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The pre-cleaned training dataset.
     """
-    with open(config_path) as conf_file:
+    with open(config_path, encoding="utf-8") as conf_file:
         config_params = yaml.safe_load(conf_file)
 
     logger = get_logger(
@@ -76,5 +75,4 @@ if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("--config-params", dest="config_params", required=True)
     args = arg_parser.parse_args()
-
     pre_cleaning_dataset(config_path=args.config_params)

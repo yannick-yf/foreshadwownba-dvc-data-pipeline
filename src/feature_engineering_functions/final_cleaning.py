@@ -3,7 +3,7 @@
 import pandas as pd
 
 
-def final_cleaning(training_df):
+def final_cleaning(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Perform final cleaning on the training DataFrame.
 

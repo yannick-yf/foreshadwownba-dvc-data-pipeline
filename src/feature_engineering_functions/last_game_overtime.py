@@ -3,7 +3,7 @@
 import pandas as pd
 
 
-def last_game_overtime(training_df):
+def last_game_overtime(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate whether the last game for each team in each season went to overtime.
 

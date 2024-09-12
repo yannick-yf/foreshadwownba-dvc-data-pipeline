@@ -9,17 +9,16 @@ References:
 
 import argparse
 import os
-from typing import Text
+from pathlib import Path
 
 import pandas as pd
 import yaml
 from dotenv import load_dotenv
-from pandas.io import sql
 from sqlalchemy import create_engine
 from src.utils.logs import get_logger
 
 
-def get_training_dataset(config_path: Text) -> pd.DataFrame:
+def get_training_dataset(config_path: Path) -> pd.DataFrame:
     """
     Load raw data from the MySQL database.
 
@@ -29,7 +28,7 @@ def get_training_dataset(config_path: Text) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The training dataset.
     """
-    with open(config_path) as conf_file:
+    with open(config_path, encoding="utf-8") as conf_file:
         config_params = yaml.safe_load(conf_file)
 
     # Loading variables from the .env file
@@ -40,12 +39,8 @@ def get_training_dataset(config_path: Text) -> pd.DataFrame:
     )
 
     engine = create_engine(
-        "mysql+pymysql://{user}:{pw}@{host}/{db}".format(
-            user=os.getenv("MYSQL_USERNAME"),
-            pw=os.getenv("MYSQL_PASSWORD"),
-            host=os.getenv("MYSQL_HOST"),
-            db=os.getenv("MYSQL_DATABASE"),
-        )
+        f"mysql+pymysql://{os.getenv('MYSQL_USERNAME')}:{os.getenv('MYSQL_PASSWORD')}"
+        f"@{os.getenv('MYSQL_HOST')}/{os.getenv('MYSQL_DATABASE')}"
     )
 
     nba_games_training_dataset = pd.read_sql(

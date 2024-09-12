@@ -1,8 +1,12 @@
-import pandas as pd
+"""
+Calculate average ratio of wins for external and domestic games.
+"""
+
 import numpy as np
+import pandas as pd
 
 
-def average_ratio_win_loose_ext_game(training_set):
+def average_ratio_win_loose_ext_game(training_set: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate average ratio of wins for external and domestic games.
 

@@ -4,7 +4,7 @@ import pandas as pd
 import numpy as np
 
 
-def extract_days_of_week_from_date(training_df):
+def extract_days_of_week_from_date(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Extract the day of the week from the game date.
 
@@ -18,7 +18,7 @@ def extract_days_of_week_from_date(training_df):
     return training_df
 
 
-def game_on_weekend_features(training_df):
+def game_on_weekend_features(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Create a feature indicating whether the game is on a weekend or weekday.
 

@@ -6,7 +6,7 @@ import pandas as pd
 pd.options.mode.chained_assignment = None
 
 
-def calculate_rest_days_between_games(training_df):
+def calculate_rest_days_between_games(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate the number of rest days between games for each team in each season.
 
@@ -17,20 +17,24 @@ def calculate_rest_days_between_games(training_df):
         pd.DataFrame: DataFrame with a new 'rest' column indicating days between games.
     """
     # Create a copy to avoid modifying the original DataFrame
-    df = training_df.copy()
+    training_df = training_df.copy()
 
     # Calculate the previous game date for each team in each season
-    df["game_date_lag"] = df.groupby(["id_season", "tm"])["game_date"].shift(1)
+    training_df["game_date_lag"] = training_df.groupby(["id_season", "tm"])[
+        "game_date"
+    ].shift(1)
 
     # Convert game dates to datetime if not already
-    df[["game_date_lag", "game_date"]] = df[["game_date_lag", "game_date"]].apply(
-        pd.to_datetime
-    )
+    training_df[["game_date_lag", "game_date"]] = training_df[
+        ["game_date_lag", "game_date"]
+    ].apply(pd.to_datetime)
 
     # Calculate the number of days between games
-    df["rest"] = (df["game_date"] - df["game_date_lag"]).dt.days
+    training_df["rest"] = (
+        training_df["game_date"] - training_df["game_date_lag"]
+    ).dt.days
 
     # Remove the temporary column
-    df = df.drop(columns=["game_date_lag"])
+    training_df = training_df.drop(columns=["game_date_lag"])
 
-    return df
+    return training_df

@@ -9,7 +9,7 @@ References:
 
 import argparse
 import os
-from typing import Text
+from pathlib import Path
 
 import pandas as pd
 import yaml
@@ -19,14 +19,14 @@ from sqlalchemy import create_engine, text
 from src.utils.logs import get_logger
 
 
-def load_training_dataset_to_db(config_path: Text) -> None:
+def load_training_dataset_to_db(config_path: Path) -> None:
     """
     Load the NBA games training dataset into a MySQL database.
 
     Args:
         config_path (Text): Path to the configuration file.
     """
-    with open(config_path) as conf_file:
+    with open(config_path, encoding="utf-8") as conf_file:
         config_params = yaml.safe_load(conf_file)
 
     # Loading variables from the .env file
@@ -40,12 +40,8 @@ def load_training_dataset_to_db(config_path: Text) -> None:
     training_dataset = pd.read_csv("./data/output/nba_games_training_dataset_final.csv")
 
     engine = create_engine(
-        "mysql+pymysql://{user}:{pw}@{host}/{db}".format(
-            user=os.getenv("MYSQL_USERNAME"),
-            pw=os.getenv("MYSQL_PASSWORD"),
-            host=os.getenv("MYSQL_HOST"),
-            db=os.getenv("MYSQL_DATABASE"),
-        )
+        f"mysql+pymysql://{os.getenv('MYSQL_USERNAME')}:{os.getenv('MYSQL_PASSWORD')}"
+        f"@{os.getenv('MYSQL_HOST')}/{os.getenv('MYSQL_DATABASE')}"
     )
 
     training_dataset.to_sql(
@@ -55,8 +51,9 @@ def load_training_dataset_to_db(config_path: Text) -> None:
     with engine.connect() as conn:
         query1 = text(
             """
-            ALTER TABLE training_dataset ADD COLUMN count_ID int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
-        """
+            ALTER TABLE training_dataset 
+            ADD COLUMN count_ID int(10) unsigned NOT NULL AUTO_INCREMENT PRIMARY KEY;
+            """
         )
         query2 = text(
             """

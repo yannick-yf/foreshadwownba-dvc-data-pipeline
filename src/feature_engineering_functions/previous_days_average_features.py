@@ -1,18 +1,28 @@
+"""
+Previous days features computation
+"""
+
 import pandas as pd
 import numpy as np
-import datetime
-import sys
 
 pd.options.mode.chained_assignment = None
 
 
-def previous_days_average_features(training_df):
+def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Calculate games average features from previous days.
+
+    Args:
+        training_df (pd.DataFrame): Input DataFrame containing game data.
+
+    Returns:
+        pd.DataFrame: DataFrame with new ratio average features.
+    """
 
     # ------------------------------
     # STEP 1
     subset_1 = training_df
     subset_1["Date"] = pd.to_datetime(subset_1["game_date"])
-    # subset_1 = subset_1.set_index('Date')
 
     # ------------------------------
     # STEP 2
