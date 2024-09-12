@@ -1,23 +1,34 @@
-
+"""Module for date-related feature engineering functions."""
 
 import pandas as pd
 import numpy as np
-# import datetime
-from datetime import datetime
 
-def exctract_days_of_week_from_date(TRAINING_DF):
-    
-    # The day of the week with Monday=0, Sunday=6.
-    # TRAINING_DF['day_of_week'] = pd.to_datetime(TRAINING_DF['game_date']).dt.dayofweek
-    
-    TRAINING_DF['day_of_week'] = pd.to_datetime(TRAINING_DF['game_date']).dt.day_name()
-    return TRAINING_DF
 
-def game_on_weekend_features(TRAINING_DF):
-    
-    TRAINING_DF['week_weekend'] = np.where(
-        TRAINING_DF['day_of_week'].isin(['Saturday', 'Sunday']),
-        'weekend',
-        'week')
+def extract_days_of_week_from_date(training_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Extract the day of the week from the game date.
 
-    return TRAINING_DF
+    Args:
+        training_df (pd.DataFrame): Input DataFrame containing game data.
+
+    Returns:
+        pd.DataFrame: DataFrame with a new 'day_of_week' column.
+    """
+    training_df["day_of_week"] = pd.to_datetime(training_df["game_date"]).dt.day_name()
+    return training_df
+
+
+def game_on_weekend_features(training_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Create a feature indicating whether the game is on a weekend or weekday.
+
+    Args:
+        training_df (pd.DataFrame): Input DataFrame containing game data with 'day_of_week' column.
+
+    Returns:
+        pd.DataFrame: DataFrame with a new 'week_weekend' column.
+    """
+    training_df["week_weekend"] = np.where(
+        training_df["day_of_week"].isin(["Saturday", "Sunday"]), "weekend", "week"
+    )
+    return training_df
