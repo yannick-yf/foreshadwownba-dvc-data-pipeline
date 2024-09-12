@@ -32,7 +32,9 @@ from src.feature_engineering_functions.average_ratio_win_loose_ext_game import (
     average_ratio_win_loose_ext_game,
 )
 from src.feature_engineering_functions.last_game_overtime import last_game_overtime
-from src.feature_engineering_functions.streack_w_l import calculate_streak_features
+from src.feature_engineering_functions.games_streak_features import (
+    calculate_streak_features,
+)
 from src.feature_engineering_functions.final_cleaning import final_cleaning
 
 

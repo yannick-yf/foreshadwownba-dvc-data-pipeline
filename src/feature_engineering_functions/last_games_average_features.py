@@ -62,6 +62,7 @@ def previous_games_average_features(training_df):
 
     return training_df
 
+
 def previous_games_ratio_average_features(training_df):
     """
     Calculate ratio average features from previous games.
@@ -72,19 +73,19 @@ def previous_games_ratio_average_features(training_df):
     Returns:
         pd.DataFrame: DataFrame with new ratio average features.
     """
-    df = training_df[
+    training_df_subset = training_df[
         ["id_season", "game_nb", "game_date", "extdom", "tm", "opp", "results"]
     ]
-    df["w_for_ratio"] = np.where(df["results"] == "W", 1, 0)
-    df["cum_sum_win"] = df.groupby(["id_season", "tm"])["w_for_ratio"].cumsum()
-    df["average_ratio"] = df["cum_sum_win"] / df["game_nb"]
+    training_df_subset["w_for_ratio"] = np.where(training_df_subset["results"] == "W", 1, 0)
+    training_df_subset["cum_sum_win"] = training_df_subset.groupby(["id_season", "tm"])["w_for_ratio"].cumsum()
+    training_df_subset["average_ratio"] = training_df_subset["cum_sum_win"] / training_df_subset["game_nb"]
 
-    df["before_average_W_ratio"] = df.groupby(["id_season", "tm"])[
+    training_df_subset["before_average_W_ratio"] = training_df_subset.groupby(["id_season", "tm"])[
         "average_ratio"
     ].shift(1)
 
-    df_ratio_last_5_games = calculate_rolling_ratio(df, window=5)
-    df_ratio_last_10_games = calculate_rolling_ratio(df, window=10)
+    df_ratio_last_5_games = calculate_rolling_ratio(training_df_subset, window=5)
+    df_ratio_last_10_games = calculate_rolling_ratio(training_df_subset, window=10)
 
     df_ratio_last = pd.merge(
         df_ratio_last_5_games,
@@ -94,7 +95,7 @@ def previous_games_ratio_average_features(training_df):
     )
 
     final = pd.merge(
-        df,
+        training_df_subset,
         df_ratio_last,
         how="left",
         on=["id_season", "game_date", "tm"],
@@ -123,7 +124,7 @@ def previous_games_ratio_average_features(training_df):
     )
 
 
-def calculate_rolling_ratio(df, window):
+def calculate_rolling_ratio(training_df, window):
     """
     Calculate rolling ratio for a given window size.
 
@@ -135,53 +136,54 @@ def calculate_rolling_ratio(df, window):
         pd.DataFrame: DataFrame with calculated rolling ratio.
     """
     suffix = "five" if window == 5 else "ten"
-    df_ratio = (
-        df.set_index("game_date")
+    training_df_ratio = (
+        training_df.set_index("game_date")
         .groupby(["id_season", "tm"])
         .rolling(window)["w_for_ratio"]
         .sum()
         .reset_index()
     )
-    df_ratio[f"before_average_last{suffix}game_W_ratio"] = (
-        df_ratio["w_for_ratio"] / window
+    training_df_ratio[f"before_average_last{suffix}game_W_ratio"] = (
+        training_df_ratio["w_for_ratio"] / window
     )
-    df_ratio[f"before_average_last{suffix}game_W_ratio"] = df_ratio.groupby(
+    training_df_ratio[f"before_average_last{suffix}game_W_ratio"] = training_df_ratio.groupby(
         ["id_season", "tm"]
     )[f"before_average_last{suffix}game_W_ratio"].shift(1)
-    return df_ratio
+    return training_df_ratio
 
 
-def fill_na_values(df):
+def fill_na_values(training_df):
     """
     Fill NA values in the DataFrame.
 
     Args:
-        df (pd.DataFrame): Input DataFrame.
+        training_df (pd.DataFrame): Input DataFrame.
     """
-    df["before_average_lastfivegame_W_ratio"] = df[
+    training_df["before_average_lastfivegame_W_ratio"] = training_df[
         "before_average_lastfivegame_W_ratio"
-    ].fillna(df["before_average_W_ratio"])
-    df["before_average_lasttengame_W_ratio"] = df[
+    ].fillna(training_df["before_average_W_ratio"])
+    training_df["before_average_lasttengame_W_ratio"] = training_df[
         "before_average_lasttengame_W_ratio"
-    ].fillna(df["before_average_lastfivegame_W_ratio"])
-    df["before_average_lasttengame_W_ratio"] = df[
+    ].fillna(training_df["before_average_lastfivegame_W_ratio"])
+    training_df["before_average_lasttengame_W_ratio"] = training_df[
         "before_average_lasttengame_W_ratio"
-    ].fillna(df["before_average_W_ratio"])
+    ].fillna(training_df["before_average_W_ratio"])
 
 
-def calculate_diff_ratios(df):
+def calculate_diff_ratios(training_df):
     """
     Calculate difference ratios.
 
     Args:
         df (pd.DataFrame): Input DataFrame.
     """
-    df["diff_all_minus_lastfivegame_W_ratio"] = (
-        df["before_average_W_ratio"] - df["before_average_lastfivegame_W_ratio"]
+    training_df["diff_all_minus_lastfivegame_W_ratio"] = (
+        training_df["before_average_W_ratio"] - training_df["before_average_lastfivegame_W_ratio"]
     )
-    df["diff_all_minus_lasttengame_W_ratio"] = (
-        df["before_average_W_ratio"] - df["before_average_lasttengame_W_ratio"]
+    training_df["diff_all_minus_lasttengame_W_ratio"] = (
+        training_df["before_average_W_ratio"] - training_df["before_average_lasttengame_W_ratio"]
     )
+
 
 def previous_season_ratio_features(training_df):
     """
@@ -194,12 +196,7 @@ def previous_season_ratio_features(training_df):
         pd.DataFrame: DataFrame with new previous season ratio features.
     """
     max_game_id = calculate_max_game_id(training_df)
-    training_df = pd.merge(
-        training_df,
-        max_game_id,
-        how="left",
-        on=["id_season", "tm"]
-    )
+    training_df = pd.merge(training_df, max_game_id, how="left", on=["id_season", "tm"])
 
     last_season_ratio_features = calculate_last_season_ratio(training_df)
 
@@ -208,15 +205,16 @@ def previous_season_ratio_features(training_df):
         last_season_ratio_features,
         how="left",
         left_on=["id_season", "tm"],
-        right_on=["id_season_plus1", "tm"]
+        right_on=["id_season_plus1", "tm"],
     )
 
     training_df = training_df.drop(columns=["id_season_plus1", "max_game_id"])
     training_df["before_season_ratio"] = training_df["before_season_ratio"].fillna(0)
-    
+
     return training_df
 
-def calculate_max_game_id(df):
+
+def calculate_max_game_id(training_df):
     """
     Calculate the maximum game ID for each season and team.
 
@@ -226,11 +224,12 @@ def calculate_max_game_id(df):
     Returns:
         pd.DataFrame: DataFrame with maximum game IDs.
     """
-    max_game_id = df.groupby(["id_season", "tm"])["game_nb"].max().reset_index()
+    max_game_id = training_df.groupby(["id_season", "tm"])["game_nb"].max().reset_index()
     max_game_id.columns = ["id_season", "tm", "max_game_id"]
     return max_game_id
 
-def calculate_last_season_ratio(df):
+
+def calculate_last_season_ratio(training_df):
     """
     Calculate the ratio features for the last game of each season.
 
@@ -240,7 +239,9 @@ def calculate_last_season_ratio(df):
     Returns:
         pd.DataFrame: DataFrame with last season ratio features.
     """
-    last_season_ratio = df[df["game_nb"] == df["max_game_id"]]
-    last_season_ratio["before_season_ratio"] = last_season_ratio["w_tot"] / last_season_ratio["max_game_id"]
+    last_season_ratio = training_df[training_df["game_nb"] == training_df["max_game_id"]]
+    last_season_ratio["before_season_ratio"] = (
+        last_season_ratio["w_tot"] / last_season_ratio["max_game_id"]
+    )
     last_season_ratio["id_season_plus1"] = last_season_ratio["id_season"] + 1
     return last_season_ratio[["id_season_plus1", "tm", "before_season_ratio"]]

@@ -1,17 +1,27 @@
-import pandas as pd
-import numpy as np
-from typing import Text
-import yaml
+"""
+This module performs pre-cleaning on the NBA games training dataset.
+"""
+
 import argparse
+from typing import Text
+
+import pandas as pd
+import yaml
+
 from src.utils.logs import get_logger
 
 
 def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
-    """Load raw data.
-    Args:
-        config_path {Text}: path to config
     """
-    with open("params.yaml") as conf_file:
+    Load and pre-clean the NBA games training dataset.
+
+    Args:
+        config_path (Text): Path to the configuration file.
+
+    Returns:
+        pd.DataFrame: The pre-cleaned training dataset.
+    """
+    with open(config_path) as conf_file:
         config_params = yaml.safe_load(conf_file)
 
     logger = get_logger(
@@ -21,7 +31,7 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     nba_games_training_dataset = pd.read_csv(
         "./data/input/nba_games_training_dataset.csv"
     )
-    logger.info("Shape of the Dataframe " + str(nba_games_training_dataset.shape))
+    logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
     nba_games_training_dataset["overtime"] = nba_games_training_dataset[
         "overtime"
@@ -36,7 +46,7 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
     )
 
     # Column Selection
-    column_to_select = [
+    columns_to_select = [
         "id_season",
         "id",
         "game_nb",
@@ -52,9 +62,9 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
         "streak_w_l",
     ]
 
-    nba_games_training_dataset = nba_games_training_dataset[column_to_select]
+    nba_games_training_dataset = nba_games_training_dataset[columns_to_select]
 
-    logger.info("Shape of the Dataframe " + str(nba_games_training_dataset.shape))
+    logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
     nba_games_training_dataset.to_csv(
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv", index=False
     )
@@ -63,11 +73,8 @@ def pre_cleaning_dataset(config_path: Text) -> pd.DataFrame:
 
 
 if __name__ == "__main__":
-
     arg_parser = argparse.ArgumentParser()
-
     arg_parser.add_argument("--config-params", dest="config_params", required=True)
-
     args = arg_parser.parse_args()
 
     pre_cleaning_dataset(config_path=args.config_params)

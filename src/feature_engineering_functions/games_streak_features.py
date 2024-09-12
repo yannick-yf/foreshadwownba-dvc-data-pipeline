@@ -3,6 +3,7 @@
 import pandas as pd
 import numpy as np
 
+
 def calculate_streak_features(training_df):
     """
     Calculate win-loss streak features for each team in each season.
@@ -20,9 +21,7 @@ def calculate_streak_features(training_df):
 
     # Adjust the streak value to be negative for losses
     df["streak_w_l_2"] = np.where(
-        df["streak_w_l"].str[0] == "L",
-        df["streak_w_l_2"] * -1,
-        df["streak_w_l_2"]
+        df["streak_w_l"].str[0] == "L", df["streak_w_l_2"] * -1, df["streak_w_l_2"]
     )
 
     # Calculate the streak value from the previous game
