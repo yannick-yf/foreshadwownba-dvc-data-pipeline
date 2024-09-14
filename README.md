@@ -1,6 +1,6 @@
 # NBA Games Prediction Pipeline
 
-This repository contains a data pipeline for predicting the outcomes of NBA games. The pipeline is built using DVC (Data Version Control) and consists of the following stages:
+This repository contains a data pipeline for generating the datasets used for modeling and predicting the outcomes of NBA games. The pipeline is built using DVC (Data Version Control) and consists of the following stages:
 
 ## Stages
 
