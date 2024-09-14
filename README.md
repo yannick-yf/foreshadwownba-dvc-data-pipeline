@@ -72,13 +72,17 @@ git clone https://github.com/your-repo/nba-games-prediction-pipeline.git
 2. Install the required dependencies:
 
 poetry shell
+
 poetry update
 
 3. Set up the necessary environment variables for database connections and other configurations.
 
 MYSQL_USERNAME=
+
 MYSQL_PASSWORD=
+
 MYSQL_DATABASE=
+
 MYSQL_HOST=
 
 4. Run the end-to-end data pipeline:
@@ -89,5 +93,6 @@ dvc repro
 This command will execute all the stages in the pipeline, from retrieving the training datasets to loading the final processed dataset into the database.
 
 ## Contributing
+
 
 Contributions are welcome! Please open an issue or submit a pull request for any improvements or bug fixes.
