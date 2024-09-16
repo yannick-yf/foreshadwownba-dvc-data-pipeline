@@ -8,7 +8,7 @@ class TestLastGameOvertime(TestCase):
     def setUp(self) -> None:
         self.season = 2024
         self.team='ATL'
-        self.path_nba_logs = "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
+        self.path_nba_gamelogs = "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
 
     def test_last_game_overtime(self):
         """
@@ -19,7 +19,7 @@ class TestLastGameOvertime(TestCase):
         """
 
         nba_games_training_dataset_pre_cleaned = pd.read_csv(
-            self.path_nba_logs
+            self.path_nba_gamelogs
             )
         
         nba_games_training_dataset_pre_cleaned = nba_games_training_dataset_pre_cleaned.sort_values(
