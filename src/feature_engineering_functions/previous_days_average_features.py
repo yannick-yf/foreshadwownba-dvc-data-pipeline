@@ -138,21 +138,21 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
     )
 
     last_days_features["sum_duration_trip_y_n_last_5days"] = round(
-        last_days_features.groupby(["id_season", "tm"])[
-            "duration_trip_y_n"
-        ].transform(lambda x: x.rolling(5).sum()),
+        last_days_features.groupby(["id_season", "tm"])["duration_trip_y_n"].transform(
+            lambda x: x.rolling(5).sum()
+        ),
         1,
     )
     last_days_features["sum_duration_trip_y_n_last_7days"] = round(
-        last_days_features.groupby(["id_season", "tm"])[
-            "duration_trip_y_n"
-        ].transform(lambda x: x.rolling(7).sum()),
+        last_days_features.groupby(["id_season", "tm"])["duration_trip_y_n"].transform(
+            lambda x: x.rolling(7).sum()
+        ),
         1,
     )
     last_days_features["sum_duration_trip_y_n_10days"] = round(
-        last_days_features.groupby(["id_season", "tm"])[
-            "duration_trip_y_n"
-        ].transform(lambda x: x.rolling(10).sum()),
+        last_days_features.groupby(["id_season", "tm"])["duration_trip_y_n"].transform(
+            lambda x: x.rolling(10).sum()
+        ),
         1,
     )
 

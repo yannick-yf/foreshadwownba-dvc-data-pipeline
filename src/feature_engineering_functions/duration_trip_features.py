@@ -5,6 +5,7 @@ Duration trip between two cities features
 import pandas as pd
 import numpy as np
 
+
 def duration_trip_hours_between_cities(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Calculate duration trip features between cities for NBA games.
@@ -40,9 +41,10 @@ def duration_trip_hours_between_cities(training_df: pd.DataFrame) -> pd.DataFram
 
     return training_df
 
+
 def _fillna_trip_features(
     dist_features_df: pd.DataFrame,
-    ) -> pd.DataFrame:
+) -> pd.DataFrame:
     # Fill na values
     fill_columns = [
         "before_average_lastfivegame_duration_trip",
@@ -66,10 +68,11 @@ def _fillna_trip_features(
 
     return dist_features_df
 
+
 def _get_duration_trip_features(
     dist_features_df: pd.DataFrame,
 ) -> pd.DataFrame:
-    
+
     # Features Creation from duration traject
     group_columns = ["id_season", "tm"]
 
@@ -106,6 +109,7 @@ def _get_duration_trip_features(
 
     return dist_features_df
 
+
 def _get_distance_between_cities(
     city_name: pd.DataFrame,
     data_city_distance: pd.DataFrame,
@@ -124,7 +128,8 @@ def _get_distance_between_cities(
     """
 
     # The idea of this code is to create city_1 and city_2
-    # city_1 is the city where the team team come from. If previous game is ext the city is the opp else this is tm
+    # city_1 is the city where the team team come from. 
+    # If previous game is ext the city is the opp else this is tm
     # city_2 is the city where the game is.
 
     dist_features_df["team_abrev_from"] = np.where(
