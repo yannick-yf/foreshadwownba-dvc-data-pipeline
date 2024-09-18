@@ -76,9 +76,7 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
     )
 
-    training_dataset = training_dataset.sort_values(
-        ['id_season','tm', 'game_nb']
-    )
+    training_dataset = training_dataset.sort_values(["id_season", "tm", "game_nb"])
 
     training_dataset_w_features = (
         training_dataset.pipe(copy_df)

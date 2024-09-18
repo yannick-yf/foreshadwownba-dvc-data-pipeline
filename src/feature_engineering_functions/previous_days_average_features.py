@@ -26,7 +26,7 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
 
     # ------------------------------
     # STEP 2
-    subset_2 = training_df[["id_season", "game_date", "tm", "duration_trajet"]]
+    subset_2 = training_df[["id_season", "game_date", "tm", "duration_trip"]]
 
     # ------------------------------
     # STEP 3
@@ -74,9 +74,9 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
         0,
     )
 
-    last_days_features["duration_trajet_y_n"] = np.where(
+    last_days_features["duration_trip_y_n"] = np.where(
         (last_days_features["date"] == last_days_features["game_date"]),
-        last_days_features["duration_trajet"],
+        last_days_features["duration_trip"],
         0,
     )
 
@@ -137,21 +137,21 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
         1,
     )
 
-    last_days_features["sum_duration_trajet_y_n_last_5days"] = round(
+    last_days_features["sum_duration_trip_y_n_last_5days"] = round(
         last_days_features.groupby(["id_season", "tm"])[
-            "duration_trajet_y_n"
+            "duration_trip_y_n"
         ].transform(lambda x: x.rolling(5).sum()),
         1,
     )
-    last_days_features["sum_duration_trajet_y_n_last_7days"] = round(
+    last_days_features["sum_duration_trip_y_n_last_7days"] = round(
         last_days_features.groupby(["id_season", "tm"])[
-            "duration_trajet_y_n"
+            "duration_trip_y_n"
         ].transform(lambda x: x.rolling(7).sum()),
         1,
     )
-    last_days_features["sum_duration_trajet_y_n_10days"] = round(
+    last_days_features["sum_duration_trip_y_n_10days"] = round(
         last_days_features.groupby(["id_season", "tm"])[
-            "duration_trajet_y_n"
+            "duration_trip_y_n"
         ].transform(lambda x: x.rolling(10).sum()),
         1,
     )
@@ -164,7 +164,7 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
         keep="first",
     )
     last_days_features = last_days_features.drop(
-        ["game_nb", "extdom", "duration_trajet", "game_y_n", "duration_trajet_y_n"],
+        ["game_nb", "extdom", "duration_trip", "game_y_n", "duration_trip_y_n"],
         axis=1,
     )
 
@@ -182,26 +182,26 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
 
     # -----------------------------------
 
-    training_df["sum_duration_trajet_y_n_last_5days"] = training_df[
-        "sum_duration_trajet_y_n_last_5days"
-    ].fillna(training_df["duration_trajet"])
+    training_df["sum_duration_trip_y_n_last_5days"] = training_df[
+        "sum_duration_trip_y_n_last_5days"
+    ].fillna(training_df["duration_trip"])
 
-    training_df["sum_duration_trajet_y_n_last_7days"] = training_df[
-        "sum_duration_trajet_y_n_last_7days"
-    ].fillna(training_df["sum_duration_trajet_y_n_last_5days"])
-    training_df["sum_duration_trajet_y_n_last_7days"] = training_df[
-        "sum_duration_trajet_y_n_last_7days"
-    ].fillna(training_df["duration_trajet"])
+    training_df["sum_duration_trip_y_n_last_7days"] = training_df[
+        "sum_duration_trip_y_n_last_7days"
+    ].fillna(training_df["sum_duration_trip_y_n_last_5days"])
+    training_df["sum_duration_trip_y_n_last_7days"] = training_df[
+        "sum_duration_trip_y_n_last_7days"
+    ].fillna(training_df["duration_trip"])
 
-    training_df["sum_duration_trajet_y_n_10days"] = training_df[
-        "sum_duration_trajet_y_n_10days"
-    ].fillna(training_df["sum_duration_trajet_y_n_last_7days"])
-    training_df["sum_duration_trajet_y_n_10days"] = training_df[
-        "sum_duration_trajet_y_n_10days"
-    ].fillna(training_df["sum_duration_trajet_y_n_last_5days"])
-    training_df["sum_duration_trajet_y_n_10days"] = training_df[
-        "sum_duration_trajet_y_n_10days"
-    ].fillna(training_df["duration_trajet"])
+    training_df["sum_duration_trip_y_n_10days"] = training_df[
+        "sum_duration_trip_y_n_10days"
+    ].fillna(training_df["sum_duration_trip_y_n_last_7days"])
+    training_df["sum_duration_trip_y_n_10days"] = training_df[
+        "sum_duration_trip_y_n_10days"
+    ].fillna(training_df["sum_duration_trip_y_n_last_5days"])
+    training_df["sum_duration_trip_y_n_10days"] = training_df[
+        "sum_duration_trip_y_n_10days"
+    ].fillna(training_df["duration_trip"])
 
     # -------------------------------
 

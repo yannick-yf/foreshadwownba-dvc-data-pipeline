@@ -9,8 +9,8 @@ from src.feature_engineering_functions.games_date_processing import (
 
 class TestLastGameDateProcessing(TestCase):
     def setUp(self) -> None:
-        self.season = 2024
-        self.team='ATL'
+        self.season = 2012
+        self.team='MIA'
         self.path_nba_gamelogs = "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
         self.weekdays_reference = sorted(['Sunday', 'Tuesday', 'Friday', 'Wednesday', 'Thursday', 'Monday', 'Saturday'])
 
@@ -35,8 +35,8 @@ class TestLastGameDateProcessing(TestCase):
             )
         
         nba_games_w_days_of_week_from_date = nba_games_w_days_of_week_from_date[
-            (nba_games_w_days_of_week_from_date['tm']=='MIA') &
-            (nba_games_w_days_of_week_from_date['id_season']==2012)]
+            (nba_games_w_days_of_week_from_date['tm']==self.season) &
+            (nba_games_w_days_of_week_from_date['id_season']==self.season)]
         
         # Id of the game for where the team played OT
         day_of_week_values = nba_games_w_days_of_week_from_date['day_of_week'].value_counts()
