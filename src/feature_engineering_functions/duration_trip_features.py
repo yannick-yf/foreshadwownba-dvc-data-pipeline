@@ -128,7 +128,7 @@ def _get_distance_between_cities(
     """
 
     # The idea of this code is to create city_1 and city_2
-    # city_1 is the city where the team team come from. 
+    # city_1 is the city where the team team come from.
     # If previous game is ext the city is the opp else this is tm
     # city_2 is the city where the game is.
 
