@@ -39,7 +39,6 @@ from src.utils.logs import get_logger
 
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
-
 def copy_df(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Create a copy of the input DataFrame.
