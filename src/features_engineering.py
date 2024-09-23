@@ -39,7 +39,6 @@ from src.utils.logs import get_logger
 
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
-
 def copy_df(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     Create a copy of the input DataFrame.
@@ -75,6 +74,8 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
     training_dataset = pd.read_csv(
         "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
     )
+
+    training_dataset = training_dataset.sort_values(["id_season", "tm", "game_nb"])
 
     training_dataset_w_features = (
         training_dataset.pipe(copy_df)
