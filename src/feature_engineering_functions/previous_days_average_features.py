@@ -128,7 +128,7 @@ def _fillna_previous_days_average_features(training_df: pd.DataFrame) -> pd.Data
     feature_groups = [
         {
             "prefix": "sum_duration_trip_y_n",
-            "days": ["last_5days", "last_7days", "10days"],
+            "days": ["last_5days", "last_7days", "last_10days"],
             "fallback": "duration_trip",
         },
         {
