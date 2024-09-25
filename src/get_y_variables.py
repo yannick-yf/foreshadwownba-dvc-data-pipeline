@@ -115,7 +115,7 @@ def get_variables(config_path: Path) -> pd.DataFrame:
     )
 
     training_df.to_csv(
-        "./data/output/nba_games_training_dataset_final.csv", index=False
+        "./data/processed/nba_games_training_dataset_final.csv", index=False
     )
 
     logger.info("Pre Cleaned NBA games data step complete")

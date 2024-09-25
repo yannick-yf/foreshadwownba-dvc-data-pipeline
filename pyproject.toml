@@ -14,6 +14,7 @@ dvc = {extras = ["s3"], version = "^3.38.1"}
 pymysql = "*"
 sqlalchemy = "*"
 python-dotenv  = "*"
+scikit-learn = "*"
 
 [tool.poetry.dev-dependencies]
 coverage = {extras = ["toml"], version = "6.5.*"}
@@ -26,6 +27,8 @@ pylint = "2.17.*"
 python-decouple = "3.6"
 mkdocs = "1.4.*"
 importlib-resources="6.0.1"
+pandantic = "*"
+skimpy = "0.0.15"
 
 [build-system]
 requires = ["poetry-core"]

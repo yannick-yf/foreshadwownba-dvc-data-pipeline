@@ -198,8 +198,8 @@ stages:
       size: 2559722
     - path: src/features_engineering.py
       hash: md5
-      md5: c3f255ef68d195f71b8559ee58b172ed
-      size: 3706
+      md5: 0bebe0694c6a35ac17b0627ccbdae8f9
+      size: 3854
     params:
       params.yaml:
         base:
@@ -210,19 +210,19 @@ stages:
     outs:
     - path: ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
       hash: md5
-      md5: 9d82b7baa8e129f73b3e29493e518506
-      size: 13019500
+      md5: 35db2fc8a5e8c0b43dc34609a0e55898
+      size: 13684344
   get_y_variables:
     cmd: python3 -m src.get_y_variables --config=params.yaml
     deps:
     - path: ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
       hash: md5
-      md5: 9d82b7baa8e129f73b3e29493e518506
-      size: 13019500
+      md5: 35db2fc8a5e8c0b43dc34609a0e55898
+      size: 13684344
     - path: src/get_y_variables.py
       hash: md5
-      md5: 07931b4c123127d01a40dd47f3a6554e
-      size: 4145
+      md5: 047af8ec7baaae1fb4d25a13951d54e7
+      size: 4148
     params:
       params.yaml:
         base:
@@ -231,10 +231,10 @@ stages:
           nba_games_training_dataset: nba_games_training_dataset
           player_attributes_salaries_dataset: player_attributes_salaries_dataset
     outs:
-    - path: ./data/output/nba_games_training_dataset_final.csv
+    - path: ./data/processed/nba_games_training_dataset_final.csv
       hash: md5
-      md5: 62017f2787ce7f284ee596847f2bf76d
-      size: 13279459
+      md5: f3628c981082460b20c1cfb06eef601b
+      size: 13944303
   load_training_dataset_to_db:
     cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
     deps:
@@ -253,3 +253,26 @@ stages:
         get_training_dataset:
           nba_games_training_dataset: nba_games_training_dataset
           player_attributes_salaries_dataset: player_attributes_salaries_dataset
+  post_cleaning_dataset:
+    cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
+    deps:
+    - path: ./data/processed/nba_games_training_dataset_final.csv
+      hash: md5
+      md5: f3628c981082460b20c1cfb06eef601b
+      size: 13944303
+    - path: src/post_cleaning_dataset.py
+      hash: md5
+      md5: 806a289bc4976e3ac5606c82ef257cf1
+      size: 1807
+    params:
+      params.yaml:
+        base:
+          log_level: INFO
+        get_training_dataset:
+          nba_games_training_dataset: nba_games_training_dataset
+          player_attributes_salaries_dataset: player_attributes_salaries_dataset
+    outs:
+    - path: ./data/output/nba_games_training_dataset_final_post_cleaned.csv
+      hash: md5
+      md5: bbabb2ad19b33469adf0327cdabfe0ed
+      size: 12224511
