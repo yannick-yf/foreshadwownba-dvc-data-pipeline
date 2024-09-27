@@ -39,10 +39,45 @@ except ImportError:
 
 from importlib.metadata import PackageNotFoundError, version
 
-try:
-    __version__ = version("skimpy")
-except PackageNotFoundError:
-    __version__ = "unknown"
+"""
+This module performs pre-cleaning on the NBA games training dataset.
+"""
+
+import argparse
+from pathlib import Path
+import pandas as pd
+import yaml
+
+from src.utils.logs import get_logger
+
+
+def training_dataset_assessment(config_path: Path) -> pd.DataFrame:
+    """
+    """
+    with open(config_path, encoding="utf-8") as conf_file:
+        config_params = yaml.safe_load(conf_file)
+
+    logger = get_logger(
+        "POST_CLEANED_DATASET", log_level=config_params["base"]["log_level"]
+    )
+
+    nba_games_training_dataset = pd.read_csv(
+        "./data/output/nba_games_training_dataset_final_post_cleaned.csv"
+    )
+    logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
+
+    logger.info("Post Cleaned NBA games data step complete")
+
+if __name__ == "__main__":
+    arg_parser = argparse.ArgumentParser()
+    arg_parser.add_argument("--config-params", dest="config_params", required=True)
+    args = arg_parser.parse_args()
+    training_dataset_assessment(config_path=args.config_params)
+
+# try:
+#     __version__ = version("skimpy")
+# except PackageNotFoundError:
+#     __version__ = "unknown"
 
 NULL_VALUES = {np.nan, "", None}
 

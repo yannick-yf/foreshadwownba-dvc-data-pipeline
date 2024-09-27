@@ -35,8 +35,6 @@ def post_cleaning_dataset(config_path: Path) -> pd.DataFrame:
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop([
             'game_date', 
-            # 'tm', 
-            # 'opp', 
             'w_tot', 
             'overtime', 
             'streak_w_l', 
