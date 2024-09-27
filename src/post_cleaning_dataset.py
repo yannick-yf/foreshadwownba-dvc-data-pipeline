@@ -35,8 +35,8 @@ def post_cleaning_dataset(config_path: Path) -> pd.DataFrame:
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop([
             'game_date', 
-            'tm', 
-            'opp', 
+            # 'tm', 
+            # 'opp', 
             'w_tot', 
             'overtime', 
             'streak_w_l', 
@@ -46,6 +46,8 @@ def post_cleaning_dataset(config_path: Path) -> pd.DataFrame:
             'name_win_team',
             'day_of_week'], 
         axis=1)
+    
+    nba_games_training_dataset = nba_games_training_dataset.dropna()
     
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 

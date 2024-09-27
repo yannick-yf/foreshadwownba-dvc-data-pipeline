@@ -54,14 +54,14 @@ stages:
       - get_training_dataset
     outs:
       - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
-  # load_training_dataset_to_db:
-  #   cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
-  #   deps:
-  #     - src/load_training_dataset_to_db.py
-  #     - ./data/output/nba_games_training_dataset_final.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
+  load_training_dataset_to_db:
+    cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
+    deps:
+      - src/load_training_dataset_to_db.py
+      - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
+    params:
+      - base
+      - get_training_dataset
 
       
 

@@ -37,7 +37,7 @@ def load_training_dataset_to_db(config_path: Path) -> None:
     )
 
     # Read the data to insert into the database
-    training_dataset = pd.read_csv("./data/output/nba_games_training_dataset_final.csv")
+    training_dataset = pd.read_csv("./data/output/nba_games_training_dataset_final_post_cleaned.csv")
 
     engine = create_engine(
         f"mysql+pymysql://{os.getenv('MYSQL_USERNAME')}:{os.getenv('MYSQL_PASSWORD')}"

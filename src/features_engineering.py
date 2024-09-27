@@ -110,7 +110,6 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
     logger.info("Feature Engineering Generation step complete")
     return training_dataset_w_features
 
-
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()
     arg_parser.add_argument("--config-params", dest="config_params", required=True)
