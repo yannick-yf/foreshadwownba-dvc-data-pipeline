@@ -50,6 +50,86 @@ import yaml
 
 from src.utils.logs import get_logger
 
+################# Pydantic ################
+
+# Standard Library imports
+from datetime import datetime
+import enum
+
+# 3rd Party package imports
+import pandas as pd
+import pydantic
+
+# Enums for limiting string data in our model
+
+class GenderEnum(enum.Enum):
+    M = 'M'
+    F = 'F'
+    NB = 'NB'
+
+
+class ClassEnum(enum.Enum):
+    Druid = 'Druid'
+    Fighter = 'Fighter'
+    Warlock = 'Warlock'
+    Ranger = 'Ranger'
+    Bard = 'Bard'
+    Sorcerer = 'Sorcerer'
+    Paladin = 'Paladin'
+    Rogue = 'Rogue'
+    Wizard = 'Wizard'
+    Monk = 'Monk'
+    Barbarian = 'Barbarian'
+    Cleric = 'Cleric'
+
+
+class RaceEnum(enum.Enum):
+    Human = 'Human'
+    Dwarf = 'Dwarf'
+    Halfling = 'Halfling'
+    Elf = 'Elf'
+    Dragonborn = 'Dragonborn'
+    Tiefling = 'Tiefling'
+    Half_Orc = 'Half-Orc'
+    Gnome = 'Gnome'
+    Half_Elf = 'Half-Elf'
+
+class RpgCharacterModel(pydantic.BaseModel):
+    DATE: datetime
+    NAME: str = pydantic.Field(...)
+    GENDER: GenderEnum
+    RACE: RaceEnum = pydantic.Field(...)
+    CLASS: ClassEnum = pydantic.Field(...)
+    HOME: str
+    GUILD: str
+    PAY: int = pydantic.Field(..., ge=1, le=500)
+
+def validate_df_data(df: pd.DataFrame, model: pydantic.BaseModel, index_offset: int = 2) -> tuple[list, list]:
+    # Python index starts at 0, excel at 1, and 1 row for the header in Excel
+
+    #capturing our good data and our bad data
+    good_data = []
+    bad_data = []
+    df_rows = df.to_dict(orient='records')
+    for index, row in enumerate(df_rows):
+        try:
+            model(**row)  #unpacks our dictionary into our keyword arguments
+            good_data.append(row)  #appends valid data to a new list of dictionaries
+        except pydantic.ValidationError as e:
+            # Adds all validation error messages associated with the error
+            # and adds them to the dictionary
+            row['Errors'] = [error_message['msg'] for error_message in e.errors()]
+            # Python index starts at 0, excel at 1, and 1 row for the header in excel
+            row['Error_row_num'] = index + index_offset
+            bad_data.append(row)  #appends bad data to a different list of dictionaries
+
+    return (good_data, bad_data)
+
+# df = pd.read_excel('sample_dnd_character_data.xlsx')
+# valid_data, invalid_data = validate_df_data(df, RpgCharacterModel, index_offset=2)
+
+############################################
+
 
 def training_dataset_assessment(config_path: Path) -> pd.DataFrame:
     """
