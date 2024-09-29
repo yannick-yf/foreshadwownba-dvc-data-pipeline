@@ -1,4 +1,10 @@
 # code from https://github.com/aeturrell/skimpy/blob/main/src/skimpy/__init__.py
+
+# other docs:
+# https://www.inwt-statistics.com/blog/pandas-dataframe-validation-with-pydantic
+# https://www.inwt-statistics.com/blog/pandas-data-frame-validation-with-pydantic-part-2
+
+
 """skimpy provides summary statistics about variables in pandas data frames."""
 
 from __future__ import annotations  # This is here to get 'dict' typing for <3.10
