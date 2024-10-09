@@ -28,7 +28,7 @@ def pre_cleaning_dataset(config_path: Path) -> pd.DataFrame:
     )
 
     nba_games_training_dataset = pd.read_csv(
-        "./data/input/nba_games_training_dataset.csv"
+        "./data/input/nba_gamelog_schedule_dataset.csv"
     )
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 

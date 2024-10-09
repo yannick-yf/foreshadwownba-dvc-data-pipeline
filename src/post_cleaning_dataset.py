@@ -43,7 +43,7 @@ def post_cleaning_dataset(config_path: Path) -> pd.DataFrame:
             'y_prob_win',	
             'name_win_team',
             'day_of_week'], 
-        axis=1)
+        axis=1, errors='ignore')
     
     nba_games_training_dataset = nba_games_training_dataset.dropna()
     

@@ -38,6 +38,9 @@ from src.feature_engineering_functions.rest_days_between_games import (
 from src.feature_engineering_functions.handle_categorical_features import (
     handle_categorical_features,
 )
+from src.feature_engineering_functions.opponent_features import (
+    get_opponent_features,
+)
 from src.utils.logs import get_logger
 
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -94,6 +97,7 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
         .pipe(last_game_overtime)
         .pipe(calculate_streak_features)
         .pipe(handle_categorical_features)
+        .pipe(get_opponent_features)
         .pipe(final_cleaning)
     )
 

@@ -43,16 +43,16 @@ def get_training_dataset(config_path: Path) -> pd.DataFrame:
         f"@{os.getenv('MYSQL_HOST')}/{os.getenv('MYSQL_DATABASE')}"
     )
 
-    nba_games_training_dataset = pd.read_sql(
+    nba_gamelog_schedule_dataset = pd.read_sql(
         """
         SELECT *
-        FROM foreshadwownba.nba_games_training_dataset;
+        FROM foreshadwownba.nba_gamelog_schedule_dataset;
         """,
         engine,
     )
 
-    nba_games_training_dataset.to_csv(
-        "./data/input/nba_games_training_dataset.csv", index=False
+    nba_gamelog_schedule_dataset.to_csv(
+        "./data/input/nba_gamelog_schedule_dataset.csv", index=False
     )
 
     player_attributes_salaries_dataset = pd.read_sql(
