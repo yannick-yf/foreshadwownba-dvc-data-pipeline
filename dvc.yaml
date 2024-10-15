@@ -19,7 +19,7 @@ stages:
     cmd: python3 -m src.pre_cleaning_dataset --config=params.yaml
     deps:
       - src/pre_cleaning_dataset.py
-      - ./data/input/nba_games_training_dataset.csv
+      - ./data/input/nba_gamelog_schedule_dataset.csv
     params:
       - base
       - get_training_dataset
