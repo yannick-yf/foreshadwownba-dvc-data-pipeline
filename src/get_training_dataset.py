@@ -38,30 +38,34 @@ def get_training_dataset(config_path: Path) -> pd.DataFrame:
         "DOWNLOAD_DATA_FROM_DATABASE", log_level=config_params["base"]["log_level"]
     )
 
-    engine = create_engine(
-        f"mysql+pymysql://{os.getenv('MYSQL_USERNAME')}:{os.getenv('MYSQL_PASSWORD')}"
-        f"@{os.getenv('MYSQL_HOST')}/{os.getenv('MYSQL_DATABASE')}"
-    )
+    # engine = create_engine(
+    #     f"mysql+pymysql://{os.getenv('MYSQL_USERNAME')}:{os.getenv('MYSQL_PASSWORD')}"
+    #     f"@{os.getenv('MYSQL_HOST')}/{os.getenv('MYSQL_DATABASE')}"
+    # )
 
-    nba_gamelog_schedule_dataset = pd.read_sql(
-        """
-        SELECT *
-        FROM foreshadwownba.nba_gamelog_schedule_dataset;
-        """,
-        engine,
-    )
+    # nba_gamelog_schedule_dataset = pd.read_sql(
+    #     """
+    #     SELECT *
+    #     FROM foreshadwownba.nba_gamelog_schedule_dataset;
+    #     """,
+    #     engine,
+    # )
+
+    nba_gamelog_schedule_dataset = pd.read_csv("./nba_gamelog_schedule_dataset.csv")
 
     nba_gamelog_schedule_dataset.to_csv(
         "./data/input/nba_gamelog_schedule_dataset.csv", index=False
     )
 
-    player_attributes_salaries_dataset = pd.read_sql(
-        """
-        SELECT *
-        FROM foreshadwownba.player_attributes_salaries_dataset;
-        """,
-        engine,
-    )
+    # player_attributes_salaries_dataset = pd.read_sql(
+    #     """
+    #     SELECT *
+    #     FROM foreshadwownba.player_attributes_salaries_dataset;
+    #     """,
+    #     engine,
+    # )
+
+    player_attributes_salaries_dataset = pd.read_csv("./player_attributes_salaries_dataset.csv")
 
     player_attributes_salaries_dataset.to_csv(
         "./data/input/player_attributes_salaries_dataset.csv", index=False

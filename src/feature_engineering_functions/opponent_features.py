@@ -1,10 +1,6 @@
 """Module for final data cleaning operations."""
 
 import pandas as pd
-import numpy as np
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
-
 
 def get_opponent_features(training_df: pd.DataFrame) -> pd.DataFrame:
     """ 

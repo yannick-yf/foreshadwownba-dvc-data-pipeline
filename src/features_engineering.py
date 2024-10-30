@@ -72,7 +72,7 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
         config_params = yaml.safe_load(conf_file)
 
     logger = get_logger(
-        "FEATURES_ENGINEERING_PROESS",
+        "FEATURES_ENGINEERING_PROGRESS",
         log_level=config_params["base"]["log_level"],
     )
 

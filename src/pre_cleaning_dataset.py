@@ -32,6 +32,16 @@ def pre_cleaning_dataset(config_path: Path) -> pd.DataFrame:
     )
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
+    #-------------------------------------------
+    # Check for Duplciate and raise info/warnings
+    nb_duplicated_rows = nba_games_training_dataset.duplicated(subset=["id_season", "tm", "game_date"], keep='first').sum()
+
+    if nb_duplicated_rows > 0:
+        logger.info('DUPLICATED ROWS IN THE DATAFRAME')
+
+    nba_games_training_dataset = nba_games_training_dataset.drop_duplicates(subset=["id_season", "tm", "game_date"])
+
+    # Overtime features
     nba_games_training_dataset["overtime"] = nba_games_training_dataset[
         "overtime"
     ].fillna("NOT")

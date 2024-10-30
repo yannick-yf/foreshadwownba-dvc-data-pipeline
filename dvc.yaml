@@ -1,5 +1,7 @@
 #TODO: Create a step to validate the dataframe using python pacakge
 #TODO: All varaibles as params for DVC
+# Feature Store
+#TODO https://github.com/feast-dev/feast-gcp-driver-ranking-tutorial/blob/master/predict.py
 vars:
   - project:
       aws: cads-it
@@ -9,6 +11,8 @@ stages:
     cmd: python3 -m src.get_training_dataset --config=params.yaml
     deps:
       - src/get_training_dataset.py
+      - player_attributes_salaries_dataset.csv
+      - nba_gamelog_schedule_dataset.csv
     params:
       - base
       - get_training_dataset
@@ -63,10 +67,10 @@ stages:
     params:
       - base
       - get_training_dataset
-  load_training_dataset_to_db:
-    cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
+  load_training_dataset_to_csv:
+    cmd: python3 -m src.load_training_dataset_to_csv --config=params.yaml
     deps:
-      - src/load_training_dataset_to_db.py
+      - src/load_training_dataset_to_csv.py
       - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
     params:
       - base
