@@ -148,7 +148,7 @@ def training_dataset_assessment(config_path: Path) -> pd.DataFrame:
     )
 
     nba_games_training_dataset = pd.read_csv(
-        "./data/output/nba_games_training_dataset_final_post_cleaned.csv"
+        "./data/output/nba_games_training_dataset_final.csv"
     )
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 

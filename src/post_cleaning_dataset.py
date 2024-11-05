@@ -43,14 +43,15 @@ def post_cleaning_dataset(config_path: Path) -> pd.DataFrame:
             'y_prob_win',	
             'name_win_team',
             'day_of_week'], 
-        axis=1, errors='ignore')
+        axis=1,
+        errors='ignore')
     
     nba_games_training_dataset = nba_games_training_dataset.dropna()
     
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
     nba_games_training_dataset.to_csv(
-        "./data/output/nba_games_training_dataset_final_post_cleaned.csv", index=False
+        "./data/output/nba_games_training_dataset_final.csv", index=False
     )
 
     logger.info("Post Cleaned NBA games data step complete")

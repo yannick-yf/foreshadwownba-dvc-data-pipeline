@@ -51,51 +51,45 @@ stages:
       - base
     outs:
       - ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
-  # features_engineering_pipeline:
-  #   cmd: python3 -m src.features_engineering --config=params.yaml
-  #   deps:
-  #     - src/features_engineering.py
-  #     - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
-  #   outs:
-  #     - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
-  # get_y_variables:
-  #   cmd: python3 -m src.get_y_variables --config=params.yaml
-  #   deps:
-  #     - src/get_y_variables.py
-  #     - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
-  #   outs:
-  #     - ./data/processed/nba_games_training_dataset_final.csv
-  # post_cleaning_dataset:
-  #   cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
-  #   deps:
-  #     - src/post_cleaning_dataset.py
-  #     - ./data/processed/nba_games_training_dataset_final.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
-  #   outs:
-  #     - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
-  # training_dataset_assessment:
-  #   cmd: python3 -m src.training_dataset_assessment --config=params.yaml
-  #   deps:
-  #     - src/training_dataset_assessment.py
-  #     - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
-  # load_training_dataset_to_csv:
-  #   cmd: python3 -m src.load_training_dataset_to_csv --config=params.yaml
-  #   deps:
-  #     - src/load_training_dataset_to_csv.py
-  #     - ./data/output/nba_games_training_dataset_final_post_cleaned.csv
-  #   params:
-  #     - base
-  #     - get_training_dataset
-
-      
+  features_engineering_pipeline:
+    cmd: python3 -m src.features_engineering --config=params.yaml
+    deps:
+      - src/features_engineering.py
+      - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
+    params:
+      - base
+    outs:
+      - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
+  get_y_variables:
+    cmd: python3 -m src.get_y_variables --config=params.yaml
+    deps:
+      - src/get_y_variables.py
+      - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
+    params:
+      - base
+    outs:
+      - ./data/processed/nba_games_training_dataset_final.csv
+  post_cleaning_dataset:
+    cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
+    deps:
+      - src/post_cleaning_dataset.py
+      - ./data/processed/nba_games_training_dataset_final.csv
+    params:
+      - base
+    outs:
+      - ./data/output/nba_games_training_dataset_final.csv
+  training_dataset_assessment:
+    cmd: python3 -m src.training_dataset_assessment --config=params.yaml
+    deps:
+      - src/training_dataset_assessment.py
+      - ./data/output/nba_games_training_dataset_final.csv
+    params:
+      - base
+  writte_final_output_to_s3:
+    cmd:
+    - >-
+      aws s3 cp
+      ${project.directory}/data/output/nba_games_training_dataset_final.csv
+      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
+    deps:
+    - ./data/output/nba_games_training_dataset_final.csv

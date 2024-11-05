@@ -93,11 +93,6 @@ def gamelog_schedule_unification(
 
     #-------------------------------------------
     # Ext Dom Process
-
-    nba_games_training_dataset['extdom'] = np.where(
-        nba_games_training_dataset['extdom']=='@',
-        'ext',
-        'dom')
     
     nba_games_training_dataset['game_date'] = nba_games_training_dataset['game_date'].astype(str).str[:10]
 
