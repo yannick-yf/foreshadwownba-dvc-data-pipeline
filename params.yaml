@@ -2,6 +2,14 @@
 base:
   log_level: INFO
 
-get_training_dataset:
-  nba_games_training_dataset: nba_games_training_dataset
-  player_attributes_salaries_dataset: player_attributes_salaries_dataset
+gamelog_schedule_unification:
+  gamelogs_data_path: data/raw/gamelogs/
+  gamelogs_name_pattern: gamelog
+  schedules_data_path: data/raw/schedules/
+  schedules_name_pattern: schedule
+  unified_file_path: data/input
+  unified_file_name: nba_gamelog_schedule_dataset
+
+pre_cleaning_dataset:
+  output_folder: data/processed
+  output_file_name: nba_games_training_dataset_pre_cleaned
