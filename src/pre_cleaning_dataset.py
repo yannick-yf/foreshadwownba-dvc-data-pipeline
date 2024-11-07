@@ -6,6 +6,7 @@ import argparse
 from pathlib import Path
 import pandas as pd
 import yaml
+import os
 
 from src.utils.logs import get_logger
 
@@ -79,10 +80,8 @@ def pre_cleaning_dataset(
 
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
-    output_file_name_folder = str(output_folder) + '/' + output_file_name + '.csv'
-    
     nba_games_training_dataset.to_csv(
-        output_file_name_folder, index=False
+        os.path.join(output_folder, output_file_name +  ".csv"), index=False
     )
 
     logger.info("Pre Cleaned NBA games data step complete")
@@ -109,15 +108,15 @@ def get_args():
     pre_cleaning_dataset_params = params["pre_cleaning_dataset"]
     pre_gamelog_schedule_unification_params = params["gamelog_schedule_unification"]
 
-    input_file_folder_name = pre_gamelog_schedule_unification_params['unified_file_path'] +\
-        '/' +\
-        pre_gamelog_schedule_unification_params['unified_file_name'] +\
-        '.csv'
+    input_file_folder_name = os.path.join(
+        pre_gamelog_schedule_unification_params['unified_file_path'], 
+        pre_gamelog_schedule_unification_params['unified_file_name'] +  ".csv"
+        )
     
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
-        type=str,
+        type=Path,
         default=input_file_folder_name,
     )
 

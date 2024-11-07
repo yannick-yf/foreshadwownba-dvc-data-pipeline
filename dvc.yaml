@@ -80,7 +80,7 @@ stages:
     cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
     deps:
       - src/post_cleaning_dataset.py
-      - ./data/processed/nba_games_training_dataset_final.csv
+      - ${project.directory}/${get_y_variables.output_file}.csv
     params:
       - base
     outs:
