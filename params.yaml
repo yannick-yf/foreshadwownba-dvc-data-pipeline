@@ -13,3 +13,7 @@ gamelog_schedule_unification:
 pre_cleaning_dataset:
   output_folder: data/processed
   output_file_name: nba_games_training_dataset_pre_cleaned
+
+get_y_variables:
+  input_file: data/processed/nba_games_training_dataset_cleaned_w_features
+  output_file: data/processed/nba_games_training_dataset_final

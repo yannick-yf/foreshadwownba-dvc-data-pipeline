@@ -32,6 +32,8 @@ stages:
       --unified-file-name ${gamelog_schedule_unification.unified_file_name}
     deps:
       - src/gamelog_schedule_unification.py
+      - ${project.directory}/data/raw/gamelogs/
+      - ${project.directory}/data/raw/schedules/
     params:
       - base
       - gamelog_schedule_unification
@@ -61,14 +63,19 @@ stages:
     outs:
       - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
   get_y_variables:
-    cmd: python3 -m src.get_y_variables --config=params.yaml
+    cmd: 
+    - >-
+      python3 -m src.get_y_variables
+      --input-file-folder-name ${project.directory}/${get_y_variables.input_file}.csv
+      --output-file-folder-name ${project.directory}/${get_y_variables.output_file}.csv
     deps:
       - src/get_y_variables.py
       - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
     params:
       - base
+      - get_y_variables
     outs:
-      - ./data/processed/nba_games_training_dataset_final.csv
+      - ${project.directory}/${get_y_variables.output_file}.csv
   post_cleaning_dataset:
     cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
     deps:
