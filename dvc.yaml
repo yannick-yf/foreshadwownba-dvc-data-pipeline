@@ -1,29 +1,58 @@
 #TODO: Create a step to validate the dataframe using python pacakge
+#TODO: All varaibles as params for DVC
+# Feature Store
+#TODO https://github.com/feast-dev/feast-gcp-driver-ranking-tutorial/blob/master/predict.py
 vars:
   - project:
-      aws: cads-it
+      aws: ipfy
       directory: .
 stages:
   get_training_dataset:
-    cmd: python3 -m src.get_training_dataset --config=params.yaml
+    cmd:
+    - >-
+      aws s3 cp
+      s3://foreshadownba/data-engineering-pipeline-output/gamelogs/
+      ${project.directory}/data/raw/gamelogs/ --profile=ipfy --recursive
+    - >-
+      aws s3 cp
+      s3://foreshadownba/data-engineering-pipeline-output/schedules/
+      ${project.directory}/data/raw/schedules/ --profile=ipfy --recursive
+    outs:
+      - ${project.directory}/data/raw/gamelogs/
+      - ${project.directory}/data/raw/schedules/
+  gamelog_schedule_unification:
+    cmd: 
+    - >- 
+      python3 -m src.gamelog_schedule_unification 
+      --gamelog-data-path ${project.directory}/${gamelog_schedule_unification.gamelogs_data_path}
+      --gamelog-name-pattern ${gamelog_schedule_unification.gamelogs_name_pattern}
+      --schedule-data-path ${project.directory}/${gamelog_schedule_unification.schedules_data_path}
+      --schedule-name-pattern ${gamelog_schedule_unification.schedules_name_pattern}
+      --unified-file-path ${project.directory}/${gamelog_schedule_unification.unified_file_path}
+      --unified-file-name ${gamelog_schedule_unification.unified_file_name}
     deps:
-      - src/get_training_dataset.py
+      - src/gamelog_schedule_unification.py
+      - ${project.directory}/data/raw/gamelogs/
+      - ${project.directory}/data/raw/schedules/
     params:
       - base
-      - get_training_dataset
+      - gamelog_schedule_unification
     outs:
-      - ./data/input/player_attributes_salaries_dataset.csv
-      - ./data/input/nba_games_training_dataset.csv
+      - ${project.directory}/${gamelog_schedule_unification.unified_file_path}/${gamelog_schedule_unification.unified_file_name}.csv
   pre_cleaning_dataset:
-    cmd: python3 -m src.pre_cleaning_dataset --config=params.yaml
+    cmd: 
+    - >-
+      python3 -m src.pre_cleaning_dataset
+      --input-file-folder-name ${project.directory}/${gamelog_schedule_unification.unified_file_path}/${gamelog_schedule_unification.unified_file_name}.csv
+      --output-folder ${project.directory}/${pre_cleaning_dataset.output_folder}
+      --output-file-name ${project.directory}/${pre_cleaning_dataset.output_file_name}
     deps:
       - src/pre_cleaning_dataset.py
-      - ./data/input/nba_games_training_dataset.csv
+      - ${project.directory}/${gamelog_schedule_unification.unified_file_path}/${gamelog_schedule_unification.unified_file_name}.csv
     params:
       - base
-      - get_training_dataset
     outs:
-      - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
+      - ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
   features_engineering_pipeline:
     cmd: python3 -m src.features_engineering --config=params.yaml
     deps:
@@ -31,31 +60,49 @@ stages:
       - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
     params:
       - base
-      - get_training_dataset
     outs:
       - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
   get_y_variables:
-    cmd: python3 -m src.get_y_variables --config=params.yaml
+    cmd: 
+    - >-
+      python3 -m src.get_y_variables
+      --input-file-folder-name ${project.directory}/${get_y_variables.input_file}.csv
+      --output-file-folder-name ${project.directory}/${get_y_variables.output_file}.csv
     deps:
       - src/get_y_variables.py
       - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
     params:
       - base
-      - get_training_dataset
+      - get_y_variables
     outs:
-      - ./data/output/nba_games_training_dataset_final.csv
-  load_training_dataset_to_db:
-    cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
+      - ${project.directory}/${get_y_variables.output_file}.csv
+  post_cleaning_dataset:
+    cmd:
+    - >-
+      python3 -m src.post_cleaning_dataset
+      --input-file-folder-name ${project.directory}/${get_y_variables.output_file}.csv
+      --output-file-folder-name ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
     deps:
-      - src/load_training_dataset_to_db.py
+      - src/post_cleaning_dataset.py
+      - ${project.directory}/${get_y_variables.output_file}.csv
+    params:
+      - base
+      - get_y_variables
+      - post_cleaning_dataset
+    outs:
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
+  training_dataset_assessment:
+    cmd: python3 -m src.training_dataset_assessment --config=params.yaml
+    deps:
+      - src/training_dataset_assessment.py
       - ./data/output/nba_games_training_dataset_final.csv
     params:
       - base
-      - get_training_dataset
-
-      
-
-
-
-
-      
+  writte_final_output_to_s3:
+    cmd:
+    - >-
+      aws s3 cp
+      ${project.directory}/data/output/nba_games_training_dataset_final.csv
+      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
+    deps:
+    - ./data/output/nba_games_training_dataset_final.csv

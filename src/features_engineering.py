@@ -35,6 +35,12 @@ from src.feature_engineering_functions.previous_days_average_features import (
 from src.feature_engineering_functions.rest_days_between_games import (
     calculate_rest_days_between_games,
 )
+from src.feature_engineering_functions.handle_categorical_features import (
+    handle_categorical_features,
+)
+from src.feature_engineering_functions.opponent_features import (
+    get_opponent_features,
+)
 from src.utils.logs import get_logger
 
 simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
@@ -66,7 +72,7 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
         config_params = yaml.safe_load(conf_file)
 
     logger = get_logger(
-        "LAST_GAMES_RATIO_AVERAGE_FEATURES",
+        "FEATURES_ENGINEERING_PROGRESS",
         log_level=config_params["base"]["log_level"],
     )
 
@@ -90,6 +96,8 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
         .pipe(average_ratio_win_loose_ext_game)
         .pipe(last_game_overtime)
         .pipe(calculate_streak_features)
+        .pipe(handle_categorical_features)
+        .pipe(get_opponent_features)
         .pipe(final_cleaning)
     )
 
@@ -105,7 +113,6 @@ def features_engineering_pipeline(config_path: Path) -> pd.DataFrame:
 
     logger.info("Feature Engineering Generation step complete")
     return training_dataset_w_features
-
 
 if __name__ == "__main__":
     arg_parser = argparse.ArgumentParser()

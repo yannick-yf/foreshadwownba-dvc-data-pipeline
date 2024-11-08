@@ -33,4 +33,7 @@ def calculate_streak_features(training_df: pd.DataFrame) -> pd.DataFrame:
         "streak_w_l_2"
     ].shift(1)
 
+    # Drop the non needed features
+    training_df = training_df.drop(["streak_w_l_2"], axis=1)
+
     return training_df

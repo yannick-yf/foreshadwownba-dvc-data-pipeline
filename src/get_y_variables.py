@@ -11,6 +11,9 @@ import yaml
 
 from src.utils.logs import get_logger
 
+logger = get_logger(
+    "PRE_CLEANED_DATASET", log_level='INFO'
+)
 
 def best_team_name(row) -> str:
     """
@@ -70,26 +73,20 @@ def best_team_name(row) -> str:
                                 val = row["opp"]
     return val
 
-
-def get_variables(config_path: Path) -> pd.DataFrame:
+def get_y_variables(
+        input_file_folder_name: str = 'data/processed/nba_games_training_dataset_cleaned_w_features.csv',
+        output_file_folder_name: str = 'data/processed/nba_games_training_dataset_final.csv',
+        ) -> pd.DataFrame:
     """
-    Load and preprocess the NBA games training dataset.
+    Get y variables for the ML models
 
     Args:
-        config_path (Text): Path to the configuration file.
-
-    Returns:
-        pd.DataFrame: The preprocessed training dataset.
+        input_file (str): Name and path to the input file
+        output_file (str): Name and path to the output file
     """
-    with open(config_path, encoding="utf-8") as conf_file:
-        config_params = yaml.safe_load(conf_file)
-
-    logger = get_logger(
-        "PRE_CLEANED_DATASET", log_level=config_params["base"]["log_level"]
-    )
 
     training_df = pd.read_csv(
-        "./data/processed/nba_games_training_dataset_cleaned_w_features.csv"
+        input_file_folder_name
     )
 
     training_df["results"] = np.where(
@@ -115,15 +112,65 @@ def get_variables(config_path: Path) -> pd.DataFrame:
     )
 
     training_df.to_csv(
-        "./data/output/nba_games_training_dataset_final.csv", index=False
+        output_file_folder_name, index=False
     )
 
-    logger.info("Pre Cleaned NBA games data step complete")
+    logger.info("Get Y variables step complete")
 
+
+def get_args():
+    """
+    Parse command line arguments and return the parsed arguments.
+
+    Returns:
+        argparse.Namespace: Parsed command line arguments.
+    """
+    _dir = Path(__file__).parent.resolve()
+    parser = argparse.ArgumentParser()
+
+    parser.add_argument(
+        "--params-file",
+        type=Path,
+        default="params.yaml",
+    )
+
+    args, _ = parser.parse_known_args()
+    params = yaml.safe_load(args.params_file.open())
+
+    get_y_variables_params = params["get_y_variables"]
+
+    input_file_folder_name = get_y_variables_params['input_file'] +\
+        '.csv'
+    
+    parser.add_argument(
+        "--input-file-folder-name",
+        dest="input_file_folder_name",
+        type=str,
+        default=input_file_folder_name,
+    )
+
+    output_file_folder_name = get_y_variables_params['output_file'] +\
+        '.csv'
+    
+    parser.add_argument(
+        "--output-file-folder-name",
+        dest="output_file_folder_name",
+        type=str,
+        default=output_file_folder_name,
+    )
+
+    args = parser.parse_args()
+
+    return args
+
+def main():
+    """Run the Pre Train Multiple Models Pipeline."""
+    args = get_args()
+
+    get_y_variables(
+        input_file_folder_name = args.input_file_folder_name,
+        output_file_folder_name = args.output_file_folder_name
+    )
 
 if __name__ == "__main__":
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument("--config-params", dest="config_params", required=True)
-    args = arg_parser.parse_args()
-
-    get_variables(config_path=args.config_params)
+    main()
