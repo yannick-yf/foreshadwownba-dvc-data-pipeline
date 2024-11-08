@@ -30,10 +30,8 @@ def handle_categorical_features(training_df: pd.DataFrame) -> pd.DataFrame:
     ).toarray()
 
     dummies_variables_df = pd.DataFrame(
-        dummies_variables, columns=drop_binary_enc.get_feature_names_out()
+        dummies_variables, columns=drop_binary_enc.get_feature_names_out(), dtype=int
     )
-
-    # dummies_variables_df = dummies_variables_df.drop("last_game_overtime_NOT", axis=1)
 
     training_df = pd.concat([training_df, dummies_variables_df], axis=1)
 

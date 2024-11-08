@@ -77,14 +77,20 @@ stages:
     outs:
       - ${project.directory}/${get_y_variables.output_file}.csv
   post_cleaning_dataset:
-    cmd: python3 -m src.post_cleaning_dataset --config=params.yaml
+    cmd:
+    - >-
+      python3 -m src.post_cleaning_dataset
+      --input-file-folder-name ${project.directory}/${get_y_variables.output_file}.csv
+      --output-file-folder-name ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
     deps:
       - src/post_cleaning_dataset.py
       - ${project.directory}/${get_y_variables.output_file}.csv
     params:
       - base
+      - get_y_variables
+      - post_cleaning_dataset
     outs:
-      - ./data/output/nba_games_training_dataset_final.csv
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
   training_dataset_assessment:
     cmd: python3 -m src.training_dataset_assessment --config=params.yaml
     deps:
