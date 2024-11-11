@@ -32,6 +32,20 @@ def post_cleaning_dataset(
 
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
+    # # Remove playoffs games and keep missing game value for the inseason
+    nba_games_training_dataset_not_inseason = nba_games_training_dataset[
+        (nba_games_training_dataset['game_nb'].notnull() &
+        (nba_games_training_dataset['id_season']!=2025))
+        ]
+    
+    nba_games_training_dataset_inseason = nba_games_training_dataset[
+            nba_games_training_dataset['id_season']==2025
+        ]
+    
+    nba_games_training_dataset = pd.concat([
+        nba_games_training_dataset_not_inseason, 
+        nba_games_training_dataset_inseason], axis=0)
+
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop([
             'game_date', 
@@ -85,11 +99,14 @@ def get_args():
         post_cleaning_dataset_params['output_file_name'] +  ".csv"
         )
     
+    input_file_folder_name = os.path.join(
+        get_y_variables_params["output_file"] + '.csv')
+    
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
         type=str,
-        default=get_y_variables_params["output_file"],
+        default=input_file_folder_name,
     )
     
     parser.add_argument(

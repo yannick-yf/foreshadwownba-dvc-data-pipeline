@@ -12,10 +12,10 @@ class TestLastGameOvertime(TestCase):
 
     def test_calculate_streak_features(self):
         """
-        GIVEN a valid nba game logs dataset
-        WHEN the last_game_overtime function is called
-        THEN the last_game_overtime feature should be equal to OT 
-        IF the previous game was with played with overtime
+        GIVEN a NBA game logs dataset
+        WHEN calculate_streak_features is applied
+        THEN streak counts should be correct
+        e.g if streak_w_l is 'W 4' then before_streak_w_l should be 4
         """
 
         nba_games_training_dataset_pre_cleaned = pd.read_csv(

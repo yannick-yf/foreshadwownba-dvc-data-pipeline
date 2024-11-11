@@ -54,14 +54,20 @@ stages:
     outs:
       - ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
   features_engineering_pipeline:
-    cmd: python3 -m src.features_engineering --config=params.yaml
+    cmd: 
+    - >-
+      python3 -m src.features_engineering_pipeline
+      --input-file-folder-name ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
+      --output-file-folder-name ${project.directory}/${features_engineering_pipeline.output_file}.csv
     deps:
-      - src/features_engineering.py
+      - src/features_engineering_pipeline.py
       - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
     params:
       - base
+      - pre_cleaning_dataset
+      - features_engineering_pipeline
     outs:
-      - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
+      - ${project.directory}/${features_engineering_pipeline.output_file}.csv
   get_y_variables:
     cmd: 
     - >-
@@ -91,18 +97,18 @@ stages:
       - post_cleaning_dataset
     outs:
       - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
-  training_dataset_assessment:
-    cmd: python3 -m src.training_dataset_assessment --config=params.yaml
-    deps:
-      - src/training_dataset_assessment.py
-      - ./data/output/nba_games_training_dataset_final.csv
-    params:
-      - base
-  writte_final_output_to_s3:
-    cmd:
-    - >-
-      aws s3 cp
-      ${project.directory}/data/output/nba_games_training_dataset_final.csv
-      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
-    deps:
-    - ./data/output/nba_games_training_dataset_final.csv
+  # training_dataset_assessment:
+  #   cmd: python3 -m src.training_dataset_assessment --config=params.yaml
+  #   deps:
+  #     - src/training_dataset_assessment.py
+  #     - ./data/output/nba_games_training_dataset_final.csv
+  #   params:
+  #     - base
+  # writte_final_output_to_s3:
+  #   cmd:
+  #   - >-
+  #     aws s3 cp
+  #     ${project.directory}/data/output/nba_games_training_dataset_final.csv
+  #     s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
+  #   deps:
+  #   - ./data/output/nba_games_training_dataset_final.csv

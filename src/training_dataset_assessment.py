@@ -11,7 +11,7 @@ import argparse
 from pathlib import Path
 import pandas as pd
 import yaml
-import os
+import numpy as np
 
 from src.utils.logs import get_logger
 
@@ -120,6 +120,9 @@ class DataFrameSchema(BaseModel):
     def validate_non_null(cls, value):
         if value is None:
             raise ValueError("Field cannot be null")
+        elif value is np.nan:
+            raise ValueError("Field cannot be NaN")
+        
         return value
 
     @field_validator("tm", "opp", "tm_opp", "opp_opp")

@@ -58,17 +58,37 @@ def gamelog_schedule_unification(
     schedule_df["game_date"] = pd.to_datetime(schedule_df["game_date"])
 
     # ----------------------------------------------
+    # SCHEDULES_DF - Add Opponent
+    team_name = pd.read_csv(
+        "data/constants/team_name.csv"
+    )
+    
+    # Remove duplciate with Charlotte Hornets
+    team_name = team_name[team_name['team']!='CHH']
+
+
+    schedule_df = pd.merge(
+        schedule_df,
+        team_name[['team', 'team_full']],
+        how='left',
+        left_on=['opponent'],
+        right_on=['team_full'])
+
+    schedule_df = schedule_df.rename(columns={"team": "opp"})
+    schedule_df = schedule_df.drop('team_full',axis=1)
+
+    # ----------------------------------------------
     # GAMES_DF - Recast date before merging the two dataset
     gamelog_df["game_date"] = pd.to_datetime(gamelog_df["game_date"])
 
     # ----------------------------------------------
     # Join the two dataframes
     nba_games_training_dataset = pd.merge(
-        gamelog_df,
         schedule_df[
             [
                 "id_season",
                 "tm",
+                "opp",
                 "game_date",
                 "time_start",
                 "overtime",
@@ -77,9 +97,10 @@ def gamelog_schedule_unification(
                 "streak_w_l",
             ]
         ],
+        gamelog_df,
         how="left",
-        left_on=["id_season", "tm", "game_date"],
-        right_on=["id_season", "tm", "game_date"],
+        left_on=["id_season", "tm", "opp", "game_date"],
+        right_on=["id_season", "tm", "opp", "game_date"],
     )
 
     #-------------------------------------------
