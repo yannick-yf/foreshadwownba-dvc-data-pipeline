@@ -21,6 +21,7 @@ def get_opponent_features(training_df: pd.DataFrame) -> pd.DataFrame:
         )
     
     training_df = rename_opponent_columns(training_df)
+    training_df['before_average_W_ratio_opp'] = training_df['before_average_W_ratio_opp'].fillna(0.0)
 
     return training_df
 
@@ -29,6 +30,14 @@ def rename_opponent_columns(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     training_df.columns = training_df.columns.str.replace('_y', '_opp')
     training_df.columns = training_df.columns.str.replace('_x', '')
+
+    return training_df
+
+def fillna_opponent_columns(training_df: pd.DataFrame, opponent_features: list) -> pd.DataFrame:
+    """ 
+    """
+
+    training_df[opponent_features] = training_df[opponent_features].fillna(0.0)
 
     return training_df
 

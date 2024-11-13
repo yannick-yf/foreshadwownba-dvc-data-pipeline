@@ -54,14 +54,20 @@ stages:
     outs:
       - ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
   features_engineering_pipeline:
-    cmd: python3 -m src.features_engineering --config=params.yaml
+    cmd: 
+    - >-
+      python3 -m src.features_engineering_pipeline
+      --input-file-folder-name ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
+      --output-file-folder-name ${project.directory}/${features_engineering_pipeline.output_file}.csv
     deps:
-      - src/features_engineering.py
-      - ./data/processed/nba_games_training_dataset_pre_cleaned.csv
+      - src/features_engineering_pipeline.py
+      - ${project.directory}/${pre_cleaning_dataset.output_folder}/${pre_cleaning_dataset.output_file_name}.csv
     params:
       - base
+      - pre_cleaning_dataset
+      - features_engineering_pipeline
     outs:
-      - ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
+      - ${project.directory}/${features_engineering_pipeline.output_file}.csv
   get_y_variables:
     cmd: 
     - >-

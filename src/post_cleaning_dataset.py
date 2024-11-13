@@ -32,9 +32,35 @@ def post_cleaning_dataset(
 
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
+    # # Remove playoffs games and keep missing game value for the inseason
+    # nba_games_training_dataset = nba_games_training_dataset[
+    #     (nba_games_training_dataset['game_nb'].notnull())
+    #     ]
+    #     # &
+    #     # (nba_games_training_dataset['id_season']!=2025))
+    #     #]
+    
+    # # Only get the data for the current up to today
+    # nba_games_training_dataset_inseason = nba_games_training_dataset[
+    #         nba_games_training_dataset['id_season']==2025
+    #     ]
+    
+    # nba_games_training_dataset_inseason.loc[:, 'game_date'] = pd.to_datetime(
+    #     nba_games_training_dataset_inseason['game_date']
+    # )
+
+    # # Filter rows with today's date
+    # today = pd.Timestamp('today').normalize()
+    # nba_games_training_dataset_inseason = nba_games_training_dataset_inseason[
+    #     nba_games_training_dataset_inseason['game_date'] <= today
+    #     ]
+    
+    # nba_games_training_dataset = pd.concat([
+    #     nba_games_training_dataset_not_inseason, 
+    #     nba_games_training_dataset_inseason], axis=0)
+
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop([
-            'game_date', 
             'w_tot', 
             'overtime', 
             'streak_w_l', 
@@ -42,12 +68,26 @@ def post_cleaning_dataset(
             'name_best_team',	
             'y_prob_win',	
             'name_win_team',
-            'day_of_week'], 
+            'day_of_week',
+            'extdom',
+            'week_weekend',
+            'last_game_overtime',
+            'tm_opp' ,
+            'opp_opp',
+            'pts_tm',
+            'pts_opp'], 
         axis=1,
         errors='ignore')
     
-    nba_games_training_dataset = nba_games_training_dataset.dropna()
-    
+    # game_nb as integer
+    nba_games_training_dataset["game_nb"] = nba_games_training_dataset[
+        "game_nb"].astype('Int64')
+
+    # Remove game one for each team because features cannot be computed for game 1
+    nba_games_training_dataset = nba_games_training_dataset[
+        nba_games_training_dataset['game_nb']!=1
+        ]
+
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
 
@@ -85,11 +125,14 @@ def get_args():
         post_cleaning_dataset_params['output_file_name'] +  ".csv"
         )
     
+    input_file_folder_name = os.path.join(
+        get_y_variables_params["output_file"] + '.csv')
+    
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
         type=str,
-        default=get_y_variables_params["output_file"],
+        default=input_file_folder_name,
     )
     
     parser.add_argument(

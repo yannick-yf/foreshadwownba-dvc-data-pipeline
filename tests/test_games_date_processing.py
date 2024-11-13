@@ -16,10 +16,9 @@ class TestLastGameDateProcessing(TestCase):
 
     def test_extract_days_of_week_from_date(self):
         """
-        GIVEN a valid nba game logs dataset
-        WHEN the last_game_overtime function is called
-        THEN the last_game_overtime feature should be equal to OT 
-        IF the previous game was with played with overtime
+        GIVEN a sorted NBA game logs dataset
+        WHEN extract_days_of_week_from_date is applied
+        THEN each game should have the correct 'day_of_week' label
         """
 
         nba_games_training_dataset_pre_cleaned = pd.read_csv(
@@ -35,7 +34,7 @@ class TestLastGameDateProcessing(TestCase):
             )
         
         nba_games_w_days_of_week_from_date = nba_games_w_days_of_week_from_date[
-            (nba_games_w_days_of_week_from_date['tm']==self.season) &
+            (nba_games_w_days_of_week_from_date['tm']==self.team) &
             (nba_games_w_days_of_week_from_date['id_season']==self.season)]
         
         # Id of the game for where the team played OT
@@ -49,10 +48,10 @@ class TestLastGameDateProcessing(TestCase):
 
     def test_game_on_weekend_features(self):
         """
-        GIVEN a valid nba game logs dataset
-        WHEN the last_game_overtime function is called
-        THEN the last_game_overtime feature should be equal to OT 
-        IF the previous game was with played with overtime
+        GIVEN a sorted NBA game logs dataset
+        WHEN game_on_weekend_features is applied
+        THEN games on weekends should be labeled as 'weekend'
+        IF the game day is a weekend day, e.g., Sunday
         """
 
         nba_games_training_dataset_pre_cleaned = pd.read_csv(

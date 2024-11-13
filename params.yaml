@@ -14,6 +14,9 @@ pre_cleaning_dataset:
   output_folder: data/processed
   output_file_name: nba_games_training_dataset_pre_cleaned
 
+features_engineering_pipeline:
+  output_file: data/processed/nba_games_training_dataset_cleaned_w_features
+
 get_y_variables:
   input_file: data/processed/nba_games_training_dataset_cleaned_w_features
   output_file: data/processed/nba_games_training_dataset_final
