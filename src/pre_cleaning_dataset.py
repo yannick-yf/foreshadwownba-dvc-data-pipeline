@@ -45,6 +45,15 @@ def pre_cleaning_dataset(
     nba_games_training_dataset = nba_games_training_dataset.drop_duplicates(
         subset=['id_season', 'tm', 'game_date']
         )
+    
+    # Sort values to order per game date id season team
+    nba_games_training_dataset = nba_games_training_dataset.sort_values(
+        [
+            "id_season",
+            "tm", 
+            "game_nb"
+        ]
+    )
 
     # Overtime features
     nba_games_training_dataset["overtime"] = nba_games_training_dataset[
@@ -58,6 +67,46 @@ def pre_cleaning_dataset(
             & (nba_games_training_dataset["id_season"] == 2020)
         ].index
     )
+
+    # Remove playoffs games and keep missing game value for the inseason
+    nba_games_training_dataset_not_inseason = nba_games_training_dataset[
+        (nba_games_training_dataset['game_nb'].notnull()) &
+        (nba_games_training_dataset['id_season']!=2025)
+    ]
+    
+    nba_games_training_dataset_inseason = nba_games_training_dataset[
+            nba_games_training_dataset['id_season']==2025
+        ]
+    
+    nba_games_training_dataset = pd.concat([
+        nba_games_training_dataset_not_inseason, 
+        nba_games_training_dataset_inseason], 
+        axis=0)
+
+    # Remove game after date of today
+    today = pd.Timestamp('today').normalize()
+    nba_games_training_dataset = nba_games_training_dataset[
+        pd.to_datetime(nba_games_training_dataset['game_date']) <= today
+    ]
+
+    # Fill na game_nb
+    nba_games_training_dataset['game_nb_new'] = nba_games_training_dataset.groupby(
+        ['tm', 'id_season']
+    ).cumcount() +1
+
+    nba_games_training_dataset['game_nb'] = nba_games_training_dataset['game_nb'].fillna(
+        nba_games_training_dataset['game_nb_new']
+    )
+    
+    nba_games_training_dataset = nba_games_training_dataset.drop(
+        'game_nb_new', 
+        axis=1
+    )
+
+    # Remove Playoffs Games
+    nba_games_training_dataset = nba_games_training_dataset[
+        nba_games_training_dataset['game_nb']<=82
+        ]
 
     # Column Selection
     columns_to_select = [

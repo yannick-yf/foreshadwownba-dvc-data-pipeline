@@ -32,30 +32,32 @@ def post_cleaning_dataset(
 
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
-    # Remove playoffs games and keep missing game value for the inseason
-    nba_games_training_dataset_not_inseason = nba_games_training_dataset[
-        (nba_games_training_dataset['game_nb'].notnull() &
-        (nba_games_training_dataset['id_season']!=2025))
-        ]
+    # # Remove playoffs games and keep missing game value for the inseason
+    # nba_games_training_dataset = nba_games_training_dataset[
+    #     (nba_games_training_dataset['game_nb'].notnull())
+    #     ]
+    #     # &
+    #     # (nba_games_training_dataset['id_season']!=2025))
+    #     #]
     
-    # Only get the data for the current up to today
-    nba_games_training_dataset_inseason = nba_games_training_dataset[
-            nba_games_training_dataset['id_season']==2025
-        ]
+    # # Only get the data for the current up to today
+    # nba_games_training_dataset_inseason = nba_games_training_dataset[
+    #         nba_games_training_dataset['id_season']==2025
+    #     ]
     
-    nba_games_training_dataset_inseason.loc[:, 'game_date'] = pd.to_datetime(
-        nba_games_training_dataset_inseason['game_date']
-    )
+    # nba_games_training_dataset_inseason.loc[:, 'game_date'] = pd.to_datetime(
+    #     nba_games_training_dataset_inseason['game_date']
+    # )
 
-    # Filter rows with today's date
-    today = pd.Timestamp('today').normalize()
-    nba_games_training_dataset_inseason = nba_games_training_dataset_inseason[
-        nba_games_training_dataset_inseason['game_date'] <= today
-        ]
+    # # Filter rows with today's date
+    # today = pd.Timestamp('today').normalize()
+    # nba_games_training_dataset_inseason = nba_games_training_dataset_inseason[
+    #     nba_games_training_dataset_inseason['game_date'] <= today
+    #     ]
     
-    nba_games_training_dataset = pd.concat([
-        nba_games_training_dataset_not_inseason, 
-        nba_games_training_dataset_inseason], axis=0)
+    # nba_games_training_dataset = pd.concat([
+    #     nba_games_training_dataset_not_inseason, 
+    #     nba_games_training_dataset_inseason], axis=0)
 
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop([

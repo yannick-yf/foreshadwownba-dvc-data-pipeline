@@ -111,7 +111,6 @@ class DataFrameSchema(BaseModel):
     last_game_overtime_Multiple_OT: StrictInt = Field(ge=0, le=1)
     last_game_overtime_NOT: StrictInt = Field(ge=0, le=1)
     last_game_overtime_OT: StrictInt = Field(ge=0, le=1)
-    last_game_overtime_nan: StrictInt = Field(ge=0, le=0)
     # tm_opp: str
     # opp_opp: str
     before_average_W_ratio_opp: float = Field(ge=0.0, le=1.0)

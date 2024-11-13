@@ -82,6 +82,10 @@ def gamelog_schedule_unification(
     gamelog_df["game_date"] = pd.to_datetime(gamelog_df["game_date"])
 
     # ----------------------------------------------
+    # Remove duplciated column from schedule and gamelogs
+    gamelog_df = gamelog_df.drop('extdom', axis=1)
+
+    # ----------------------------------------------
     # Join the two dataframes
     nba_games_training_dataset = pd.merge(
         schedule_df[
@@ -89,6 +93,7 @@ def gamelog_schedule_unification(
                 "id_season",
                 "tm",
                 "opp",
+                'extdom',
                 "game_date",
                 "time_start",
                 "overtime",
