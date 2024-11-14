@@ -138,7 +138,21 @@ def training_dataset_assessment(config_path: Path) -> pd.DataFrame:
     nba_games_training_dataset = pd.read_csv(
         "./data/output/nba_games_training_dataset_final.csv"
     )
-    logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
+    logger.info(
+        "Shape of the Training DataFrame %s", str(nba_games_training_dataset.shape)
+    )
+
+    nba_games_inseason_dataset_final = pd.read_csv(
+        "./data/output/nba_games_inseason_dataset_final.csv"
+    )
+    logger.info(
+        "Shape of the Inseason DataFrame %s",
+        str(nba_games_inseason_dataset_final.shape),
+    )
+
+    nba_games_training_dataset = pd.concat(
+        [nba_games_training_dataset, nba_games_inseason_dataset_final], axis=0
+    )
 
     # With the fulll dataframe
     DataFrameSchema.parse_df(

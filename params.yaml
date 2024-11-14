@@ -23,4 +23,5 @@ get_y_variables:
 
 post_cleaning_dataset:
   output_folder: data/output
-  output_file_name: nba_games_training_dataset_final
+  output_training_file_name: nba_games_training_dataset_final
+  output_inseason_file_name: nba_games_inseason_dataset_final
