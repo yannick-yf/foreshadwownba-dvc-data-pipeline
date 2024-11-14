@@ -16,6 +16,9 @@ def calculate_streak_features(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     training_df = training_df.copy()
 
+    # For in season where we dont know the results fo the future games
+    training_df["streak_w_l"] = training_df["streak_w_l"].fillna("W 0")
+
     # Extract the numeric value from the streak_w_l column
     training_df["streak_w_l_2"] = (
         training_df["streak_w_l"].str.extract(r"(\d+)").astype(int)
@@ -32,5 +35,8 @@ def calculate_streak_features(training_df: pd.DataFrame) -> pd.DataFrame:
     training_df["before_streak_w_l"] = training_df.groupby(["id_season", "tm"])[
         "streak_w_l_2"
     ].shift(1)
+
+    # Drop the non needed features
+    training_df = training_df.drop(["streak_w_l_2"], axis=1)
 
     return training_df

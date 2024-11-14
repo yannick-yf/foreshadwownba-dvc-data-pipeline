@@ -34,6 +34,11 @@ def calculate_rest_days_between_games(training_df: pd.DataFrame) -> pd.DataFrame
         training_df["game_date"] - training_df["game_date_lag"]
     ).dt.days
 
+    # When game_nb = 1 , rest value is na
+    training_df["rest"] = training_df["rest"].fillna(0)
+
+    training_df["rest"] = training_df["rest"].astype(int)
+
     # Remove the temporary column
     training_df = training_df.drop(columns=["game_date_lag"])
 

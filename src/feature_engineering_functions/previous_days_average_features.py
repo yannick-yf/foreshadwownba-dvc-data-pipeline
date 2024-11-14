@@ -66,28 +66,28 @@ def previous_days_average_features(training_df: pd.DataFrame) -> pd.DataFrame:
     # Usage example:
     windows_to_calculate = [5, 7, 10]
     last_days_features = _generate_rolling_game_count_features(
-        df=last_days_features,
+        training_df=last_days_features,
         group_cols=["id_season", "tm"],
         game_indicator_col="game_y_n",
         windows=windows_to_calculate,
     )
 
     last_days_features = _generate_rolling_away_game_count_features(
-        df=last_days_features,
+        training_df=last_days_features,
         group_cols=["id_season", "tm"],
         away_game_indicator_col="ext_y_n",
         windows=windows_to_calculate,
     )
 
     last_days_features = _generate_rolling_home_game_count_features(
-        df=last_days_features,
+        training_df=last_days_features,
         group_cols=["id_season", "tm"],
         away_game_indicator_col="dom_y_n",
         windows=windows_to_calculate,
     )
 
     last_days_features = _generate_rolling_trip_duration_sum_features(
-        df=last_days_features,
+        training_df=last_days_features,
         group_cols=["id_season", "tm"],
         trip_duration_col="duration_trip_y_n",
         windows=windows_to_calculate,
@@ -230,15 +230,15 @@ def _recode_game_day_trip_duration(last_days_features: pd.DataFrame) -> pd.DataF
 
 
 def _generate_rolling_game_count_features(
-    df: pd.DataFrame, group_cols: list, game_indicator_col: str, windows: list
+    training_df: pd.DataFrame, group_cols: list, game_indicator_col: str, windows: list
 ) -> pd.DataFrame:
     """
     Generate features counting the number of games for the last x days.
 
     Args:
-        df (pd.DataFrame): Input DataFrame containing game data
+        training_df (pd.DataFrame): Input DataFrame containing game data
         group_cols (list): Columns to group by (e.g., ["id_season", "tm"])
-        game_indicator_col (str): Column name indicating whether a game was played (e.g., "game_y_n")
+        game_indicator_col (str): Indicates whether a game was played (e.g., "game_y_n")
         windows (list): List of day windows to calculate (e.g., [5, 7, 10])
 
     Returns:
@@ -246,25 +246,28 @@ def _generate_rolling_game_count_features(
     """
     for window in windows:
         feature_name = f"nb_games_last_{window}days"
-        df[feature_name] = (
-            df.groupby(group_cols)[game_indicator_col]
+        training_df[feature_name] = (
+            training_df.groupby(group_cols)[game_indicator_col]
             .transform(lambda x: x.rolling(window).sum())
             .round(1)
         )
 
-    return df
+    return training_df
 
 
 def _generate_rolling_away_game_count_features(
-    df: pd.DataFrame, group_cols: list, away_game_indicator_col: str, windows: list
+    training_df: pd.DataFrame,
+    group_cols: list,
+    away_game_indicator_col: str,
+    windows: list,
 ) -> pd.DataFrame:
     """
     Generate features counting the number of away games for the last x days.
 
     Args:
-        df (pd.DataFrame): Input DataFrame containing game data
+        training_df (pd.DataFrame): Input DataFrame containing game data
         group_cols (list): Columns to group by (e.g., ["id_season", "tm"])
-        away_game_indicator_col (str): Column name indicating whether an away game was played (e.g., "ext_y_n")
+        away_game_indicator_col (str): Indicates whether an away game was played (e.g., "ext_y_n")
         windows (list): List of day windows to calculate (e.g., [5, 7, 10])
 
     Returns:
@@ -272,25 +275,28 @@ def _generate_rolling_away_game_count_features(
     """
     for window in windows:
         feature_name = f"nb_ext_games_last_{window}days"
-        df[feature_name] = (
-            df.groupby(group_cols)[away_game_indicator_col]
+        training_df[feature_name] = (
+            training_df.groupby(group_cols)[away_game_indicator_col]
             .transform(lambda x: x.rolling(window).sum())
             .round(1)
         )
 
-    return df
+    return training_df
 
 
 def _generate_rolling_home_game_count_features(
-    df: pd.DataFrame, group_cols: list, away_game_indicator_col: str, windows: list
+    training_df: pd.DataFrame,
+    group_cols: list,
+    away_game_indicator_col: str,
+    windows: list,
 ) -> pd.DataFrame:
     """
     Generate features counting the number of away games for the last x days.
 
     Args:
-        df (pd.DataFrame): Input DataFrame containing game data
+        training_df (pd.DataFrame): Input DataFrame containing game data
         group_cols (list): Columns to group by (e.g., ["id_season", "tm"])
-        home_game_indicator_col (str): Column name indicating whether an home game was played (e.g., "dom_y_n")
+        home_game_indicator_col (str): Indicates whether an home game was played (e.g., "dom_y_n")
         windows (list): List of day windows to calculate (e.g., [5, 7, 10])
 
     Returns:
@@ -298,25 +304,25 @@ def _generate_rolling_home_game_count_features(
     """
     for window in windows:
         feature_name = f"nb_dom_games_last_{window}days"
-        df[feature_name] = (
-            df.groupby(group_cols)[away_game_indicator_col]
+        training_df[feature_name] = (
+            training_df.groupby(group_cols)[away_game_indicator_col]
             .transform(lambda x: x.rolling(window).sum())
             .round(1)
         )
 
-    return df
+    return training_df
 
 
 def _generate_rolling_trip_duration_sum_features(
-    df: pd.DataFrame, group_cols: list, trip_duration_col: str, windows: list
+    training_df: pd.DataFrame, group_cols: list, trip_duration_col: str, windows: list
 ) -> pd.DataFrame:
     """
     Generate features summing the duration of trips for the last x days.
 
     Args:
-        df (pd.DataFrame): Input DataFrame containing trip duration data
+        training_df (pd.DataFrame): Input DataFrame containing trip duration data
         group_cols (list): Columns to group by (e.g., ["id_season", "tm"])
-        trip_duration_col (str): Column name indicating the duration of trips (e.g., "duration_trip_y_n")
+        trip_duration_col (str): Indicates the duration of trips (e.g., "duration_trip_y_n")
         windows (list): List of day windows to calculate (e.g., [5, 7, 10])
 
     Returns:
@@ -324,10 +330,10 @@ def _generate_rolling_trip_duration_sum_features(
     """
     for window in windows:
         feature_name = f"sum_duration_trip_y_n_last_{window}days"
-        df[feature_name] = (
-            df.groupby(group_cols)[trip_duration_col]
+        training_df[feature_name] = (
+            training_df.groupby(group_cols)[trip_duration_col]
             .transform(lambda x: x.rolling(window).sum())
             .round(1)
         )
 
-    return df
+    return training_df
