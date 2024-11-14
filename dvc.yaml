@@ -12,11 +12,11 @@ stages:
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/gamelogs/
-      ${project.directory}/data/raw/gamelogs/ --recursive --profile=ipfy
+      ${project.directory}/data/raw/gamelogs/ --recursive
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/schedules/
-      ${project.directory}/data/raw/schedules/ --recursive --profile=ipfy
+      ${project.directory}/data/raw/schedules/ --recursive
     outs:
       - ${project.directory}/data/raw/gamelogs/
       - ${project.directory}/data/raw/schedules/
