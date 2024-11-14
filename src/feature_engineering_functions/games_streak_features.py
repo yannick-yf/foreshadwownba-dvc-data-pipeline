@@ -17,7 +17,7 @@ def calculate_streak_features(training_df: pd.DataFrame) -> pd.DataFrame:
     training_df = training_df.copy()
 
     # For in season where we dont know the results fo the future games
-    training_df['streak_w_l'] = training_df['streak_w_l'].fillna('W 0')
+    training_df["streak_w_l"] = training_df["streak_w_l"].fillna("W 0")
 
     # Extract the numeric value from the streak_w_l column
     training_df["streak_w_l_2"] = (

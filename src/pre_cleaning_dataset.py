@@ -4,21 +4,21 @@ This module performs pre-cleaning on the NBA games training dataset.
 
 import argparse
 from pathlib import Path
-import pandas as pd
 import yaml
 import os
+import pandas as pd
+
 
 from src.utils.logs import get_logger
 
-logger = get_logger(
-    "PRE_CLEANED_DATASET", log_level='INFO'
-)
+logger = get_logger("PRE_CLEANED_DATASET", log_level="INFO")
+
 
 def pre_cleaning_dataset(
-        input_file_folder_name: str ='data/input/nba_gamelog_schedule_dataset.csv',
-        output_folder: Path ='data/processed',
-        output_file_name: str = 'nba_games_training_dataset_pre_cleaned'
-        ) -> None:
+    input_file_folder_name: str = "data/input/nba_gamelog_schedule_dataset.csv",
+    output_folder: Path = "data/processed",
+    output_file_name: str = "nba_games_training_dataset_pre_cleaned",
+) -> None:
     """
     Pre Cleaning Dataset.
 
@@ -28,31 +28,25 @@ def pre_cleaning_dataset(
         output_file_name (str): Name of the cleaned unfied dataframe
     """
 
-    nba_games_training_dataset = pd.read_csv(
-        input_file_folder_name
-    )
+    nba_games_training_dataset = pd.read_csv(input_file_folder_name)
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
-    #-------------------------------------------
+    # -------------------------------------------
     # Check for Duplciate and raise info/warnings
     nb_duplicated_rows = nba_games_training_dataset.duplicated(
-        subset=['id_season','tm','game_date'],
-        keep='first').sum()
+        subset=["id_season", "tm", "game_date"], keep="first"
+    ).sum()
 
     if nb_duplicated_rows > 0:
-        logger.info('DUPLICATED ROWS IN THE DATAFRAME')
+        logger.info("DUPLICATED ROWS IN THE DATAFRAME")
 
     nba_games_training_dataset = nba_games_training_dataset.drop_duplicates(
-        subset=['id_season', 'tm', 'game_date']
-        )
-    
+        subset=["id_season", "tm", "game_date"]
+    )
+
     # Sort values to order per game date id season team
     nba_games_training_dataset = nba_games_training_dataset.sort_values(
-        [
-            "id_season",
-            "tm", 
-            "game_nb"
-        ]
+        ["id_season", "tm", "game_nb"]
     )
 
     # Overtime features
@@ -70,43 +64,40 @@ def pre_cleaning_dataset(
 
     # Remove playoffs games and keep missing game value for the inseason
     nba_games_training_dataset_not_inseason = nba_games_training_dataset[
-        (nba_games_training_dataset['game_nb'].notnull()) &
-        (nba_games_training_dataset['id_season']!=2025)
+        (nba_games_training_dataset["game_nb"].notnull())
+        & (nba_games_training_dataset["id_season"] != 2025)
     ]
-    
+
     nba_games_training_dataset_inseason = nba_games_training_dataset[
-            nba_games_training_dataset['id_season']==2025
-        ]
-    
-    nba_games_training_dataset = pd.concat([
-        nba_games_training_dataset_not_inseason, 
-        nba_games_training_dataset_inseason], 
-        axis=0)
+        nba_games_training_dataset["id_season"] == 2025
+    ]
+
+    nba_games_training_dataset = pd.concat(
+        [nba_games_training_dataset_not_inseason, nba_games_training_dataset_inseason],
+        axis=0,
+    )
 
     # Remove game after date of today
-    today = pd.Timestamp('today').normalize()
+    today = pd.Timestamp("today").normalize()
     nba_games_training_dataset = nba_games_training_dataset[
-        pd.to_datetime(nba_games_training_dataset['game_date']) <= today
+        pd.to_datetime(nba_games_training_dataset["game_date"]) <= today
     ]
 
     # Fill na game_nb
-    nba_games_training_dataset['game_nb_new'] = nba_games_training_dataset.groupby(
-        ['tm', 'id_season']
-    ).cumcount() +1
+    nba_games_training_dataset["game_nb_new"] = (
+        nba_games_training_dataset.groupby(["tm", "id_season"]).cumcount() + 1
+    )
 
-    nba_games_training_dataset['game_nb'] = nba_games_training_dataset['game_nb'].fillna(
-        nba_games_training_dataset['game_nb_new']
-    )
-    
-    nba_games_training_dataset = nba_games_training_dataset.drop(
-        'game_nb_new', 
-        axis=1
-    )
+    nba_games_training_dataset["game_nb"] = nba_games_training_dataset[
+        "game_nb"
+    ].fillna(nba_games_training_dataset["game_nb_new"])
+
+    nba_games_training_dataset = nba_games_training_dataset.drop("game_nb_new", axis=1)
 
     # Remove Playoffs Games
     nba_games_training_dataset = nba_games_training_dataset[
-        nba_games_training_dataset['game_nb']<=82
-        ]
+        nba_games_training_dataset["game_nb"] <= 82
+    ]
 
     # Column Selection
     columns_to_select = [
@@ -130,10 +121,11 @@ def pre_cleaning_dataset(
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
 
     nba_games_training_dataset.to_csv(
-        os.path.join(output_folder, output_file_name +  ".csv"), index=False
+        os.path.join(output_folder, output_file_name + ".csv"), index=False
     )
 
     logger.info("Pre Cleaned NBA games data step complete")
+
 
 def get_args():
     """
@@ -158,10 +150,10 @@ def get_args():
     pre_gamelog_schedule_unification_params = params["gamelog_schedule_unification"]
 
     input_file_folder_name = os.path.join(
-        pre_gamelog_schedule_unification_params['unified_file_path'], 
-        pre_gamelog_schedule_unification_params['unified_file_name'] +  ".csv"
-        )
-    
+        pre_gamelog_schedule_unification_params["unified_file_path"],
+        pre_gamelog_schedule_unification_params["unified_file_name"] + ".csv",
+    )
+
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
@@ -185,11 +177,10 @@ def get_args():
 
     args = parser.parse_args()
 
-    args.output_folder.parent.mkdir(
-        parents=True, 
-        exist_ok=True)
-        
+    args.output_folder.parent.mkdir(parents=True, exist_ok=True)
+
     return args
+
 
 def main():
     """Run the Pre Train Multiple Models Pipeline."""
@@ -198,8 +189,9 @@ def main():
     pre_cleaning_dataset(
         input_file_folder_name=args.input_file_folder_name,
         output_folder=args.output_folder,
-        output_file_name=args.output_file_name
+        output_file_name=args.output_file_name,
     )
+
 
 if __name__ == "__main__":
     main()

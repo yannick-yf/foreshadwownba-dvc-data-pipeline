@@ -1,14 +1,14 @@
 """
 This module performs feature engineering on the NBA games training dataset.
 """
-
+import os
 import argparse
 from pathlib import Path
 from warnings import simplefilter
 
 import pandas as pd
 import yaml
-import os
+
 
 from src.feature_engineering_functions.average_ratio_win_loose_ext_game import (
     average_ratio_win_loose_ext_game,
@@ -48,8 +48,9 @@ simplefilter(action="ignore", category=pd.errors.PerformanceWarning)
 
 logger = get_logger(
     "FEATURES_ENGINEERING_PROGRESS",
-    log_level='INFO',
+    log_level="INFO",
 )
+
 
 def copy_df(training_df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -63,22 +64,21 @@ def copy_df(training_df: pd.DataFrame) -> pd.DataFrame:
     """
     return training_df.copy()
 
+
 def features_engineering_pipeline(
-        input_file_folder_name: str = 'data/processed/nba_games_training_dataset_final.csv',
-        output_file_folder_name: str ='data/output/nba_games_training_dataset_final.csv'
-        ) -> None:
+    input_file_folder_name: str = "data/processed/nba_games_training_dataset_final.csv",
+    output_file_folder_name: str = "data/output/nba_games_training_dataset_final.csv",
+) -> None:
     """
     Feature Engineering Pipeline.
 
     Args:
-        input_file_folder_name (str): Pre-cleaned DataFrame 
+        input_file_folder_name (str): Pre-cleaned DataFrame
         output_file_folder_name (str): DataFrame with features computed.
     """
 
     # Read the input data for the step
-    training_dataset = pd.read_csv(
-        input_file_folder_name
-    )
+    training_dataset = pd.read_csv(input_file_folder_name)
 
     training_dataset = training_dataset.sort_values(["id_season", "tm", "game_nb"])
 
@@ -114,6 +114,7 @@ def features_engineering_pipeline(
 
     logger.info("Feature Engineering Generation step complete")
 
+
 def get_args():
     """
     Parse command line arguments and return the parsed arguments.
@@ -135,12 +136,12 @@ def get_args():
 
     pre_cleaning_dataset_params = params["pre_cleaning_dataset"]
     features_engineering_pipeline_params = params["features_engineering_pipeline"]
-    
+
     input_file_folder_name = os.path.join(
-        pre_cleaning_dataset_params['output_folder'], 
-        pre_cleaning_dataset_params['output_file_name'] +  ".csv"
-        )
-    
+        pre_cleaning_dataset_params["output_folder"],
+        pre_cleaning_dataset_params["output_file_name"] + ".csv",
+    )
+
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
@@ -149,8 +150,9 @@ def get_args():
     )
 
     output_file_folder_name = os.path.join(
-        features_engineering_pipeline_params['output_file'] + '.csv')
-    
+        features_engineering_pipeline_params["output_file"] + ".csv"
+    )
+
     parser.add_argument(
         "--output-file-folder-name",
         dest="output_file_folder_name",
@@ -159,8 +161,9 @@ def get_args():
     )
 
     args = parser.parse_args()
-        
+
     return args
+
 
 def main():
     """Run the Feature Engineering Step."""
@@ -168,8 +171,9 @@ def main():
 
     features_engineering_pipeline(
         input_file_folder_name=args.input_file_folder_name,
-        output_file_folder_name=args.output_file_folder_name
+        output_file_folder_name=args.output_file_folder_name,
     )
+
 
 if __name__ == "__main__":
     main()

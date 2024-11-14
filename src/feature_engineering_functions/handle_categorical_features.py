@@ -3,10 +3,12 @@
 import pandas as pd
 import numpy as np
 from sklearn.preprocessing import OneHotEncoder
-from sklearn.compose import ColumnTransformer
 
-def handle_multimodel_values_overtime(training_df: pd.DataFrame) -> pd.DataFrame:
-    """ """
+
+def handle_different_values_overtime(training_df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Process to handle the different values of overtime columns
+    """
     training_df["last_game_overtime"] = np.where(
         training_df["last_game_overtime"].isin(["2OT", "3OT", "4OT", "5OT"]),
         "Multiple_OT",
@@ -17,12 +19,13 @@ def handle_multimodel_values_overtime(training_df: pd.DataFrame) -> pd.DataFrame
 
 
 def handle_categorical_features(training_df: pd.DataFrame) -> pd.DataFrame:
-    """ 
     """
-    training_df = handle_multimodel_values_overtime(training_df)
+    Pipeline to handle categorical features
+    """
+    training_df = handle_different_values_overtime(training_df)
 
     drop_binary_enc = OneHotEncoder(drop="if_binary").fit(
-        training_df[["extdom",  "last_game_overtime"]]
+        training_df[["extdom", "last_game_overtime"]]
     )
 
     dummies_variables = drop_binary_enc.transform(
@@ -35,6 +38,6 @@ def handle_categorical_features(training_df: pd.DataFrame) -> pd.DataFrame:
 
     training_df = pd.concat([training_df, dummies_variables_df], axis=1)
 
-    training_df.drop(["extdom",  "last_game_overtime"], axis=1)
+    training_df.drop(["extdom", "last_game_overtime"], axis=1)
 
     return training_df

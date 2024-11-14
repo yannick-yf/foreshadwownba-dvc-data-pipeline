@@ -17,6 +17,6 @@ def last_game_overtime(training_df: pd.DataFrame) -> pd.DataFrame:
         "overtime"
     ].shift(1)
 
-    training_df["last_game_overtime"] = training_df["last_game_overtime"].fillna('NOT')
+    training_df["last_game_overtime"] = training_df["last_game_overtime"].fillna("NOT")
 
     return training_df

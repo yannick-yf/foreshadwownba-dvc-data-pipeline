@@ -11,9 +11,8 @@ import yaml
 
 from src.utils.logs import get_logger
 
-logger = get_logger(
-    "PRE_CLEANED_DATASET", log_level='INFO'
-)
+logger = get_logger("PRE_CLEANED_DATASET", log_level="INFO")
+
 
 def best_team_name(row) -> str:
     """
@@ -73,10 +72,11 @@ def best_team_name(row) -> str:
                                 val = row["opp"]
     return val
 
+
 def get_y_variables(
-        input_file_folder_name: str = 'data/processed/nba_games_training_dataset_cleaned_w_features.csv',
-        output_file_folder_name: str = 'data/processed/nba_games_training_dataset_final.csv',
-        ) -> pd.DataFrame:
+    input_file_folder_name: str = "data/processed/nba_games_training_dataset_cleaned_w_features.csv",
+    output_file_folder_name: str = "data/processed/nba_games_training_dataset_final.csv",
+) -> pd.DataFrame:
     """
     Get y variables for the ML models
 
@@ -85,9 +85,7 @@ def get_y_variables(
         output_file (str): Name and path to the output file
     """
 
-    training_df = pd.read_csv(
-        input_file_folder_name
-    )
+    training_df = pd.read_csv(input_file_folder_name)
 
     training_df["results"] = np.where(
         training_df["pts_tm"] > training_df["pts_opp"], "W", "L"
@@ -111,9 +109,7 @@ def get_y_variables(
         training_df["name_best_team"] == training_df["name_win_team"], 1, 0
     )
 
-    training_df.to_csv(
-        output_file_folder_name, index=False
-    )
+    training_df.to_csv(output_file_folder_name, index=False)
 
     logger.info("Get Y variables step complete")
 
@@ -139,9 +135,8 @@ def get_args():
 
     get_y_variables_params = params["get_y_variables"]
 
-    input_file_folder_name = get_y_variables_params['input_file'] +\
-        '.csv'
-    
+    input_file_folder_name = get_y_variables_params["input_file"] + ".csv"
+
     parser.add_argument(
         "--input-file-folder-name",
         dest="input_file_folder_name",
@@ -149,9 +144,8 @@ def get_args():
         default=input_file_folder_name,
     )
 
-    output_file_folder_name = get_y_variables_params['output_file'] +\
-        '.csv'
-    
+    output_file_folder_name = get_y_variables_params["output_file"] + ".csv"
+
     parser.add_argument(
         "--output-file-folder-name",
         dest="output_file_folder_name",
@@ -163,14 +157,16 @@ def get_args():
 
     return args
 
+
 def main():
     """Run the Pre Train Multiple Models Pipeline."""
     args = get_args()
 
     get_y_variables(
-        input_file_folder_name = args.input_file_folder_name,
-        output_file_folder_name = args.output_file_folder_name
+        input_file_folder_name=args.input_file_folder_name,
+        output_file_folder_name=args.output_file_folder_name,
     )
+
 
 if __name__ == "__main__":
     main()

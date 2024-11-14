@@ -7,9 +7,9 @@ pd.options.mode.chained_assignment = None
 
 
 def previous_games_average_features(
-        training_df: pd.DataFrame,
-        columns_to_process = ["pts_tm", "pts_opp"]
-        ) -> pd.DataFrame:
+    training_df: pd.DataFrame, 
+    columns_to_process: list
+) -> pd.DataFrame:
     """
     Calculate average features from previous games.
 
@@ -76,7 +76,7 @@ def previous_games_ratio_average_features(training_df):
     Returns:
         pd.DataFrame: DataFrame with new ratio average features.
     """
-    
+
     training_df_subset = training_df[
         ["id_season", "game_nb", "game_date", "extdom", "tm", "opp", "results"]
     ]
