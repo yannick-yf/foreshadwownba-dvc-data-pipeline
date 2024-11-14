@@ -7,8 +7,7 @@ pd.options.mode.chained_assignment = None
 
 
 def previous_games_average_features(
-    training_df: pd.DataFrame, 
-    columns_to_process: list
+    training_df: pd.DataFrame, columns_to_process: list
 ) -> pd.DataFrame:
     """
     Calculate average features from previous games.
