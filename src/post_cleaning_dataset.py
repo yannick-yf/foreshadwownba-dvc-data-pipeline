@@ -16,46 +16,21 @@ logger = get_logger("POST_CLEANED_DATASET", log_level="INFO")
 
 def post_cleaning_dataset(
     input_file_folder_name: str = "data/processed/nba_games_training_dataset_final.csv",
-    output_file_folder_name: str = "data/output/nba_games_training_dataset_final.csv",
+    output_training_file_folder_name: str = "data/output/nba_games_training_dataset_final.csv",
+    output_inseason_file_folder_name: str = "data/output/nba_games_inseason_dataset_final.csv",
 ) -> None:
     """
     Post Cleaning Dataset.
 
     Args:
         input_file_folder_name (str): Unified gamelogs and schedules for multiple seasons
-        output_file_folder_name (str): Path where to save the cleaned unified dataframe.
+        output_training_file_folder_name (str): Path where to save the training dataframe.
+        output_inseason_file_folder_name (str): Path where to save the inseason dataframe.
     """
 
     nba_games_training_dataset = pd.read_csv(input_file_folder_name)
 
     logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
-
-    # # Remove playoffs games and keep missing game value for the inseason
-    # nba_games_training_dataset = nba_games_training_dataset[
-    #     (nba_games_training_dataset['game_nb'].notnull())
-    #     ]
-    #     # &
-    #     # (nba_games_training_dataset['id_season']!=2025))
-    #     #]
-
-    # # Only get the data for the current up to today
-    # nba_games_training_dataset_inseason = nba_games_training_dataset[
-    #         nba_games_training_dataset['id_season']==2025
-    #     ]
-
-    # nba_games_training_dataset_inseason.loc[:, 'game_date'] = pd.to_datetime(
-    #     nba_games_training_dataset_inseason['game_date']
-    # )
-
-    # # Filter rows with today's date
-    # today = pd.Timestamp('today').normalize()
-    # nba_games_training_dataset_inseason = nba_games_training_dataset_inseason[
-    #     nba_games_training_dataset_inseason['game_date'] <= today
-    #     ]
-
-    # nba_games_training_dataset = pd.concat([
-    #     nba_games_training_dataset_not_inseason,
-    #     nba_games_training_dataset_inseason], axis=0)
 
     # Column Selection
     nba_games_training_dataset = nba_games_training_dataset.drop(
@@ -90,9 +65,23 @@ def post_cleaning_dataset(
         nba_games_training_dataset["game_nb"] != 1
     ]
 
-    logger.info("Shape of the DataFrame %s", str(nba_games_training_dataset.shape))
+    # Remove playoffs games and keep missing game value for the inseason
+    nba_games_training_dataset_inseason = nba_games_training_dataset[
+        nba_games_training_dataset["id_season"] == 2025
+    ]
 
-    nba_games_training_dataset.to_csv(output_file_folder_name, index=False)
+    logger.info(
+        "Shape of the Training DataFrame %s", str(nba_games_training_dataset.shape)
+    )
+    logger.info(
+        "Shape of the Inseason DataFrame %s",
+        str(nba_games_training_dataset_inseason.shape),
+    )
+
+    nba_games_training_dataset.to_csv(output_training_file_folder_name, index=False)
+    nba_games_training_dataset_inseason.to_csv(
+        output_inseason_file_folder_name, index=False
+    )
 
     logger.info("Post Cleaned NBA games data step complete")
 
@@ -119,9 +108,14 @@ def get_args():
     get_y_variables_params = params["get_y_variables"]
     post_cleaning_dataset_params = params["post_cleaning_dataset"]
 
-    output_file_folder_name = os.path.join(
+    output_training_file_folder_name = os.path.join(
         post_cleaning_dataset_params["output_folder"],
-        post_cleaning_dataset_params["output_file_name"] + ".csv",
+        post_cleaning_dataset_params["output_training_file_name"] + ".csv",
+    )
+
+    output_inseason_file_folder_name = os.path.join(
+        post_cleaning_dataset_params["output_folder"],
+        post_cleaning_dataset_params["output_inseason_file_name"] + ".csv",
     )
 
     input_file_folder_name = os.path.join(
@@ -136,10 +130,17 @@ def get_args():
     )
 
     parser.add_argument(
-        "--output-file-folder-name",
-        dest="output_file_folder_name",
+        "--output-training-file-folder-name",
+        dest="output_training_file_folder_name",
         type=Path,
-        default=output_file_folder_name,
+        default=output_training_file_folder_name,
+    )
+
+    parser.add_argument(
+        "--output-inseason-file-folder-name",
+        dest="output_inseason_file_folder_name",
+        type=Path,
+        default=output_inseason_file_folder_name,
     )
 
     parser.add_argument(
@@ -162,7 +163,8 @@ def main():
 
     post_cleaning_dataset(
         input_file_folder_name=args.input_file_folder_name,
-        output_file_folder_name=args.output_file_folder_name,
+        output_training_file_folder_name=args.output_training_file_folder_name,
+        output_inseason_file_folder_name=args.output_inseason_file_folder_name,
     )
 
 

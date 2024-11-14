@@ -87,7 +87,8 @@ stages:
     - >-
       python3 -m src.post_cleaning_dataset
       --input-file-folder-name ${project.directory}/${get_y_variables.output_file}.csv
-      --output-file-folder-name ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
+      --output-training-file-folder-name ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+      --output-inseason-file-folder-name ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
     deps:
       - src/post_cleaning_dataset.py
       - ${project.directory}/${get_y_variables.output_file}.csv
@@ -96,19 +97,27 @@ stages:
       - get_y_variables
       - post_cleaning_dataset
     outs:
-      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
   training_dataset_assessment:
     cmd: python3 -m src.training_dataset_assessment --config=params.yaml
     deps:
       - src/training_dataset_assessment.py
-      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_file_name}.csv
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
     params:
       - base
   writte_final_output_to_s3:
     cmd:
     - >-
       aws s3 cp
-      ${project.directory}/data/output/nba_games_training_dataset_final.csv
+      ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
+    - >-
+      aws s3 cp
+      ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
       s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
     deps:
-    - ./data/output/nba_games_training_dataset_final.csv
+    - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+    - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
+    
