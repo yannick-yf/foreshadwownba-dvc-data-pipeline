@@ -7,7 +7,7 @@ from src.feature_engineering_functions.last_games_average_features import (
 )
 
 
-class TestLastGameOvertime(TestCase):
+class TestPreviousGamesAverageFeatures(TestCase):
     def setUp(self) -> None:
         self.season = 2024
         self.team = "BOS"
@@ -31,31 +31,31 @@ class TestLastGameOvertime(TestCase):
 
         # Column to process for previous_games_average_features
 
-        training_df_w_previous_games_average_features_w = training_dataset.pipe(
+        training_df_w_previous_games_average_features = training_dataset.pipe(
             previous_games_average_features, columns_to_process=["pts_tm", "pts_opp"]
         )
 
-        training_df_w_previous_games_average_features_w = (
-            training_df_w_previous_games_average_features_w[
-                (training_df_w_previous_games_average_features_w["tm"] == self.team)
+        training_df_w_previous_games_average_features = (
+            training_df_w_previous_games_average_features[
+                (training_df_w_previous_games_average_features["tm"] == self.team)
                 & (
-                    training_df_w_previous_games_average_features_w["id_season"]
+                    training_df_w_previous_games_average_features["id_season"]
                     == self.season
                 )
             ]
         )
 
-        pts_tm_first_game = training_df_w_previous_games_average_features_w["pts_tm"][
-            training_df_w_previous_games_average_features_w["game_nb"] == 1
+        pts_tm_first_game = training_df_w_previous_games_average_features["pts_tm"][
+            training_df_w_previous_games_average_features["game_nb"] == 1
         ].values[0]
 
-        before_average_pts_tm = training_df_w_previous_games_average_features_w[
+        before_average_pts_tm = training_df_w_previous_games_average_features[
             "before_average_pts_tm"
-        ][training_df_w_previous_games_average_features_w["game_nb"] == 2].values[0]
+        ][training_df_w_previous_games_average_features["game_nb"] == 2].values[0]
 
         before_average_pts_tm_first_game = (
-            training_df_w_previous_games_average_features_w["before_average_pts_tm"][
-                training_df_w_previous_games_average_features_w["game_nb"] == 1
+            training_df_w_previous_games_average_features["before_average_pts_tm"][
+                training_df_w_previous_games_average_features["game_nb"] == 1
             ].values[0]
         )
 
@@ -78,28 +78,28 @@ class TestLastGameOvertime(TestCase):
 
         # Column to process for previous_games_average_features
 
-        training_df_w_previous_games_average_features_w = training_dataset.pipe(
+        training_df_w_previous_games_average_features = training_dataset.pipe(
             previous_games_average_features, columns_to_process=["pts_tm", "pts_opp"]
         )
 
-        training_df_w_previous_games_average_features_w = (
-            training_df_w_previous_games_average_features_w[
-                (training_df_w_previous_games_average_features_w["tm"] == self.team)
+        training_df_w_previous_games_average_features = (
+            training_df_w_previous_games_average_features[
+                (training_df_w_previous_games_average_features["tm"] == self.team)
                 & (
-                    training_df_w_previous_games_average_features_w["id_season"]
+                    training_df_w_previous_games_average_features["id_season"]
                     == self.season
                 )
             ]
         )
 
-        pts_tm_first_5_games_avg = training_df_w_previous_games_average_features_w[
+        pts_tm_first_5_games_avg = training_df_w_previous_games_average_features[
             "pts_tm"
-        ][training_df_w_previous_games_average_features_w["game_nb"] <= 5].mean()
+        ][training_df_w_previous_games_average_features["game_nb"] <= 5].mean()
 
         before_average_lastfivegame_pts_tm = (
-            training_df_w_previous_games_average_features_w[
+            training_df_w_previous_games_average_features[
                 "before_average_lastfivegame_pts_tm"
-            ][training_df_w_previous_games_average_features_w["game_nb"] == 6].values[0]
+            ][training_df_w_previous_games_average_features["game_nb"] == 6].values[0]
         )
 
         assert before_average_lastfivegame_pts_tm == pts_tm_first_5_games_avg
@@ -120,29 +120,29 @@ class TestLastGameOvertime(TestCase):
 
         # Column to process for previous_games_average_features
 
-        training_df_w_previous_games_average_features_w = training_dataset.pipe(
+        training_df_w_previous_games_average_features = training_dataset.pipe(
             previous_games_average_features, columns_to_process=["pts_tm", "pts_opp"]
         )
 
-        training_df_w_previous_games_average_features_w = (
-            training_df_w_previous_games_average_features_w[
-                (training_df_w_previous_games_average_features_w["tm"] == self.team)
+        training_df_w_previous_games_average_features = (
+            training_df_w_previous_games_average_features[
+                (training_df_w_previous_games_average_features["tm"] == self.team)
                 & (
-                    training_df_w_previous_games_average_features_w["id_season"]
+                    training_df_w_previous_games_average_features["id_season"]
                     == self.season
                 )
             ]
         )
 
-        pts_tm_10_games_avg = training_df_w_previous_games_average_features_w["pts_tm"][
-            (training_df_w_previous_games_average_features_w["game_nb"] <= 20)
-            & (training_df_w_previous_games_average_features_w["game_nb"] > 10)
+        pts_tm_10_games_avg = training_df_w_previous_games_average_features["pts_tm"][
+            (training_df_w_previous_games_average_features["game_nb"] <= 20)
+            & (training_df_w_previous_games_average_features["game_nb"] > 10)
         ].mean()
 
         before_average_lasttengame_pts_tm = (
-            training_df_w_previous_games_average_features_w[
+            training_df_w_previous_games_average_features[
                 "before_average_lasttengame_pts_tm"
-            ][training_df_w_previous_games_average_features_w["game_nb"] == 21].values[
+            ][training_df_w_previous_games_average_features["game_nb"] == 21].values[
                 0
             ]
         )

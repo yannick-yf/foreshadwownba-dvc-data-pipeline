@@ -10,7 +10,13 @@ def get_opponent_features(training_df: pd.DataFrame) -> pd.DataFrame:
     # --------------------------------
     # Baseline Classifier - Simple Domain expert rules
 
-    opponent_features = ["id", "tm", "opp", "before_average_W_ratio"]
+    opponent_features = [
+        "id", 
+        "tm", 
+        "opp", 
+        "before_average_W_ratio",
+        "before_average_pts_tm",
+        "before_average_pts_opp"]
 
     training_df_opp = training_df[opponent_features]
 

@@ -27,7 +27,7 @@ from src.feature_engineering_functions.games_streak_features import (
 from src.feature_engineering_functions.last_game_overtime import last_game_overtime
 from src.feature_engineering_functions.last_games_average_features import (
     previous_games_average_features,
-    previous_games_ratio_average_features,
+    previous_games_win_ratio_average_features,
     previous_season_ratio_features,
 )
 from src.feature_engineering_functions.previous_days_average_features import (
@@ -87,7 +87,7 @@ def features_engineering_pipeline(
     training_dataset_w_features = (
         training_dataset.pipe(copy_df)
         .pipe(previous_games_average_features, columns_to_process=["pts_tm", "pts_opp"])
-        .pipe(previous_games_ratio_average_features)
+        .pipe(previous_games_win_ratio_average_features)
         .pipe(previous_season_ratio_features)
         .pipe(calculate_rest_days_between_games)
         .pipe(duration_trip_hours_between_cities)

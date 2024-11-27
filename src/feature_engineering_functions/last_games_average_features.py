@@ -65,7 +65,7 @@ def previous_games_average_features(
     return training_df
 
 
-def previous_games_ratio_average_features(training_df):
+def previous_games_win_ratio_average_features(training_df):
     """
     Calculate ratio average features from previous games.
 
