@@ -33,6 +33,14 @@ def get_opponent_features(training_df: pd.DataFrame) -> pd.DataFrame:
         "before_average_W_ratio_opp"
     ].fillna(0.0)
 
+    training_df["before_average_pts_tm_opp"] = training_df[
+        "before_average_pts_tm_opp"
+    ].fillna(0.0)
+
+    training_df["before_average_pts_opp_opp"] = training_df[
+        "before_average_pts_opp_opp"
+    ].fillna(0.0)
+
     return training_df
 
 
