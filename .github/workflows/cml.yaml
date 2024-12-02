@@ -30,4 +30,5 @@ jobs:
           poetry run dvc repro post_cleaning_dataset -f
           poetry run pytest
           aws s3 cp ./data/output/nba_games_training_dataset_final.csv s3://foreshadownba/dvc-data-pipeline-output/
+          aws s3 cp ./data/output/nba_games_inseason_dataset_final.csv s3://foreshadownba/dvc-data-pipeline-output/
           
