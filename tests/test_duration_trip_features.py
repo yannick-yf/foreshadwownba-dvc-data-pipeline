@@ -7,7 +7,6 @@ from src.feature_engineering_functions.duration_trip_features import (
     _get_distance_between_cities,
     _get_duration_trip_features,
     _fillna_trip_features
-    
 )
 
 class TestDurationTripFeatures(TestCase):
@@ -18,32 +17,14 @@ class TestDurationTripFeatures(TestCase):
             "./data/processed/nba_games_training_dataset_pre_cleaned.csv"
         )
 
-    def test_calculate_rest_days_between_games(self):
-        """
-        GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_rest_days_between_games is applied
-        THEN it should correctly compute the number of rest days between two games
-        """
-
-        # Read the input data for the step
-        training_dataset = pd.read_csv(self.path_nba_gamelogs)
-
-        training_dataset = training_dataset.sort_values(["id_season", "tm", "game_nb"])
-
-        training_dataset_filtered = training_dataset[
-            (training_dataset['tm']==self.team) &
-            (training_dataset['id_season']==self.season)
-            ]
-
-        duration_trip_features = duration_trip_hours_between_cities(training_dataset_filtered)
-
-        assert 1+1==2
-
     def test_get_distance_between_cities(self):
         """
-        GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_rest_days_between_games is applied
-        THEN it should correctly compute the number of rest days between two games
+        GIVEN a dataset of NBA game logs with team and season details,
+        WHEN _get_distance_between_cities is applied,
+        THEN it should:
+            - Compute the correct distance traveled between consecutive games.
+            - Ensure home games have zero travel distance.
+            - Verify that away games have a positive travel distance.
         """
 
         city_name = pd.read_csv("./data/constants/team_name.csv")
@@ -78,9 +59,11 @@ class TestDurationTripFeatures(TestCase):
 
     def test_get_duration_trip_features(self):
         """
-        GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_rest_days_between_games is applied
-        THEN it should correctly compute the number of rest days between two games
+        GIVEN a dataset of NBA game logs with team and season details,
+        WHEN _get_duration_trip_features is applied,
+        THEN it should:
+            - Compute cumulative travel duration for previous games.
+            - Ensure NaN values are correctly assigned where no previous data is available.
         """
 
         city_name = pd.read_csv("./data/constants/team_name.csv")
@@ -112,9 +95,11 @@ class TestDurationTripFeatures(TestCase):
 
     def test_fillna_trip_features(self):
         """
-        GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_rest_days_between_games is applied
-        THEN it should correctly compute the number of rest days between two games
+        GIVEN a dataset of NBA game logs with team and season details,
+        WHEN _fillna_trip_features is applied,
+        THEN it should:
+            - Fill missing values for trip duration features.
+            - Ensure no NaN values remain after application.
         """
 
         city_name = pd.read_csv("./data/constants/team_name.csv")

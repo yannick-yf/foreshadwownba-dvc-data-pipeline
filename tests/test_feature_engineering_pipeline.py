@@ -16,11 +16,10 @@ class TestEndToEndPipeline(TestCase):
 
     def test_features_engineering_pipeline(self):
         """
-        GIVEN a dataset of NBA game logs with team and season details
-        WHEN previous_games_average_features is applied
-        THEN it should correctly compute streak counts and average points of previous games:
-            - Ensure that the 'before_average_pts_tm' for the second game matches the points of the first game.
-            - Verify that 'before_average_pts_tm' for the first game is NaN, indicating no prior games.
+        GIVEN a pre-cleaned dataset of NBA game logs with relevant team and season details,
+        WHEN the features_engineering_pipeline function is executed,
+        THEN it should:
+            - Generate a dataset with the expected number of features.
         """
 
         features_engineering_pipeline(
