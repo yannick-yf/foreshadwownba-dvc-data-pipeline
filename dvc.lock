@@ -33,7 +33,8 @@ stages:
           data_type: schedule
           output_folder: pipeline_output/schedule
   player_attributes_data_acquisition:
-    cmd: python3 -m src.exctract.player_attributes_data_acquisition --config=params.yaml
+    cmd: python3 -m src.exctract.player_attributes_data_acquisition 
+      --config=params.yaml
     deps:
     - path: src/exctract/player_attributes_data_acquisition.py
       hash: md5
@@ -49,7 +50,8 @@ stages:
           data_type: player_attributes
           output_folder: pipeline_output/player_attributes
   player_salary_data_acquisition:
-    cmd: python3 -m src.exctract.player_salary_data_acquisition --config=params.yaml
+    cmd: python3 -m src.exctract.player_salary_data_acquisition 
+      --config=params.yaml
     deps:
     - path: src/exctract/player_salary_data_acquisition.py
       hash: md5
@@ -65,20 +67,21 @@ stages:
           output_folder: pipeline_output/player_salary
   gamelog_schedule_unification:
     cmd:
-    - python3 -m src.gamelog_schedule_unification  --gamelog-data-path ./data/raw/gamelogs/
-      --gamelog-name-pattern gamelog --schedule-data-path ./data/raw/schedules/ --schedule-name-pattern
-      schedule --unified-file-path ./data/input --unified-file-name nba_gamelog_schedule_dataset
+    - python3 -m src.gamelog_schedule_unification  --gamelog-data-path 
+      ./data/raw/gamelogs/ --gamelog-name-pattern gamelog --schedule-data-path 
+      ./data/raw/schedules/ --schedule-name-pattern schedule --unified-file-path
+      ./data/input --unified-file-name nba_gamelog_schedule_dataset
     deps:
     - path: ./data/raw/gamelogs/
       hash: md5
-      md5: 633e0b93e42bcdd25e950a7ec9ff57c9.dir
-      size: 6557964
-      nfiles: 17
+      md5: d67e9fb2b2a7674737ae7b3b1a53ff71.dir
+      size: 6993663
+      nfiles: 18
     - path: ./data/raw/schedules/
       hash: md5
-      md5: 0dc6947940422fbd5ba12b444673869b.dir
-      size: 2906720
-      nfiles: 17
+      md5: 6fa52c9e02b83f58162f07e2f472539b.dir
+      size: 3060585
+      nfiles: 18
     - path: src/gamelog_schedule_unification.py
       hash: md5
       md5: 127d88fd7f626465f141b18e6c0d5b15
@@ -97,10 +100,11 @@ stages:
     outs:
     - path: ./data/input/nba_gamelog_schedule_dataset.csv
       hash: md5
-      md5: 1687248829b28d87c49f3fc9e7d7c52a
-      size: 10054395
+      md5: bc5ad4086ba0dd3583887e94cd648e58
+      size: 10541943
   player_attributes_salaries_unification:
-    cmd: python3 -m src.transform.player_attributes_salaries_unification --config=params.yaml
+    cmd: python3 -m src.transform.player_attributes_salaries_unification 
+      --config=params.yaml
     deps:
     - path: src/transform/player_attributes_salaries_unification.py
       hash: md5
@@ -115,30 +119,32 @@ stages:
           file_name: player_attributes_salaries_dataset
   get_training_dataset:
     cmd:
-    - aws s3 cp s3://foreshadownba/data-engineering-pipeline-output/gamelogs/ ./data/raw/gamelogs/
-      --recursive
-    - aws s3 cp s3://foreshadownba/data-engineering-pipeline-output/schedules/ ./data/raw/schedules/
-      --recursive
+    - aws s3 cp s3://foreshadownba/data-engineering-pipeline-output/gamelogs/ 
+      ./data/raw/gamelogs/ --recursive --profile=ipfy
+    - aws s3 cp s3://foreshadownba/data-engineering-pipeline-output/schedules/ 
+      ./data/raw/schedules/ --recursive --profile=ipfy
     outs:
     - path: ./data/raw/gamelogs/
       hash: md5
-      md5: 633e0b93e42bcdd25e950a7ec9ff57c9.dir
-      size: 6557964
-      nfiles: 17
+      md5: d67e9fb2b2a7674737ae7b3b1a53ff71.dir
+      size: 6993663
+      nfiles: 18
     - path: ./data/raw/schedules/
       hash: md5
-      md5: 0dc6947940422fbd5ba12b444673869b.dir
-      size: 2906720
-      nfiles: 17
+      md5: 6fa52c9e02b83f58162f07e2f472539b.dir
+      size: 3060585
+      nfiles: 18
   pre_cleaning_dataset:
     cmd:
-    - python3 -m src.pre_cleaning_dataset --input-file-folder-name ./data/input/nba_gamelog_schedule_dataset.csv
-      --output-folder ./data/processed --output-file-name ./nba_games_training_dataset_pre_cleaned
+    - python3 -m src.pre_cleaning_dataset --input-file-folder-name 
+      ./data/input/nba_gamelog_schedule_dataset.csv --output-folder 
+      ./data/processed --output-file-name 
+      ./nba_games_training_dataset_pre_cleaned
     deps:
     - path: ./data/input/nba_gamelog_schedule_dataset.csv
       hash: md5
-      md5: 1687248829b28d87c49f3fc9e7d7c52a
-      size: 10054395
+      md5: bc5ad4086ba0dd3583887e94cd648e58
+      size: 10541943
     - path: src/pre_cleaning_dataset.py
       hash: md5
       md5: adefcd039757ead92e9e6048c4ffae61
@@ -150,8 +156,8 @@ stages:
     outs:
     - path: ./data/processed/nba_games_training_dataset_pre_cleaned.csv
       hash: md5
-      md5: cb978141a018cb13c2b92ecccb89ad80
-      size: 3062154
+      md5: c943299cd45a27f6c51c67d7d38c7de5
+      size: 3186524
   previous_games_average_features:
     cmd: python3 -m src.previous_games_average_features --config=params.yaml
     deps:
@@ -167,7 +173,8 @@ stages:
           nba_games_training_dataset: nba_games_training_dataset
           player_attributes_salaries_dataset: player_attributes_salaries_dataset
     outs:
-    - path: ./data/processed/nba_games_training_dataset_previous_games_features.csv
+    - path: 
+        ./data/processed/nba_games_training_dataset_previous_games_features.csv
       hash: md5
       md5: 8cf557557a1af1b8c7988dc3b6eb6620
       size: 57972848
@@ -191,7 +198,8 @@ stages:
       md5: cf59aeb8577a6b3145e5b1955e3300ce
       size: 116550825
   previous_games_ratio_average_features:
-    cmd: python3 -m src.previous_games_ratio_average_features --config=params.yaml
+    cmd: python3 -m src.previous_games_ratio_average_features 
+      --config=params.yaml
     deps:
     - path: src/previous_games_ratio_average_features.py
       hash: md5
@@ -206,13 +214,15 @@ stages:
           player_attributes_salaries_dataset: player_attributes_salaries_dataset
   features_engineering_pipeline:
     cmd:
-    - python3 -m src.features_engineering_pipeline --input-file-folder-name ./data/processed/nba_games_training_dataset_pre_cleaned.csv
-      --output-file-folder-name ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
+    - python3 -m src.features_engineering_pipeline --input-file-folder-name 
+      ./data/processed/nba_games_training_dataset_pre_cleaned.csv 
+      --output-file-folder-name 
+      ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
     deps:
     - path: ./data/processed/nba_games_training_dataset_pre_cleaned.csv
       hash: md5
-      md5: cb978141a018cb13c2b92ecccb89ad80
-      size: 3062154
+      md5: c943299cd45a27f6c51c67d7d38c7de5
+      size: 3186524
     - path: src/features_engineering_pipeline.py
       hash: md5
       md5: 620e240aa07801a8ed6f90a133409a4e
@@ -222,24 +232,27 @@ stages:
         base:
           log_level: INFO
         features_engineering_pipeline:
-          output_file: data/processed/nba_games_training_dataset_cleaned_w_features
+          output_file: 
+            data/processed/nba_games_training_dataset_cleaned_w_features
         pre_cleaning_dataset:
           output_folder: data/processed
           output_file_name: nba_games_training_dataset_pre_cleaned
     outs:
     - path: ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
       hash: md5
-      md5: 3feb468c6cdfbddcbabd4beb3bb9cd63
-      size: 16112669
+      md5: 25b2e99a561f47a4e50d21d48f61d11c
+      size: 16803330
   get_y_variables:
     cmd:
-    - python3 -m src.get_y_variables --input-file-folder-name ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
-      --output-file-folder-name ./data/processed/nba_games_training_dataset_final.csv
+    - python3 -m src.get_y_variables --input-file-folder-name 
+      ./data/processed/nba_games_training_dataset_cleaned_w_features.csv 
+      --output-file-folder-name 
+      ./data/processed/nba_games_training_dataset_final.csv
     deps:
     - path: ./data/processed/nba_games_training_dataset_cleaned_w_features.csv
       hash: md5
-      md5: 3feb468c6cdfbddcbabd4beb3bb9cd63
-      size: 16112669
+      md5: 25b2e99a561f47a4e50d21d48f61d11c
+      size: 16803330
     - path: src/get_y_variables.py
       hash: md5
       md5: 081aff3bfce8e17ade49c93e1b1f0c84
@@ -249,13 +262,14 @@ stages:
         base:
           log_level: INFO
         get_y_variables:
-          input_file: data/processed/nba_games_training_dataset_cleaned_w_features
+          input_file: 
+            data/processed/nba_games_training_dataset_cleaned_w_features
           output_file: data/processed/nba_games_training_dataset_final
     outs:
     - path: ./data/processed/nba_games_training_dataset_final.csv
       hash: md5
-      md5: e80aeb6d2f2a1f88bfbfa615d0f91609
-      size: 16394678
+      md5: b1e4fe0b67c8bd03815203ebbaae06ca
+      size: 17099589
   load_training_dataset_to_db:
     cmd: python3 -m src.load_training_dataset_to_db --config=params.yaml
     deps:
@@ -276,14 +290,17 @@ stages:
           player_attributes_salaries_dataset: player_attributes_salaries_dataset
   post_cleaning_dataset:
     cmd:
-    - python3 -m src.post_cleaning_dataset --input-file-folder-name ./data/processed/nba_games_training_dataset_final.csv
-      --output-training-file-folder-name ./data/output/nba_games_training_dataset_final.csv
-      --output-inseason-file-folder-name ./data/output/nba_games_inseason_dataset_final.csv
+    - python3 -m src.post_cleaning_dataset --input-file-folder-name 
+      ./data/processed/nba_games_training_dataset_final.csv 
+      --output-training-file-folder-name 
+      ./data/output/nba_games_training_dataset_final.csv 
+      --output-inseason-file-folder-name 
+      ./data/output/nba_games_inseason_dataset_final.csv
     deps:
     - path: ./data/processed/nba_games_training_dataset_final.csv
       hash: md5
-      md5: e80aeb6d2f2a1f88bfbfa615d0f91609
-      size: 16394678
+      md5: b1e4fe0b67c8bd03815203ebbaae06ca
+      size: 17099589
     - path: src/post_cleaning_dataset.py
       hash: md5
       md5: f73b5e05a96cb05abc1e629628eecdfb
@@ -293,7 +310,8 @@ stages:
         base:
           log_level: INFO
         get_y_variables:
-          input_file: data/processed/nba_games_training_dataset_cleaned_w_features
+          input_file: 
+            data/processed/nba_games_training_dataset_cleaned_w_features
           output_file: data/processed/nba_games_training_dataset_final
         post_cleaning_dataset:
           output_folder: data/output
@@ -302,12 +320,12 @@ stages:
     outs:
     - path: ./data/output/nba_games_inseason_dataset_final.csv
       hash: md5
-      md5: 8c163ad0cbee73ba4d4cdad33240cbd6
-      size: 460918
+      md5: 1fe373c18b428ee0fd23bd2e63692239
+      size: 983667
     - path: ./data/output/nba_games_training_dataset_final.csv
       hash: md5
-      md5: 52b580183d327d1078b2b6df3e5c5685
-      size: 13764938
+      md5: cd5662cb5ca8e7a1fbd5f3bdc6d1fb09
+      size: 14349579
   training_dataset_assessment:
     cmd: python3 -m src.training_dataset_assessment --config=params.yaml
     deps:
@@ -344,16 +362,16 @@ stages:
           log_level: INFO
   writte_final_output_to_s3:
     cmd:
-    - aws s3 cp ./data/output/nba_games_training_dataset_final.csv s3://foreshadownba/dvc-data-pipeline-output/
-      --profile=ipfy
-    - aws s3 cp ./data/output/nba_games_inseason_dataset_final.csv s3://foreshadownba/dvc-data-pipeline-output/
-      --profile=ipfy
+    - aws s3 cp ./data/output/nba_games_training_dataset_final.csv 
+      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
+    - aws s3 cp ./data/output/nba_games_inseason_dataset_final.csv 
+      s3://foreshadownba/dvc-data-pipeline-output/ --profile=ipfy
     deps:
     - path: ./data/output/nba_games_inseason_dataset_final.csv
       hash: md5
-      md5: 8c163ad0cbee73ba4d4cdad33240cbd6
-      size: 460918
+      md5: 1fe373c18b428ee0fd23bd2e63692239
+      size: 983667
     - path: ./data/output/nba_games_training_dataset_final.csv
       hash: md5
-      md5: 52b580183d327d1078b2b6df3e5c5685
-      size: 13764938
+      md5: cd5662cb5ca8e7a1fbd5f3bdc6d1fb09
+      size: 14349579

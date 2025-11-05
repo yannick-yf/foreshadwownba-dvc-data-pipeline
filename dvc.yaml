@@ -4,7 +4,7 @@
 #TODO https://github.com/feast-dev/feast-gcp-driver-ranking-tutorial/blob/master/predict.py
 vars:
   - project:
-      aws: ipfy
+      aws: ipfy2
       directory: .
 stages:
   get_training_dataset:
@@ -12,11 +12,11 @@ stages:
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/gamelogs/
-      ${project.directory}/data/raw/gamelogs/ --recursive
+      ${project.directory}/data/raw/gamelogs/ --recursive --profile=ipfy
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/schedules/
-      ${project.directory}/data/raw/schedules/ --recursive
+      ${project.directory}/data/raw/schedules/ --recursive --profile=ipfy
     outs:
       - ${project.directory}/data/raw/gamelogs/
       - ${project.directory}/data/raw/schedules/
@@ -99,14 +99,14 @@ stages:
     outs:
       - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
       - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
-  training_dataset_assessment:
-    cmd: python3 -m src.training_dataset_assessment --config=params.yaml
-    deps:
-      - src/training_dataset_assessment.py
-      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
-      - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
-    params:
-      - base
+  # training_dataset_assessment:
+  #   cmd: python3 -m src.training_dataset_assessment --config=params.yaml
+  #   deps:
+  #     - src/training_dataset_assessment.py
+  #     - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_training_file_name}.csv
+  #     - ${project.directory}/${post_cleaning_dataset.output_folder}/${post_cleaning_dataset.output_inseason_file_name}.csv
+  #   params:
+  #     - base
   writte_final_output_to_s3:
     cmd:
     - >-
