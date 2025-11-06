@@ -67,7 +67,7 @@ def post_cleaning_dataset(
 
     # Remove playoffs games and keep missing game value for the inseason
     nba_games_training_dataset_inseason = nba_games_training_dataset[
-        nba_games_training_dataset["id_season"] == 2025
+        nba_games_training_dataset["id_season"] == 2026
     ]
 
     logger.info(

@@ -59,7 +59,7 @@ extdom_list = ["ext", "dom"]
 class DataFrameSchema(BaseModel):
     """NBA Games Results Prediction Training Dataset Schema"""
 
-    id_season: StrictInt = Field(ge=2000, le=2025)
+    id_season: StrictInt = Field(ge=2000, le=2026)
     tm: str = Field(strict=True, min_length=3, max_length=3)
     opp: str = Field(strict=True, min_length=3, max_length=3)
     before_average_pts_tm: float = Field(ge=30, le=200)
