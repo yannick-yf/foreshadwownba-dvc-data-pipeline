@@ -18,8 +18,8 @@ class TestPreviousGamesAverageFeatures(TestCase):
     def test_before_average_features(self):
         """
         GIVEN a dataset of NBA game logs with team and season details
-        WHEN previous_games_average_features is applied
-        THEN it should correctly compute streak counts and average points of previous games:
+        WHEN before_average_features is applied
+        THEN it should correctly compute average statistics of previous games:
             - Ensure that the 'before_average_pts_tm' for the second game matches the points of the first game.
             - Verify that 'before_average_pts_tm' for the first game is NaN, indicating no prior games.
         """
@@ -65,10 +65,9 @@ class TestPreviousGamesAverageFeatures(TestCase):
     def test_before_average_lastfivegame_features(self):
         """
         GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_streak_features and previous_games_average_features are applied
-        THEN it should correctly compute streak counts and average points of previous games:
-            - Ensure that the 'before_average_pts_tm' for the second game matches the points of the first game.
-            - Verify that 'before_average_pts_tm' for the first game is NaN, indicating no prior games.
+        WHEN before_average_lastfivegame_features are applied
+        THEN it should correctly compute average statsitcs of of last five games:
+            - Ensure that the 'before_average_lastfivegame_*' for the 6th game matches the average points of last five games.
         """
 
         # Read the input data for the step
@@ -107,10 +106,9 @@ class TestPreviousGamesAverageFeatures(TestCase):
     def test_before_average_lasttengame_features(self):
         """
         GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_streak_features and previous_games_average_features are applied
-        THEN it should correctly compute streak counts and average points of previous games:
-            - Ensure that the 'before_average_pts_tm' for the second game matches the points of the first game.
-            - Verify that 'before_average_pts_tm' for the first game is NaN, indicating no prior games.
+        WHEN before_average_lasttengame_features are applied
+        THEN it should correctly compute average statsitcs of of last ten games:
+            - Ensure that the 'before_average_lasttengame_features_*' for the 10th game matches the average points of last 10 games.
         """
 
         # Read the input data for the step
@@ -152,11 +150,13 @@ class TestPreviousGamesAverageFeatures(TestCase):
     def test_fillna_before_average_features(self):
         """
         GIVEN a dataset of NBA game logs with team and season details
-        WHEN calculate_streak_features and previous_games_average_features are applied
-        THEN it should correctly compute streak counts and average points of previous games:
-            - Ensure that the 'before_average_pts_tm' for the second game matches the points of the first game.
-            - Verify that 'before_average_pts_tm' for the first game is NaN, indicating no prior games.
+        WHEN previous_games_average_features is applied
+        THEN it should ensure consistency in computed average points over different time windows:
+            - The first set of assertions checks that for game 6, all three averaging methods yield the same result.
+            - The second set verifies that for game 8, the overall average differs from the last five-game average, while the last five-game and ten-game averages are equal.
+            - The third set confirms that for game 34, all three averages are distinct.
         """
+
 
         # Read the input data for the step
         training_dataset = pd.read_csv(self.path_nba_gamelogs)

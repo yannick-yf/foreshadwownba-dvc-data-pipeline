@@ -46,7 +46,7 @@ def pre_cleaning_dataset(
 
     # Sort values to order per game date id season team
     nba_games_training_dataset = nba_games_training_dataset.sort_values(
-        ["id_season", "tm", "game_nb"]
+        ["id_season", "tm", "game_date"]
     )
 
     # Overtime features
@@ -65,11 +65,11 @@ def pre_cleaning_dataset(
     # Remove playoffs games and keep missing game value for the inseason
     nba_games_training_dataset_not_inseason = nba_games_training_dataset[
         (nba_games_training_dataset["game_nb"].notnull())
-        & (nba_games_training_dataset["id_season"] != 2025)
+        & (nba_games_training_dataset["id_season"] != 2026)
     ]
 
     nba_games_training_dataset_inseason = nba_games_training_dataset[
-        nba_games_training_dataset["id_season"] == 2025
+        nba_games_training_dataset["id_season"] == 2026
     ]
 
     nba_games_training_dataset = pd.concat(
@@ -83,7 +83,7 @@ def pre_cleaning_dataset(
         pd.to_datetime(nba_games_training_dataset["game_date"]) <= today
     ]
 
-    # Fill na game_nb
+    # Fill na game_nb - need to sort by date as well
     nba_games_training_dataset["game_nb_new"] = (
         nba_games_training_dataset.groupby(["tm", "id_season"]).cumcount() + 1
     )
@@ -92,12 +92,12 @@ def pre_cleaning_dataset(
         "game_nb"
     ].fillna(nba_games_training_dataset["game_nb_new"])
 
-    nba_games_training_dataset = nba_games_training_dataset.drop("game_nb_new", axis=1)
-
-    # Remove Playoffs Games
+    # Remove Playoffs Games - Rules needs to be changed because now game_nb = 1 for first playoff game
     nba_games_training_dataset = nba_games_training_dataset[
-        nba_games_training_dataset["game_nb"] <= 82
+        nba_games_training_dataset["game_nb_new"] <= 82
     ]
+
+    nba_games_training_dataset = nba_games_training_dataset.drop("game_nb_new", axis=1)
 
     # Column Selection
     columns_to_select = [
