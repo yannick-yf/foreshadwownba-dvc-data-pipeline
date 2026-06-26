@@ -20,8 +20,6 @@ def previous_games_average_features(
     """
     training_df = training_df.sort_values(by=["id_season", "tm", "game_nb"])
 
-    # columns_to_process = ["pts_tm", "pts_opp"]
-
     for col in columns_to_process:
         training_df[f"before_average_{col}"] = round(
             training_df.groupby(["id_season", "tm"])[col].transform(

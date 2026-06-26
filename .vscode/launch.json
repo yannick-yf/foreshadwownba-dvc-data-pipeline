@@ -1,0 +1,16 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debug Current Test File",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["${file}", "-v", "-s", "--no-cov"],
+            "cwd": "${workspaceFolder}",
+            "justMyCode": false,
+            "console": "integratedTerminal",
+            "python": "${workspaceFolder}/.venv/bin/python"
+        }
+    ]
+}

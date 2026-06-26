@@ -8,15 +8,23 @@ vars:
       directory: .
 stages:
   get_training_dataset:
+    # always_changed: re-pull from S3 on every `dvc repro` so the pipeline uses the
+    # latest published data (S3 is not a DVC dependency, so otherwise this stage is
+    # cached and never refreshes).
+    # --exclude "*_playoffs*": this pipeline is regular-season only; do not pull the
+    # playoff files that now live alongside the regular-season files in S3.
+    always_changed: true
     cmd:
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/gamelogs/
       ${project.directory}/data/raw/gamelogs/ --recursive --profile=ipfy
+      --exclude "*_playoffs*"
     - >-
       aws s3 cp
       s3://foreshadownba/data-engineering-pipeline-output/schedules/
       ${project.directory}/data/raw/schedules/ --recursive --profile=ipfy
+      --exclude "*_playoffs*"
     outs:
       - ${project.directory}/data/raw/gamelogs/
       - ${project.directory}/data/raw/schedules/

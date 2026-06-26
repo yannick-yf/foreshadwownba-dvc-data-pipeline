@@ -3,5 +3,10 @@
         "tests"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
+    "python-envs.defaultEnvManager": "ms-python.python:poetry",
+    "python-envs.pythonProjects": [],
+    "python.defaultInterpreterPath": "/Users/yannickflores/PersoProject/foreshadownba/foreshadwownba-dvc-data-pipeline/.venv/bin/python",
+    "python-envs.defaultPackageManager": "ms-python.python:poetry",
+    "debugpy.debugJustMyCode": false
 }

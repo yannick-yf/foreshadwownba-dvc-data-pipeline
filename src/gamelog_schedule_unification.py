@@ -86,12 +86,18 @@ def gamelog_schedule_unification(
 
     # ----------------------------------------------
     # Join the two dataframes
+    # Join on game_id (unambiguous) rather than opp. Joining on opp broke for
+    # Charlotte's Bobcats era: the gamelog uses the era code 'CHA' while the schedule's
+    # opponent ("Charlotte Hornets") maps to 'CHO', so those games failed to match and
+    # were dropped (occasionally taking a team's season opener -> NaN before_* features).
+    # game_id is shared and identical across both feeds, so the join is exact. The
+    # gamelog's 'opp' (era-correct) is kept; the schedule's opp is not selected.
     nba_games_training_dataset = pd.merge(
         schedule_df[
             [
                 "id_season",
                 "tm",
-                "opp",
+                "game_id",
                 "extdom",
                 "game_date",
                 "time_start",
@@ -103,8 +109,8 @@ def gamelog_schedule_unification(
         ],
         gamelog_df,
         how="left",
-        left_on=["id_season", "tm", "opp", "game_date"],
-        right_on=["id_season", "tm", "opp", "game_date"],
+        left_on=["id_season", "tm", "game_id", "game_date"],
+        right_on=["id_season", "tm", "game_id", "game_date"],
     )
 
     # -------------------------------------------

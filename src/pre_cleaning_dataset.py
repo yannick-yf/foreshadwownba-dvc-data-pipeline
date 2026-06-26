@@ -83,6 +83,11 @@ def pre_cleaning_dataset(
         pd.to_datetime(nba_games_training_dataset["game_date"]) <= today
     ]
 
+    # Sort values to order per game date id season team
+    nba_games_training_dataset = nba_games_training_dataset.sort_values(
+        ["id_season", "tm", "game_date"]
+    )
+
     # Fill na game_nb - need to sort by date as well
     nba_games_training_dataset["game_nb_new"] = (
         nba_games_training_dataset.groupby(["tm", "id_season"]).cumcount() + 1

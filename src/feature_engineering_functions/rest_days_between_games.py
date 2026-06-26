@@ -19,6 +19,9 @@ def calculate_rest_days_between_games(training_df: pd.DataFrame) -> pd.DataFrame
     # Create a copy to avoid modifying the original DataFrame
     training_df = training_df.copy()
 
+    # Sort value per team, game date and season to ensure correct lag calculation
+    training_df = training_df.sort_values(by=["id_season", "tm", "game_date"])
+
     # Calculate the previous game date for each team in each season
     training_df["game_date_lag"] = training_df.groupby(["id_season", "tm"])[
         "game_date"
@@ -41,5 +44,5 @@ def calculate_rest_days_between_games(training_df: pd.DataFrame) -> pd.DataFrame
 
     # Remove the temporary column
     training_df = training_df.drop(columns=["game_date_lag"])
-
+    
     return training_df
